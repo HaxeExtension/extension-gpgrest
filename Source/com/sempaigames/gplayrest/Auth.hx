@@ -16,6 +16,7 @@ class Auth {
 	var clientSecret : String;
 	var storage : SharedObject;
 
+	var pendingTokenPromise : Promise<String>;
 	var token : String;
 	var tokenExpireTime : Float;
 
@@ -24,6 +25,7 @@ class Auth {
 		this.clientId = clientId;
 		this.clientSecret = clientSecret;
 		this.token = null;
+		this.pendingTokenPromise = null;
 	}
 
 	static var stripString = "http://localhost/?code=";
@@ -104,7 +106,7 @@ class Auth {
 			var accessToken = response.access_token;
 			var expiresIn : Int = response.expires_in;
 			this.token = accessToken;
-			this.tokenExpireTime = haxe.Timer.stamp() + expiresIn;
+			this.tokenExpireTime = Timer.stamp() + expiresIn;
 			ret.resolve(accessToken);
 		});
 		
@@ -121,12 +123,12 @@ class Auth {
 	}
 
 	function getNewToken() : Promise<String> {
-		if (storage.data.refreshToken==null) {
-			// No refresh_token:
-			return getAuthCode().pipe(getNewTokenUsingCode);
-		} else {
+		if (storage.data.refreshToken!=null) {
 			// Use refresh token
 			return getNewTokenUsingRefreshToken(storage.data.refreshToken);
+		} else {
+			// No refresh_token:
+			return getAuthCode().pipe(getNewTokenUsingCode);
 		}
 	}
 
@@ -134,9 +136,14 @@ class Auth {
 		if (token!=null && Timer.stamp()<tokenExpireTime) {
 			var ret = new Deferred<String>();
 			ret.resolve(token);
+			DC.log("return cached");
 			return ret.promise();
+		} else if (this.pendingTokenPromise!=null) {
+			DC.log("return pending");
+			return this.pendingTokenPromise;
 		} else {
-			return getNewToken();
+			this.pendingTokenPromise = getNewToken();
+			return this.pendingTokenPromise;
 		}
 	}
 
