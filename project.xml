@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project>
+	
+	<meta title="gplusweb" package="com.sample.project" version="1.0.0" company="Company Name" />
+	<app main="Main" path="Export" file="gplusweb" />
+	
+	<source path="Source" />
+
+	<haxelib name="openfl" />
+	<haxelib name="openfl-webview" />
+	<haxelib name="promhx" />
+	<haxelib name="dconsole" />
+	
+	<assets path="Assets" rename="assets" exclude="openfl.svg" />
+	<icon path="Assets/openfl.svg" />
+	
+</project>
