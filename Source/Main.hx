@@ -20,12 +20,10 @@ class Main extends Sprite {
 			"04AV4MBll5Wcy3A1xl3GDzPA"
 		);
 		
-		gplay.getPlayer("me").then(DC.log.bind());
-		gplay.getLeaderBoard("CgkIiffb8u4QEAIQDQ").then(DC.log.bind());
-		/*
-		gplay.listWindow("CgkIiffb8u4QEAIQBw", LeaderBoardCollection.PUBLIC, LeaderBoardTimeSpan.ALL_TIME)
-			.then(DC.log.bind());
-		*/
+		gplay.Players_get("me").then(DC.log.bind());
+		gplay.Leaderboards_list().then(DC.log.bind());
+		gplay.Leaderboards_get("CgkIiffb8u4QEAIQDQ").then(DC.log.bind());
+		
 
 	}
 

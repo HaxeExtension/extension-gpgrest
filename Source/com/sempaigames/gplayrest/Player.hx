@@ -4,7 +4,7 @@ import haxe.Json;
 
 class Player {
 
-  	//"kind": "games#player",
+  	//"kind": "games#player"
 
 	public var playerId(default, null) : String;
 	public var displayName(default, null) : String;
@@ -17,12 +17,14 @@ class Player {
 
 	public function new(data : String) {
 		var obj = Json.parse(data);
-		this.playerId = obj.playerId;
-		this.displayName = obj.displayName;
-		this.avatarImageUrl = obj.avatarImageUrl;
-		this.familyName = obj.familyName;
-		this.givenName = obj.givenName;
-		this.title = obj.title;
+		Macro.assign(this, obj, [
+			"playerId",
+			"displayName",
+			"avatarImageUrl",
+			"familyName",
+			"givenName",
+			"title"
+		]);
 	}
 
 	public function toString() : String {
@@ -49,11 +51,11 @@ class Player {
 
 	/*
 	"experienceInfo": {
-		
+
 		"kind": "games#playerExperienceInfo",
 		"currentExperiencePoints": long,
 		"lastLevelUpTimestampMillis": long,
-		
+
 		"currentLevel": {
 			"kind": "games#playerLevel",
 			"level": integer,
