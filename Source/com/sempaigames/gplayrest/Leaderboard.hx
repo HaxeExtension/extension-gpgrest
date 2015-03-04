@@ -51,8 +51,10 @@ class LeaderboardEntry {
     public var scoreTag : String;
 
     public function new(data : String) {
-    	var obj = Json.parse(data);
-    	this.player = new Player(Json.stringify(obj.player));
+    	var obj : Dynamic = Json.parse(data);
+    	if (obj.player!=null) {
+    		this.player = new Player(Json.stringify(obj.player));
+    	}
     	Macro.assign(this, obj, [
     		"scoreRank",
     		"formattedScoreRank",
@@ -68,14 +70,14 @@ class LeaderboardEntry {
     	return
 '
 {
-	player = ${player.toString()}
-	scoreRank = $scoreRank
-	formattedScoreRank = $formattedScoreRank
-	scoreValue = $scoreValue
-	formattedScore = $formattedScore
-	timeSpan = $timeSpan
-	writeTimestampMillis = $writeTimestampMillis
-	scoreTag = $scoreTag
+    player = ${player}
+    scoreRank = $scoreRank
+    formattedScoreRank = $formattedScoreRank
+    scoreValue = $scoreValue
+    formattedScore = $formattedScore
+    timeSpan = $timeSpan
+    writeTimestampMillis = $writeTimestampMillis
+    scoreTag = $scoreTag
 }
 ';
     }

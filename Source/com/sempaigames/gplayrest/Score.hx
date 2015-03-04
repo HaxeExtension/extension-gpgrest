@@ -71,8 +71,8 @@ class PlayerLeaderboardScore {
     leaderboard_id = $leaderboard_id
     scoreValue = $scoreValue
     scoreString = $scoreString
-    publicRank = ${publicRank.toString()}
-    socialRank = ${socialRank.toString()}
+    publicRank = ${publicRank}
+    socialRank = ${socialRank}
     timeSpan = $timeSpan
     writeTimestamp = $writeTimestamp
     scoreTag = $scoreTag
@@ -93,7 +93,9 @@ class LeaderboardScores {
 
     public function new(data : String) {
         var obj = Json.parse(data);
-        this.playerScore = new LeaderboardEntry(Json.stringify(obj.playerScore));
+        if (obj.playerScore!=null) {
+            this.playerScore = new LeaderboardEntry(Json.stringify(obj.playerScore));
+        }
         this.items = [];
         for (it in cast(obj.items, Array<Dynamic>)) {
             this.items.push(new LeaderboardEntry(Json.stringify(it)));
@@ -112,7 +114,7 @@ class LeaderboardScores {
     nextPageToken = $nextPageToken
     prevPageToken = $prevPageToken
     numScores = $numScores
-    playerScore = ${playerScore.toString()}
+    playerScore = ${playerScore}
     items = $items
 }
 ';
@@ -142,7 +144,7 @@ class Score {
 '
 {
     nextPageToken = $nextPageToken
-    player = ${player.toString()}
+    player = ${player}
     items = $items
 }
 ';
