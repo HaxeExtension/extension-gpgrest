@@ -52,7 +52,7 @@ class LeaderboardEntry {
 
     public function new(data : String) {
     	var obj = Json.parse(data);
-    	player = new Player(Json.stringify(data.player));
+    	this.player = new Player(Json.stringify(obj.player));
     	Macro.assign(this, obj, [
     		"scoreRank",
     		"formattedScoreRank",
@@ -77,7 +77,7 @@ class LeaderboardEntry {
 	writeTimestampMillis = $writeTimestampMillis
 	scoreTag = $scoreTag
 }
-'
+';
     }
 
 }

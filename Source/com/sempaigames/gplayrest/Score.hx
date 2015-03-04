@@ -1,5 +1,6 @@
 package com.sempaigames.gplayrest;
 
+import com.sempaigames.gplayrest.Leaderboard;
 import haxe.Json;
 import pgr.dconsole.DC;
 

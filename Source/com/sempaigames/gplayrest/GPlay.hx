@@ -1,6 +1,7 @@
 package com.sempaigames.gplayrest;
 
 import com.sempaigames.gplayrest.Leaderboard;
+import com.sempaigames.gplayrest.Score;
 import openfl.events.*;
 import openfl.net.*;
 import promhx.Promise;
@@ -96,7 +97,7 @@ class GPlay {
 		}
 		var ret = new Deferred<Score>();
 		var params = [];
-		params.push({ param : "timeSpan", value : timeSpan });
+		params.push({ param : "timeSpan", value : Std.string(timeSpan) });
 		params.push({ param : "includeRankType", value : Std.string(includeRankType) });
 		params.push({ param : "maxResults", value : Std.string(maxResults) });
 		if (pageToken.length>0) {
@@ -118,7 +119,7 @@ class GPlay {
 								 pageToken : String = "" ) : Promise<LeaderboardScores> {
 		var ret = new Deferred<LeaderboardScores>();
 		var params = [];
-		params.push({ param : "timeSpan", value : timeSpan });
+		params.push({ param : "timeSpan", value : Std.string(timeSpan) });
 		params.push({ param : "maxResults", value : Std.string(maxResults) });
 		if (pageToken.length>0) {
 			params.push({ param : "pageToken", value : pageToken });
@@ -129,7 +130,7 @@ class GPlay {
 		).then(function (data) {
 			ret.resolve(new LeaderboardScores(data));
 		});
-
+		return ret.promise();
 	}
 
 }
