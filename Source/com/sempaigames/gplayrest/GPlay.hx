@@ -1,7 +1,6 @@
 package com.sempaigames.gplayrest;
 
-import com.sempaigames.gplayrest.Leaderboard;
-import com.sempaigames.gplayrest.Score;
+import com.sempaigames.gplayrest.datatypes.*;
 import openfl.events.*;
 import openfl.net.*;
 import promhx.Promise;
@@ -11,12 +10,6 @@ import pgr.dconsole.DC;
 enum LeaderBoardCollection {
 	PUBLIC;
 	SOCIAL;
-}
-
-enum TimeSpan {
-	ALL_TIME;
-	DAILY;
-	WEEKLY;
 }
 
 enum RankType {
@@ -88,14 +81,14 @@ class GPlay {
 								timeSpan : TimeSpan,
 								includeRankType : RankType = null,
 								maxResults : Int = 25,
-								pageToken : String = "") : Promise<Score> {
+								pageToken : String = "") : Promise<PlayerLeaderboardScoreListResponse> {
 		if (includeRankType==null) {
 			includeRankType = RankType.PUBLIC;
 		}
 		if (timeSpan==TimeSpan.ALL_TIME && includeRankType==RankType.ALL) {
 			throw "You cannot ask for 'ALL' leaderboards and 'ALL' timeSpans in the same request.";
 		}
-		var ret = new Deferred<Score>();
+		var ret = new Deferred<PlayerLeaderboardScoreListResponse>();
 		var params = [];
 		params.push({ param : "timeSpan", value : Std.string(timeSpan) });
 		params.push({ param : "includeRankType", value : Std.string(includeRankType) });
@@ -107,7 +100,7 @@ class GPlay {
 			'https://www.googleapis.com/games/v1/players/${playerId}/leaderboards/${leaderboardId}/scores/${timeSpan}',
 			params
 		).then(function (data) {
-			ret.resolve(new Score(data));
+			ret.resolve(new PlayerLeaderboardScoreListResponse(data));
 		});
 		return ret.promise();
 	}
@@ -131,6 +124,10 @@ class GPlay {
 			ret.resolve(new LeaderboardScores(data));
 		});
 		return ret.promise();
+	}
+
+	public function Scores_submit(leaderboardId : String, score : Int) {
+		
 	}
 
 }

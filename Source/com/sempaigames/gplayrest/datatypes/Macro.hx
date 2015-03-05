@@ -1,4 +1,4 @@
-package com.sempaigames.gplayrest;
+package com.sempaigames.gplayrest.datatypes;
 
 import haxe.macro.Expr;
 import haxe.macro.Context;

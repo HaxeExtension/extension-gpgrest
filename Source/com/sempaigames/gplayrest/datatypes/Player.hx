@@ -1,10 +1,8 @@
-package com.sempaigames.gplayrest;
+package com.sempaigames.gplayrest.datatypes;
 
 import haxe.Json;
 
-class Player {
-
-  	//"kind": "games#player"
+class Player extends GoogleDataType {
 
 	public var playerId(default, null) : String;
 	public var displayName(default, null) : String;
@@ -16,7 +14,9 @@ class Player {
 	public var title(default, null) : String;
 
 	public function new(data : String) {
+		super();
 		var obj = Json.parse(data);
+		verifyKind(obj, "games#player");
 		Macro.assign(this, obj, [
 			"playerId",
 			"displayName",
@@ -25,20 +25,6 @@ class Player {
 			"givenName",
 			"title"
 		]);
-	}
-
-	public function toString() : String {
-		return
-'
-{
-    playerId = $playerId
-    displayName = $displayName
-    avatarImageUrl = $avatarImageUrl
-    familyName = $familyName
-    givenName = $givenName
-    title = $title
-}
-';
 	}
 
 	/*
