@@ -133,6 +133,7 @@ class Auth {
 	}
 
 	public function getToken() : Promise<String> {
+		#if (android || iphone)
 		if (token!=null && Timer.stamp()<tokenExpireTime) {
 			var ret = new Deferred<String>();
 			ret.resolve(token);
@@ -145,6 +146,11 @@ class Auth {
 			this.pendingTokenPromise = getNewToken();
 			return this.pendingTokenPromise;
 		}
+		#else
+		var ret = new Deferred<String>();
+		ret.resolve("notset");
+		return ret.promise();
+		#end
 	}
 
 }

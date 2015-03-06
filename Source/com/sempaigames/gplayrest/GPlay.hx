@@ -18,6 +18,11 @@ enum RankType {
 	SOCIAL;
 }
 
+enum HttpResult {
+	Ok(data : String);
+	Error(code : Int);
+}
+
 class GPlay {
 	
 	var auth : Auth;
@@ -26,8 +31,8 @@ class GPlay {
 		this.auth = new Auth(clientId, clientSecret);
 	}
 
-	function request(url : String, params : Array<{param : String, value : String}> = null) : Promise<String> {
-		var ret = new Deferred<String>();
+	function request(url : String, params : Array<{param : String, value : String}> = null) : Promise<HttpResult> {
+		var ret = new Deferred<HttpResult>();
 		auth.getToken().then(function(token) {
 			if (params==null) params = [];
 			url = url + "?";
@@ -38,9 +43,13 @@ class GPlay {
 			var request = new URLRequest(url);
 			var loader = new URLLoader();
 			loader.addEventListener(HTTPStatusEvent.HTTP_STATUS, function(e : HTTPStatusEvent) {
-				if (e.status!=200) throw("Status ${e.status} in request ${request.toString()}");
+				if (e.status!=200) {
+					ret.resolve(Error(e.status));
+				}
 			});
-			loader.addEventListener(Event.COMPLETE, function(e : Event) ret.resolve(e.target.data));
+			loader.addEventListener(Event.COMPLETE, function(e : Event) {
+				ret.resolve(Ok(e.target.data));
+			});
 			loader.load(request);
 		});
 		return ret.promise();
@@ -51,7 +60,10 @@ class GPlay {
 		var ret = new Deferred<Player>();
 		request('https://www.googleapis.com/games/v1/players/${player}').then(function (data)
 		{
-			ret.resolve(new Player(data));
+			switch (data) {
+				case Ok(data): 		ret.resolve(new Player(data));
+				case Error(code):	ret.throwError('http error: $code');
+			}
 		});
 		return ret.promise();
 	}
@@ -61,7 +73,10 @@ class GPlay {
 		var ret = new Deferred<Leaderboard>();
 		request('https://www.googleapis.com/games/v1/leaderboards/${leaderboardId}').then(function (data)
 		{
-			ret.resolve(new Leaderboard(data));
+			switch (data) {
+				case Ok(data): 		ret.resolve(new Leaderboard(data));
+				case Error(code):	ret.throwError('http error: $code');
+			}
 		});
 		return ret.promise();
 	}
@@ -70,7 +85,10 @@ class GPlay {
 		var ret = new Deferred<LeaderboardListResponse>();
 		request('https://www.googleapis.com/games/v1/leaderboards').then(function (data)
 		{
-			ret.resolve(new LeaderboardListResponse(data));
+			switch (data) {
+				case Ok(data): 		ret.resolve(new LeaderboardListResponse(data));
+				case Error(code):	ret.throwError('http error: $code');
+			}
 		});
 		return ret.promise();
 	}
@@ -100,7 +118,10 @@ class GPlay {
 			'https://www.googleapis.com/games/v1/players/${playerId}/leaderboards/${leaderboardId}/scores/${timeSpan}',
 			params
 		).then(function (data) {
-			ret.resolve(new PlayerLeaderboardScoreListResponse(data));
+			switch (data) {
+				case Ok(data): 		ret.resolve(new PlayerLeaderboardScoreListResponse(data));
+				case Error(code):	ret.throwError('http error: $code');
+			}
 		});
 		return ret.promise();
 	}
@@ -121,13 +142,28 @@ class GPlay {
 			'https://www.googleapis.com/games/v1/leaderboards/${leaderboardId}/scores/${collection}',
 			params
 		).then(function (data) {
-			ret.resolve(new LeaderboardScores(data));
+			switch (data) {
+				case Ok(data):		ret.resolve(new LeaderboardScores(data));
+				case Error(code):	ret.throwError('http error: $code');
+			}
 		});
 		return ret.promise();
 	}
 
-	public function Scores_submit(leaderboardId : String, score : Int) {
-		
+	public function Scores_submit(leaderboardId : String, score : Int) : Promise<PlayerScoreResponse> {
+		var ret = new Deferred<PlayerScoreResponse>();
+		var params = [];
+		params.push({ param : "score", value : Std.string(score) });
+		request(
+			'https://www.googleapis.com/games/v1/leaderboards/${leaderboardId}/scores',
+			params
+		).then(function (data) {
+			switch (data) {
+				case Ok(data): 		ret.resolve(new PlayerScoreResponse(data));
+				case Error(code):	ret.throwError('http error: $code');
+			}
+		});
+		return ret.promise();
 	}
 
 }
