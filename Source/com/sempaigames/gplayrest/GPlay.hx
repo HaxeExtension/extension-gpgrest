@@ -181,7 +181,8 @@ class GPlay {
 		params.push({ param : "requestId", value : Std.string(Std.random(0xffffff)) });
 		request(
 			'https://www.googleapis.com/games/v1/achievements/${achievementId}/increment',
-			params
+			params,
+			URLRequestMethod.POST
 		).then(function(data) {
 			handleRequestResult(data, ret);
 		});
@@ -214,8 +215,22 @@ class GPlay {
 
 	public function Achievements_reveal(achievementId : String) : Promise<AchievementRevealResponse> {
 		var ret = new Deferred<AchievementRevealResponse>();
-		request('https://www.googleapis.com/games/v1/achievements/${achievementId}/reveal')
+		request('https://www.googleapis.com/games/v1/achievements/${achievementId}/reveal', [], URLRequestMethod.POST)
 		.then(function(data) {
+			handleRequestResult(data, ret);
+		});
+		return ret.promise();
+	}
+
+	public function Achievements_setStepsAtLeast(achievementId : String, steps : Int) : Promise<AchievementSetStepsAtLeastResponse> {
+		var ret = new Deferred<AchievementSetStepsAtLeastResponse>();
+		var params = [];
+		params.push({ param : "steps", value : steps });
+		request(
+			'https://www.googleapis.com/games/v1/achievements/${achievementId}/setStepsAtLeast',
+			params,
+			URLRequestMethod.POST
+		).then(function(data) {
 			handleRequestResult(data, ret);
 		});
 		return ret.promise();

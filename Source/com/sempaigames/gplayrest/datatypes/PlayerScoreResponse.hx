@@ -1,7 +1,6 @@
 package com.sempaigames.gplayrest.datatypes;
 
 import haxe.Json;
-import pgr.dconsole.DC;
 
 class PlayerScoreResponse extends GoogleDataType {
 
