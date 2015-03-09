@@ -35,16 +35,23 @@ class GPlay {
 		this.auth = new Auth(clientId, clientSecret);
 	}
 
-	function request(url : String, params : Array<{param : String, value : String}> = null) : Promise<RequestResult> {
+	function request(
+			url : String,
+			params : Array<{param : String, value : String}> = null,
+			method : String = null
+		) : Promise<RequestResult> {
+
 		var ret = new Deferred<RequestResult>();
 		auth.getToken().then(function(token) {
-			if (params==null) params = [];
+			if (params==null)	params = [];
+			if (method==null)	method = URLRequestMethod.GET;
 			url = url + "?";
 			for (p in params) {
 				url = url + p.param + "=" + p.value + "&";
 			}
 			url = url + 'access_token=$token';
 			var request = new URLRequest(url);
+			request.method = method;
 			var loader = new URLLoader();
 			loader.addEventListener(HTTPStatusEvent.HTTP_STATUS, function(e : HTTPStatusEvent) {
 				if (e.status!=200) {
@@ -52,19 +59,23 @@ class GPlay {
 				}
 			});
 			loader.addEventListener(Event.COMPLETE, function(e : Event) {
-				//DC.log(e.target.data);
 				ret.resolve(Ok(e.target.data));
 			});
 			loader.load(request);
 		});
 		return ret.promise();
+
 	}
 
 	@:generic
 	function handleRequestResult<T:Constructible>(result : RequestResult, ret : Deferred<T>) {
-		switch (result) {
-			case Ok(data):		ret.resolve(new T(data));
-			case Error(code):	ret.throwError('http error: $code');
+		try {
+			switch (result) {
+				case Ok(data):		ret.resolve(new T(data));
+				case Error(code):	ret.throwError('http error: $code');
+			}
+		} catch (e : Dynamic) {
+			ret.throwError(e);
 		}
 	}
 
@@ -154,7 +165,8 @@ class GPlay {
 		params.push({ param : "score", value : Std.string(score) });
 		request(
 			'https://www.googleapis.com/games/v1/leaderboards/${leaderboardId}/scores',
-			params
+			params,
+			URLRequestMethod.POST
 		).then(function(data) {
 			handleRequestResult(data, ret);
 		});
@@ -203,7 +215,26 @@ class GPlay {
 	public function Achievements_reveal(achievementId : String) : Promise<AchievementRevealResponse> {
 		var ret = new Deferred<AchievementRevealResponse>();
 		request('https://www.googleapis.com/games/v1/achievements/${achievementId}/reveal')
-		.then((function(data)) {
+		.then(function(data) {
+			handleRequestResult(data, ret);
+		});
+		return ret.promise();
+	}
+
+	// AchievementDefinitions
+	public function AchievementDefinitions_list(maxResults : Int= -1, pageToken : String = null) : Promise<AchievementDefinitionsListResponse> {
+		var ret = new Deferred<AchievementDefinitionsListResponse>();
+		var params = [];
+		if (maxResults>0) {
+			params.push({ param : "maxResults", value : Std.string(maxResults) });
+		}
+		if (pageToken!=null) {
+			params.push({ param : "pageToken", value : pageToken });
+		}
+		request(
+			'https://www.googleapis.com/games/v1/achievements',
+			params
+		).then(function(data) {
 			handleRequestResult(data, ret);
 		});
 		return ret.promise();

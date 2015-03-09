@@ -1,6 +1,7 @@
 package com.sempaigames.gplayrest.datatypes;
 
 import haxe.Json;
+import pgr.dconsole.DC;
 
 class PlayerScoreResponse extends GoogleDataType {
 
@@ -20,12 +21,16 @@ class PlayerScoreResponse extends GoogleDataType {
 			"scoreTag"
 		]);
 		this.beatenScoreTimeSpans = [];
-		for (it in cast(obj.beatenScoreTimeSpans, Array<Dynamic>)) {
-			this.beatenScoreTimeSpans.push(TimeSpan.createByName(it));
+		if (obj.beatenScoreTimeSpans!=null) {
+			for (it in cast(obj.beatenScoreTimeSpans, Array<Dynamic>)) {
+				this.beatenScoreTimeSpans.push(TimeSpan.createByName(Json.stringify(it)));
+			}
 		}
 		this.unbeatenScores = [];
-		for (it in cast(obj.unbeatenScores, Array<Dynamic>)) {
-			this.unbeatenScores.push(new PlayerScore(Json.stringify(it)));
+		if (obj.unbeatenScores!=null) {
+			for (it in cast(obj.unbeatenScores, Array<Dynamic>)) {
+				this.unbeatenScores.push(new PlayerScore(Json.stringify(it)));
+			}
 		}
 	}
 
