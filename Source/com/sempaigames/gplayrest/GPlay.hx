@@ -225,10 +225,22 @@ class GPlay {
 	public function Achievements_setStepsAtLeast(achievementId : String, steps : Int) : Promise<AchievementSetStepsAtLeastResponse> {
 		var ret = new Deferred<AchievementSetStepsAtLeastResponse>();
 		var params = [];
-		params.push({ param : "steps", value : steps });
+		params.push({ param : "steps", value : Std.string(steps) });
 		request(
 			'https://www.googleapis.com/games/v1/achievements/${achievementId}/setStepsAtLeast',
 			params,
+			URLRequestMethod.POST
+		).then(function(data) {
+			handleRequestResult(data, ret);
+		});
+		return ret.promise();
+	}
+
+	public function Achievements_unlock(achievementId : String) : Promise<AchievementUnlockResponse> {
+		var ret = new Deferred<AchievementUnlockResponse>();
+		request(
+			'https://www.googleapis.com/games/v1/achievements/${achievementId}/unlock',
+			[],
 			URLRequestMethod.POST
 		).then(function(data) {
 			handleRequestResult(data, ret);
