@@ -112,9 +112,8 @@ class Auth {
 		
 		loader.addEventListener(HTTPStatusEvent.HTTP_STATUS, function(e : HTTPStatusEvent) {
 			DC.log("http status: " + e);
-			if (e.status==400) {
-				//AuthCodeGetter.getAuthCode(clientId).then(updateTokenUsingCode);
-				throw "InvalidRefreshToken";
+			if (e.status!=200) {
+				throw "Refresh token error";
 			}
 		});
 		

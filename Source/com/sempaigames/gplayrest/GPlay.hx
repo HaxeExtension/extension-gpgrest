@@ -24,12 +24,12 @@ enum RequestResult {
 }
 
 typedef Constructible = {
-  public function new(s:String):Void;
+	public function new(s:String):Void;
 }
 
 class GPlay {
-	
-	var auth : Auth;
+
+	public var auth : Auth;
 
 	public function new(clientId : String, clientSecret : String) {
 		this.auth = new Auth(clientId, clientSecret);

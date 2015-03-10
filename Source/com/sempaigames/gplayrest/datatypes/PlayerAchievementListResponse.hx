@@ -4,8 +4,8 @@ import haxe.Json;
 
 class PlayerAchievementListResponse extends GoogleDataType {
 
-	var nextPageToken : String;
-	var items : Array<PlayerAchievement>;
+	public var nextPageToken(default, null) : String;
+	public var items(default, null) : Array<PlayerAchievement>;
 
 	public function new(data : String) {
 		super();
