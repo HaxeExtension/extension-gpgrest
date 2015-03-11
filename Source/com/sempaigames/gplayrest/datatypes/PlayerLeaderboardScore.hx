@@ -4,14 +4,14 @@ import haxe.Json;
 
 class PlayerLeaderboardScore extends GoogleDataType {
     
-    public var leaderboard_id : String;
-    public var scoreValue : Int;
-    public var scoreString : String;
-    public var publicRank : LeaderboardScoreRank;
-    public var socialRank : LeaderboardScoreRank;
-    public var timeSpan : String;
-    public var writeTimestamp : Int;
-    public var scoreTag : String;
+    public var leaderboard_id(default, null) : String;
+    public var scoreValue(default, null) : Int;
+    public var scoreString(default, null) : String;
+    public var publicRank(default, null) : LeaderboardScoreRank;
+    public var socialRank(default, null) : LeaderboardScoreRank;
+    public var timeSpan(default, null) : String;
+    public var writeTimestamp(default, null) : Int;
+    public var scoreTag(default, null) : String;
 
     public function new(data : String) {
         super();
@@ -25,26 +25,12 @@ class PlayerLeaderboardScore extends GoogleDataType {
             "writeTimestamp",
             "scoreTag"
         ]);
-        this.publicRank = new LeaderboardScoreRank(Json.stringify(obj.publicRank));
-        this.socialRank = new LeaderboardScoreRank(Json.stringify(obj.socialRank));
+        if (obj.publicRank!=null) {
+            this.publicRank = new LeaderboardScoreRank(Json.stringify(obj.publicRank));
+        }
+        if (obj.socialRank!=null) {
+            this.socialRank = new LeaderboardScoreRank(Json.stringify(obj.socialRank));
+        }
     }
-
-/*
-    public function toString() : String {
-        return
-'
-{
-    leaderboard_id = $leaderboard_id
-    scoreValue = $scoreValue
-    scoreString = $scoreString
-    publicRank = ${publicRank}
-    socialRank = ${socialRank}
-    timeSpan = $timeSpan
-    writeTimestamp = $writeTimestamp
-    scoreTag = $scoreTag
-}
-';
-    }
-*/
 
 }

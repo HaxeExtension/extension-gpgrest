@@ -7,6 +7,9 @@ class GoogleDataType {
 	}
 
 	function verifyKind(obj : Dynamic, kind : String) {
+		if (obj.kind==null) {
+			throw 'Invalid kind, expected: $kind, got null';
+		}
 		if (obj.kind!=kind) {
 			throw 'Invalid kind, expected: $kind, got ${obj.kind}';
 		}

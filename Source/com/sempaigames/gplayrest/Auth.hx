@@ -28,23 +28,31 @@ class Auth {
 		this.pendingTokenPromise = null;
 	}
 
-	static var stripString = "http://localhost/?code=";
+	static var stripString = "http://localhost/?";
 	function getAuthCode() : Promise<String> {
 		var ret = new Deferred<String>();
 		var clientId = "client_id=" + this.clientId;
 		var responseType = "response_type=" + "code";
 		var redirectUri = "redirect_uri=" + "http://localhost";
-		var scope = "scope=" + StringTools.urlEncode("https://www.googleapis.com/auth/games");
-		var authCodeUrl = 'https://accounts.google.com/o/oauth2/auth?$clientId&$responseType&$redirectUri&$scope';
+		var scope = "scope=" + StringTools.urlEncode("https://www.googleapis.com/auth/games https://www.googleapis.com/auth/drive.appdata");
+		var authCodeUrl = 'https://accounts.google.com/o/oauth2/auth?${clientId}&${responseType}&${redirectUri}&${scope}&include_granted_scopes=true';
 		#if (android || iphone)
 		WebView.onURLChanging = function(url : String) {
 			if (StringTools.startsWith(url, stripString)) {
-				var code = StringTools.replace(url, stripString, "");
-				ret.resolve(code);
+				var url = StringTools.replace(url, stripString, "");
+				for (p in url.split("&")) {
+					var pair = p.split("=");
+					if (pair.length!=2) {
+						continue;
+					}
+					if (pair[0]=="code") {
+						ret.resolve(pair[1]);
+					}
+				}
 			}
 		}
 		WebView.onClose = function() pgr.dconsole.DC.log("Close webview");
-		WebView.open(authCodeUrl, true, [".*google.*"]);
+		WebView.open(authCodeUrl, true, null, ["(http|https)://localhost(.*)"]);
 		#else
 		Lib.getURL(new URLRequest(authCodeUrl));
 		ret.resolve("");
@@ -53,9 +61,7 @@ class Auth {
 	}
 
 	function getNewTokenUsingCode(code : String) : Promise<String> {
-
 		DC.log("Get token using code: " + code);
-
 		var request = new URLRequest("https://www.googleapis.com/oauth2/v3/token");
 		var variables = new URLVariables();
 		var ret = new Deferred<String>();

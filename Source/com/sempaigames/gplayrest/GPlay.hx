@@ -45,12 +45,14 @@ class GPlay {
 		auth.getToken().then(function(token) {
 			if (params==null)	params = [];
 			if (method==null)	method = URLRequestMethod.GET;
-			url = url + "?";
+			if (params.length>0) {
+				url = url + "?";
+			}
 			for (p in params) {
 				url = url + p.param + "=" + p.value + "&";
 			}
-			url = url + 'access_token=$token';
 			var request = new URLRequest(url);
+			request.requestHeaders = [new URLRequestHeader("Authorization", "Bearer "+token)];
 			request.method = method;
 			var loader = new URLLoader();
 			loader.addEventListener(HTTPStatusEvent.HTTP_STATUS, function(e : HTTPStatusEvent) {
@@ -249,7 +251,7 @@ class GPlay {
 	}
 
 	// AchievementDefinitions
-	public function AchievementDefinitions_list(maxResults : Int= -1, pageToken : String = null) : Promise<AchievementDefinitionsListResponse> {
+	public function AchievementDefinitions_list(maxResults : Int = -1, pageToken : String = null) : Promise<AchievementDefinitionsListResponse> {
 		var ret = new Deferred<AchievementDefinitionsListResponse>();
 		var params = [];
 		if (maxResults>0) {
@@ -260,6 +262,33 @@ class GPlay {
 		}
 		request(
 			'https://www.googleapis.com/games/v1/achievements',
+			params
+		).then(function(data) {
+			handleRequestResult(data, ret);
+		});
+		return ret.promise();
+	}
+
+	// Snapshots
+	public function Snapshot_get(snapshotId : String) : Promise<Snapshot> {
+		var ret = new Deferred<Snapshot>();
+		request('https://www.googleapis.com/games/v1/snapshots/${snapshotId}').then(function(data) {
+			handleRequestResult(data, ret);
+		});
+		return ret.promise();
+	}
+
+	public function Snapshots_list(playerId : String, maxResults : Int = -1, pageToken : String = null ) : Promise<SnapshotListResponse> {
+		var ret = new Deferred<SnapshotListResponse>();
+		var params = [];
+		if (maxResults>0) {
+			params.push({ param : "maxResults", value : Std.string(maxResults) });
+		}
+		if (pageToken!=null) {
+			params.push({ param : "pageToken", value : pageToken });
+		}
+		request(
+			'https://www.googleapis.com/games/v1/players/${playerId}/snapshots',
 			params
 		).then(function(data) {
 			handleRequestResult(data, ret);
