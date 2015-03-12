@@ -48,9 +48,15 @@ class GPlay {
 			if (params.length>0) {
 				url = url + "?";
 			}
+			var removeLast = false;
 			for (p in params) {
 				url = url + p.param + "=" + p.value + "&";
+				removeLast = true;
 			}
+			if (removeLast) {
+				url = url.substr(0, url.length-1);
+			}
+			DC.log("url: " + url);
 			var request = new URLRequest(url);
 			request.requestHeaders = [new URLRequestHeader("Authorization", "Bearer "+token)];
 			request.method = method;
