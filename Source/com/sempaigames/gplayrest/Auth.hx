@@ -10,6 +10,12 @@ import promhx.Promise;
 import pgr.dconsole.DC;
 import extension.webview.WebView;
 
+enum AuthStatus {
+	Ok;
+	Failed;
+	Pending;
+}
+
 class Auth {
 	
 	var clientId : String;
@@ -19,6 +25,7 @@ class Auth {
 	var pendingTokenPromise : Promise<String>;
 	var token : String;
 	var tokenExpireTime : Float;
+	var authStatus : AuthStatus;
 
 	public function new(clientId : String, clientSecret : String) {
 		this.storage = SharedObject.getLocal("gplayrest"); 
@@ -26,6 +33,7 @@ class Auth {
 		this.clientSecret = clientSecret;
 		this.token = null;
 		this.pendingTokenPromise = null;
+		this.authStatus = Pending;
 	}
 
 	static var stripString = "http://localhost/?";
@@ -51,7 +59,7 @@ class Auth {
 				}
 			}
 		}
-		WebView.onClose = function() pgr.dconsole.DC.log("Close webview");
+		//WebView.onClose = function() pgr.dconsole.DC.log("Close webview");
 		WebView.open(authCodeUrl, true, null, ["(http|https)://localhost(.*)"]);
 		#else
 		Lib.getURL(new URLRequest(authCodeUrl));
@@ -128,13 +136,17 @@ class Auth {
 	}
 
 	function getNewToken() : Promise<String> {
+		authStatus = Pending;
+		var ret : Promise<String> = null;
 		if (storage.data.refreshToken!=null) {
 			// Use refresh token
-			return getNewTokenUsingRefreshToken(storage.data.refreshToken);
+			ret = getNewTokenUsingRefreshToken(storage.data.refreshToken);
 		} else {
 			// No refresh_token:
-			return getAuthCode().pipe(getNewTokenUsingCode);
+			ret = getAuthCode().pipe(getNewTokenUsingCode);
 		}
+		ret.then(function(_) authStatus = Ok).catchError(function(_) authStatus = Failed);
+		return ret;
 	}
 
 	public function getToken() : Promise<String> {
