@@ -13,8 +13,7 @@ class GooglePlayGames {
 	///////////// LOGIN & INIT
 	//////////////////////////////////////////////////////////////////////
 
-	public static var function login() : Void {
-		checkInit();
+	public static function login() : Void {
 		gPlayInstance.auth.getToken();
 	}
 
@@ -26,14 +25,16 @@ class GooglePlayGames {
 		return false;
 	}
 
-	public static function displayAllScoreboards : Bool {
+	public static function displayAllScoreboards() : Bool {
 		return false;
 	}
 
 	public static function setScore(id:String, score:Int) : Bool {
-		checkInit();
+		if (!isInitted()) {
+			return false;
+		}
 		gPlayInstance.Scores_submit(id, score);
-		return false;
+		return true;
 	}
 
 	//////////////////////////////////////////////////////////////////////
@@ -45,26 +46,35 @@ class GooglePlayGames {
 	}
 
 	public static function unlock(id:String) : Bool {
-		checkInit();
+		if (!isInitted()) {
+			return false;
+		}
 		gPlayInstance.Achievements_unlock(id);
+		return true;
 	}
 
 	public static function increment(id:String, step:Int) : Bool {
-		checkInit();
-		gPlayInstace.Achievements_increment(id, step);
-		return false;
+		if (!isInitted()) {
+			return false;
+		}
+		gPlayInstance.Achievements_increment(id, step);
+		return true;
 	}
 
 	public static function reveal(id:String) : Bool {
-		checkInit();
+		if (!isInitted()) {
+			return false;
+		}
 		gPlayInstance.Achievements_reveal(id);
-		return false;
+		return true;
 	}
 
 	public static function setSteps(id:String, steps:Int) : Bool {
-		checkInit();
-		gPlayInstace.Achievements_setStepsAtLeast(id, steps);
-		return false;
+		if (!isInitted()) {
+			return false;
+		}
+		gPlayInstance.Achievements_setStepsAtLeast(id, steps);
+		return true;
 	}
 
 	//////////////////////////////////////////////////////////////////////
@@ -83,10 +93,8 @@ class GooglePlayGames {
 	///////////// HAXE IMPLEMENTATIONS
 	//////////////////////////////////////////////////////////////////////
 
-	static function checkInit() {
-		if (gPlayInstance==null) {
-			throw "Must call \"init\" fist.";
-		}
+	static function isInitted() : Bool {
+		return (gPlayInstance==null /*||*/ );
 	}
 
 	//public static function init(stage:flash.display.Stage, enableCloudStorage:Bool){
@@ -100,7 +108,6 @@ class GooglePlayGames {
 
 	/*
 	public static var id(default,null):Map<String,String>=new Map<String,String>();
-	public static var onLoginResult:Int->Void=null;
 
 	public static function loadResourcesFromXML(text:String){
 		text=text.split("<resources>")[1];
@@ -125,6 +132,7 @@ class GooglePlayGames {
 	//////////////////////////////////////////////////////////////////////
 	///////////// EVENTS RECEPTION
 	//////////////////////////////////////////////////////////////////////
+
 /*
 	public static var onCloudGetComplete:Int->String->Void=null;
 	public static var onCloudGetConflict:Int->String->String->Void=null;
@@ -148,10 +156,14 @@ class GooglePlayGames {
 		if(onCloudGetConflict!=null) onCloudGetConflict(key,localValue,serverValue);
 	}
 */
+
 	//posible returns are: -1 = login failed | 0 = initiated login | 1 = login success
 	//the event is fired in differents circumstances, like if you init and do not login,
 	//can return -1 or 1 but if you log in, will return a series of 0 -1 0 -1 if there is no
 	//connection for example. test it and adapt it to your code and logic.
+
+	public static var onLoginResult:Int->Void=null;
+
 /*
 	public function loginResultCallback(res:Int) {
 		trace("returning result of login");
@@ -166,17 +178,19 @@ class GooglePlayGames {
 	public static var onGetPlayerScore:String->Int->Void=null;
 
 	public static function getPlayerScore(id:String) : Bool {
-		checkInit();
+		if (!isInitted()) {
+			return false;
+		}
 		gPlayInstance.Scores_get("me", id, TimeSpan.ALL_TIME).then(function(scoresResponse) {
 			for (score in scoresResponse.items) {
 				onGetScoreboard(score.leaderboard_id, score.scoreValue);
 			}
 		});
-		return false;
+		return true;
 	}
 
-	function onGetScoreboard(idScoreboard:String, score:Int) {
-		if (onGetPlayerScore != null) onGetPlayerScore(idScoreboard, low_score);
+	static function onGetScoreboard(idScoreboard:String, score:Int) {
+		if (onGetPlayerScore != null) onGetPlayerScore(idScoreboard, score);
 	}
 
 	//////////////////////////////////////////////////////////////////////
@@ -203,12 +217,14 @@ class GooglePlayGames {
 	}
 
 	public static function getAchievementStatus(id : String) : Bool {
-		checkInit();
-
-		return false;
+		if (!isInitted()) {
+			return false;
+		}
+		_getAchievementStatus(id);
+		return true;
 	}
 
-	public function onGetAchievementStatus(idAchievement:String, state:Int) {
+	static function onGetAchievementStatus(idAchievement:String, state:Int) {
 		if (onGetPlayerAchievementStatus != null) onGetPlayerAchievementStatus(idAchievement, state);
 	}
 
@@ -218,11 +234,28 @@ class GooglePlayGames {
 
 	public static var onGetPlayerCurrentSteps:String->Int->Void=null;
 
-	public static function getCurrentAchievementSteps(id:String) : Bool {
-		return false;
+	static function _getCurrentAchievementSteps(id : String, pageToken : String = null) : Void {
+		gPlayInstance.Achievements_list(id, pageToken).then(function(result) {
+			for (it in result.items) {
+				if (it.id == id) {
+					onGetAchievementSteps(id, it.currentSteps);
+				}
+			}
+			if (result.nextPageToken!=null) {
+				_getCurrentAchievementSteps(id, pageToken);
+			}
+		});
 	}
 
-	public function onGetAchievementSteps(idAchievement:String, steps:Int) {
+	public static function getCurrentAchievementSteps(id:String) : Bool {
+		if (!isInitted()) {
+			return false;
+		}
+		_getCurrentAchievementSteps(id);
+		return true;
+	}
+
+	static function onGetAchievementSteps(idAchievement:String, steps:Int) {
 		if (onGetPlayerCurrentSteps != null) onGetPlayerCurrentSteps(idAchievement, steps);
 	}
 
