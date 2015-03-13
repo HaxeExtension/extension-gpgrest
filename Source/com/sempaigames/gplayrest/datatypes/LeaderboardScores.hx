@@ -4,11 +4,11 @@ import haxe.Json;
 
 class LeaderboardScores extends GoogleDataType {
 
-	public var nextPageToken : String;
-	public var prevPageToken : String;
-	public var numScores : Int;
-	public var playerScore : LeaderboardEntry;
-	public var items : Array<LeaderboardEntry>;
+	public var nextPageToken(default, null) : String;
+	public var prevPageToken(default, null) : String;
+	public var numScores(default, null) : Int;
+	public var playerScore(default, null) : LeaderboardEntry;
+	public var items(default, null) : Array<LeaderboardEntry>;
 
 	public function new(data : String) {
 		super();
@@ -27,20 +27,5 @@ class LeaderboardScores extends GoogleDataType {
 			"numScores"
 		]);
 	}
-
-/*
-	public function toString() : String {
-		return
-'
-{
-	nextPageToken = $nextPageToken
-	prevPageToken = $prevPageToken
-	numScores = $numScores
-	playerScore = ${playerScore}
-	items = $items
-}
-';
-	}
-*/
 
 }

@@ -31,22 +31,4 @@ class LeaderboardEntry extends GoogleDataType {
 		]);
 	}
 
-/*
-	public function toString() : String {
-		return
-'
-{
-	player = ${player}
-	scoreRank = $scoreRank
-	formattedScoreRank = $formattedScoreRank
-	scoreValue = $scoreValue
-	formattedScore = $formattedScore
-	timeSpan = $timeSpan
-	writeTimestampMillis = $writeTimestampMillis
-	scoreTag = $scoreTag
-}
-';
-	}
-*/
-
 }

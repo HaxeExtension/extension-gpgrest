@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Widget 
+
+	w="400"
+	h="400"
+	skin:Paint-border="1"
+	skin:Paint-color="0x449944" >
+
+	<Scroll name="'scroll'" hScroll="false" vScroll="true" skin:Paint-color="0xff0000" widthPt="100" heightPt="100" >
+		<VBox name="'vbox'" childPadding="40" skin:Paint-color="0xff00ff" >
+			<Text text="'uno esta aca'" skin:Paint-border="1" format-size="30" label-selectable="false" />
+			<Text text="'otro esta aca'" skin:Paint-border="1" format-size="30" />
+			<Text text="'el tercero esta aca'" skin:Paint-border="1" format-size="30" />
+			<Text text="'bueno el cuarto esta aca'" skin:Paint-border="1" format-size="30" />
+			<Text text="'bueno el cuarto esta aca'" skin:Paint-border="1" format-size="30" />
+			<Text text="'sdfsdfsda'" skin:Paint-border="1" format-size="30" />
+			<Text text="'buenghhdfghfgñññ aca'" skin:Paint-border="1" format-size="30" />
+			<Text text="'bueno el cuarto esta aca'" skin:Paint-border="1" format-size="30" />
+			<Text text="'basdasdasdasdasd'" skin:Paint-border="1" format-size="30" />
+			<Text text="'bwerwerwerwerwo esta aca'" skin:Paint-border="1" format-size="30" />
+		</VBox>
+	</Scroll>
+
+</Widget>

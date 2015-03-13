@@ -155,7 +155,7 @@ class GPlay {
 		var params = [];
 		params.push({ param : "timeSpan", value : Std.string(timeSpan) });
 		params.push({ param : "maxResults", value : Std.string(maxResults) });
-		if (pageToken.length>0) {
+		if (pageToken!=null && pageToken.length>0) {
 			params.push({ param : "pageToken", value : pageToken });
 		}
 		request(

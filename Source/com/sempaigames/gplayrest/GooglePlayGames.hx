@@ -200,7 +200,7 @@ class GooglePlayGames {
 	public static var onGetPlayerAchievementStatus:String->Int->Void=null;
 
 	static function _getAchievementStatus(id : String, pageToken : String = null) : Void {
-		gPlayInstance.Achievements_list(id, pageToken).then(function(result) {
+		gPlayInstance.Achievements_list(id, 25, pageToken).then(function(result) {
 			for (it in result.items) {
 				if (it.id == id) {
 					var state = switch (it.achievementState) {
@@ -235,7 +235,7 @@ class GooglePlayGames {
 	public static var onGetPlayerCurrentSteps:String->Int->Void=null;
 
 	static function _getCurrentAchievementSteps(id : String, pageToken : String = null) : Void {
-		gPlayInstance.Achievements_list(id, pageToken).then(function(result) {
+		gPlayInstance.Achievements_list(id, 25, pageToken).then(function(result) {
 			for (it in result.items) {
 				if (it.id == id) {
 					onGetAchievementSteps(id, it.currentSteps);
