@@ -15,8 +15,10 @@ class UrlBmp extends Bmp {
 		this.autoSize = true;
 		var req = new URLRequest(url);
 		var ldr = new URLLoader();
-		ldr.addEventListener(Event.COMPLETE, onLoadComplete);
-		ldr.load(req);
+		if (url!=null) {
+			ldr.addEventListener(Event.COMPLETE, onLoadComplete);
+			ldr.load(req);
+		}
 		this.size = size;
 		var gfx = this.graphics;
 		gfx.beginFill(0x222222);
