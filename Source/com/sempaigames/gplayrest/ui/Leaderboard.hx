@@ -9,6 +9,7 @@ import flash.Lib;
 import ru.stablex.ui.widgets.*;
 import ru.stablex.ui.skins.*;
 import ru.stablex.ui.events.*;
+import ru.stablex.ui.layouts.*;
 
 import ru.stablex.ui.UIBuilder;
 
@@ -55,20 +56,6 @@ class Leaderboard extends Sprite {
 
 		addScoresFirstTime();
 
-		//vbox.addChild(new UrlBmp("https://artblart.files.wordpress.com/2013/10/mdm_flowers_fischli_weiss_pilze-funghi-18-web.jpg"));
-
-	}
-
-	function createPlayerScoreBox(entry : LeaderboardEntry) : Widget {
-		/*
-		var txt = new Text();
-		txt.text = entry.player.displayName + " - score: " + entry.scoreValue;
-		txt.format.size = 30;
-		txt.refresh();
-		return txt;
-		*/
-
-		return new UILeaderBoardEntry(entry, ui);
 	}
 
 	function onEnterFrame(_) {
@@ -93,7 +80,7 @@ class Leaderboard extends Sprite {
 			firstPagePrevPageToken = leaderboardScores.prevPageToken;
 			for (i in 0...leaderboardScores.items.length) {
 				var it = leaderboardScores.items[leaderboardScores.items.length-i-1];
-				vbox.addChildAt(createPlayerScoreBox(it), 0);
+				vbox.addChildAt(new UILeaderBoardEntry(it, ui), 0);
 			}
 			loadingScores = false;
 		});
@@ -101,6 +88,17 @@ class Leaderboard extends Sprite {
 
 	function addScoresBottom(pageToken : String = null) {
 		loadingScores = true;
+
+		var box = new Box();
+		vbox.addChild(box);
+		box.widthPt = ui.w;
+		var row = new Row();
+		row.hAlign = 'center';
+		box.layout = row;
+		var ldng = new Loading(100, 100);
+		box.height = 100;
+		box.addChild(ldng);
+
 		gPlay.Scores_list(
 			LeaderBoardCollection.PUBLIC,
 			leaderboardId,
@@ -108,9 +106,12 @@ class Leaderboard extends Sprite {
 			25,
 			pageToken)
 		.then(function(leaderboardScores) {
+
+			vbox.removeChild(box);
+
 			lastPageNextPageToken = leaderboardScores.nextPageToken;
 			for (it in leaderboardScores.items) {
-				vbox.addChild(createPlayerScoreBox(it));
+				vbox.addChild(new UILeaderBoardEntry(it, ui));
 			}
 			loadingScores = false;
 		});
@@ -118,16 +119,29 @@ class Leaderboard extends Sprite {
 
 	function addScoresFirstTime() {
 		loadingScores = true;
+
+		var box = new Box();
+		vbox.addChild(box);
+		box.widthPt = ui.w;
+		var row = new Row();
+		row.hAlign = 'center';
+		box.layout = row;
+		var ldng = new Loading(100, 100);
+		box.addChild(ldng);
+
 		gPlay.Scores_list(
 			LeaderBoardCollection.PUBLIC,
 			leaderboardId,
 			TimeSpan.ALL_TIME,
 			25)
 		.then(function(leaderboardScores) {
+			
+			vbox.removeChild(box);
+
 			firstPagePrevPageToken = leaderboardScores.prevPageToken;
 			lastPageNextPageToken = leaderboardScores.nextPageToken;
 			for (it in leaderboardScores.items) {
-				vbox.addChild(createPlayerScoreBox(it));
+				vbox.addChild(new UILeaderBoardEntry(it, ui));
 			}
 			loadingScores = false;
 		});
@@ -140,15 +154,9 @@ class Leaderboard extends Sprite {
 		ui.top = Lib.current.stage.stageHeight*0.1;
 		ui.w = Lib.current.stage.stageWidth*0.8;
 		ui.h = Lib.current.stage.stageHeight*0.8;
-		/*
-		var vbox = ui.getChild("vbox");
-		trace(vbox);
-		var txt = new Text();
-		txt.text = "Random " + Std.random(100);
-		txt.format.size = 30;
-		txt.refresh();
-		vbox.addChildAt(txt, 0);
-		*/
+
+		vbox.w = ui.w;
+
 	}
 
 }
