@@ -38,7 +38,6 @@ class Leaderboard extends Sprite {
 		this.leaderboardId = leaderboardId;
 		
 		this.instanceId = instanceCount++;
-		UIBuilder.regClass('com.sempaigames.gplayrest.ui.Leaderboard');
 		UIBuilder.init();
 		ui = UIBuilder.buildFn('com/sempaigames/gplayrest/ui/xml/leaderboard.xml')();
 		
@@ -56,14 +55,20 @@ class Leaderboard extends Sprite {
 
 		addScoresFirstTime();
 
+		//vbox.addChild(new UrlBmp("https://artblart.files.wordpress.com/2013/10/mdm_flowers_fischli_weiss_pilze-funghi-18-web.jpg"));
+
 	}
 
 	function createPlayerScoreBox(entry : LeaderboardEntry) : Widget {
+		/*
 		var txt = new Text();
 		txt.text = entry.player.displayName + " - score: " + entry.scoreValue;
 		txt.format.size = 30;
 		txt.refresh();
 		return txt;
+		*/
+
+		return new UILeaderBoardEntry(entry, ui);
 	}
 
 	function onEnterFrame(_) {

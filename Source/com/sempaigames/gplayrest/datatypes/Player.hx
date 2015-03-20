@@ -27,35 +27,4 @@ class Player extends GoogleDataType {
 		]);
 	}
 
-	/*
-	"lastPlayedWith": {
-	    "kind": "games#played",
-	    "timeMillis": long,
-	    "autoMatched": boolean
-  	},
-  	*/
-
-	/*
-	"experienceInfo": {
-
-		"kind": "games#playerExperienceInfo",
-		"currentExperiencePoints": long,
-		"lastLevelUpTimestampMillis": long,
-
-		"currentLevel": {
-			"kind": "games#playerLevel",
-			"level": integer,
-			"minExperiencePoints": long,
-			"maxExperiencePoints": long
-		},
-
-		"nextLevel": {
-			"kind": "games#playerLevel",
-			"level": integer,
-			"minExperiencePoints": long,
-			"maxExperiencePoints": long
-		}
-  	},
-  	*/
-
 }
