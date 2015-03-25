@@ -5,6 +5,7 @@ import com.sempaigames.gplayrest.datatypes.*;
 import flash.Lib;
 import flash.display.Sprite;
 import flash.events.Event;
+import promhx.Promise;
 import ru.stablex.ui.UIBuilder;
 import ru.stablex.ui.events.*;
 import ru.stablex.ui.layouts.*;
@@ -102,8 +103,8 @@ class Leaderboard extends Sprite {
 	}
 
 	function addScoresFirstTime() {
-		loadingScores = true;
 
+		loadingScores = true;
 		var box = new Box();
 		vbox.addChild(box);
 		box.widthPt = ui.w;
@@ -113,22 +114,38 @@ class Leaderboard extends Sprite {
 		var ldng = new Loading(100, 100);
 		box.addChild(ldng);
 
-		gPlay.Scores_list(
-			LeaderBoardCollection.PUBLIC,
-			leaderboardId,
-			TimeSpan.ALL_TIME,
-			25)
-		.then(function(leaderboardScores) {
-			
-			vbox.removeChild(box);
+		var leaderBoardPromise = gPlay.Leaderboards_get(leaderboardId);
+		var leaderBoardScoresPromise = gPlay.Scores_list(LeaderBoardCollection.PUBLIC, leaderboardId, TimeSpan.ALL_TIME, 25);
+		
+		// Workarround for https://github.com/jdonaldson/promhx/issues/51
+		leaderBoardPromise.then(function(leaderBoard) {
+			leaderBoardScoresPromise.then(function(leaderboardScores) {
+				vbox.removeChild(box);
+				vbox.addChild(new LeaderBoardTitle(leaderBoard, ui));
+				firstPagePrevPageToken = leaderboardScores.prevPageToken;
+				lastPageNextPageToken = leaderboardScores.nextPageToken;
+				for (it in leaderboardScores.items) {
+					vbox.addChild(new UILeaderBoardEntry(it, ui));
+				}
+				loadingScores = false;
+				onResize(null);
+			});
+		});
 
+		/*
+		Promise.when(leaderBoardPromise, leaderBoardScoresPromise).then(function(leaderBoard, leaderboardScores) {
+			vbox.removeChild(box);
+			vbox.addChild(new LeaderBoardTitle(leaderBoard));
 			firstPagePrevPageToken = leaderboardScores.prevPageToken;
 			lastPageNextPageToken = leaderboardScores.nextPageToken;
 			for (it in leaderboardScores.items) {
 				vbox.addChild(new UILeaderBoardEntry(it, ui));
 			}
 			loadingScores = false;
+			onResize(null);
 		});
+		*/
+
 	}
 
 	function onResize(_) {
@@ -148,6 +165,7 @@ class Leaderboard extends Sprite {
 		}
 
 		ui.refresh();
+		vbox.refresh();
 
 	}
 

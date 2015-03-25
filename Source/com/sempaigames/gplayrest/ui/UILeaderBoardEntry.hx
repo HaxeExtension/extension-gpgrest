@@ -43,10 +43,9 @@ class UILeaderBoardEntry extends Widget {
 		var layout = new Column();
 		layout.cols = [50, 30, -1, 0];
 		this.layout = layout;
-
 		this.applyLayout();
-
-		var parentH = txtRank.wparent.height;
+		
+		var parentH = this.height;
 		txtRank.y = parentH/2 - txtRank.height/2;
 		txtName.y = parentH/2 - txtName.height/2;
 		txtScore.y = parentH/2 - txtScore.height/2;
