@@ -1,9 +1,10 @@
 package com.sempaigames.gplayrest.ui;
 
 import com.sempaigames.gplayrest.datatypes.*;
-import ru.stablex.ui.widgets.*;
-import ru.stablex.ui.layouts.*;
+import com.sempaigames.gplayrest.datatypes.LeaderboardEntry;
 import ru.stablex.ui.events.*;
+import ru.stablex.ui.layouts.*;
+import ru.stablex.ui.widgets.*;
 
 class UILeaderBoardEntry extends Widget {
 

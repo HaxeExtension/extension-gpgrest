@@ -1,17 +1,15 @@
 package com.sempaigames.gplayrest.ui;
 
-import com.sempaigames.gplayrest.datatypes.*;
 import com.sempaigames.gplayrest.GPlay;
+import com.sempaigames.gplayrest.datatypes.*;
+import flash.Lib;
 import flash.display.Sprite;
 import flash.events.Event;
-import flash.Lib;
-
-import ru.stablex.ui.widgets.*;
-import ru.stablex.ui.skins.*;
+import ru.stablex.ui.UIBuilder;
 import ru.stablex.ui.events.*;
 import ru.stablex.ui.layouts.*;
-
-import ru.stablex.ui.UIBuilder;
+import ru.stablex.ui.skins.*;
+import ru.stablex.ui.widgets.*;
 
 class Leaderboard extends Sprite {
 	
@@ -88,17 +86,6 @@ class Leaderboard extends Sprite {
 
 	function addScoresBottom(pageToken : String = null) {
 		loadingScores = true;
-
-		var box = new Box();
-		vbox.addChild(box);
-		box.widthPt = ui.w;
-		var row = new Row();
-		row.hAlign = 'center';
-		box.layout = row;
-		var ldng = new Loading(100, 100);
-		box.height = 100;
-		box.addChild(ldng);
-
 		gPlay.Scores_list(
 			LeaderBoardCollection.PUBLIC,
 			leaderboardId,
@@ -106,9 +93,6 @@ class Leaderboard extends Sprite {
 			25,
 			pageToken)
 		.then(function(leaderboardScores) {
-
-			vbox.removeChild(box);
-
 			lastPageNextPageToken = leaderboardScores.nextPageToken;
 			for (it in leaderboardScores.items) {
 				vbox.addChild(new UILeaderBoardEntry(it, ui));
@@ -156,6 +140,14 @@ class Leaderboard extends Sprite {
 		ui.h = Lib.current.stage.stageHeight*0.8;
 
 		vbox.w = ui.w;
+
+		for (i in 0...vbox.numChildren) {
+			var widget = cast(vbox.getChildAt(i), Widget);
+			widget.w = vbox.w;
+			widget.refresh();
+		}
+
+		ui.refresh();
 
 	}
 
