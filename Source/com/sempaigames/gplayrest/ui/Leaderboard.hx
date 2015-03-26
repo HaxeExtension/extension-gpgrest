@@ -117,25 +117,9 @@ class Leaderboard extends Sprite {
 		var leaderBoardPromise = gPlay.Leaderboards_get(leaderboardId);
 		var leaderBoardScoresPromise = gPlay.Scores_list(LeaderBoardCollection.PUBLIC, leaderboardId, TimeSpan.ALL_TIME, 25);
 		
-		// Workarround for https://github.com/jdonaldson/promhx/issues/51
-		leaderBoardPromise.then(function(leaderBoard) {
-			leaderBoardScoresPromise.then(function(leaderboardScores) {
-				vbox.removeChild(box);
-				vbox.addChild(new LeaderBoardTitle(leaderBoard, ui));
-				firstPagePrevPageToken = leaderboardScores.prevPageToken;
-				lastPageNextPageToken = leaderboardScores.nextPageToken;
-				for (it in leaderboardScores.items) {
-					vbox.addChild(new UILeaderBoardEntry(it, ui));
-				}
-				loadingScores = false;
-				onResize(null);
-			});
-		});
-
-		/*
 		Promise.when(leaderBoardPromise, leaderBoardScoresPromise).then(function(leaderBoard, leaderboardScores) {
 			vbox.removeChild(box);
-			vbox.addChild(new LeaderBoardTitle(leaderBoard));
+			vbox.addChild(new LeaderBoardTitle(leaderBoard, ui));
 			firstPagePrevPageToken = leaderboardScores.prevPageToken;
 			lastPageNextPageToken = leaderboardScores.nextPageToken;
 			for (it in leaderboardScores.items) {
@@ -144,7 +128,6 @@ class Leaderboard extends Sprite {
 			loadingScores = false;
 			onResize(null);
 		});
-		*/
 
 	}
 
