@@ -17,7 +17,7 @@ enum AuthStatus {
 }
 
 class Auth {
-	
+
 	var clientId : String;
 	var clientSecret : String;
 	var storage : SharedObject;
@@ -28,7 +28,7 @@ class Auth {
 	var authStatus : AuthStatus;
 
 	public function new(clientId : String, clientSecret : String) {
-		this.storage = SharedObject.getLocal("gplayrest"); 
+		this.storage = SharedObject.getLocal("gplayrest");
 		this.clientId = clientId;
 		this.clientSecret = clientSecret;
 		this.token = null;
@@ -91,7 +91,7 @@ class Auth {
 			}
 
 			var expiresIn : Int = response.expires_in;
-			
+
 			this.token = accessToken;
 			this.tokenExpireTime = Timer.stamp() + expiresIn;
 			this.storage.data.refreshToken = refreshToken;
@@ -123,14 +123,16 @@ class Auth {
 			this.tokenExpireTime = Timer.stamp() + expiresIn;
 			ret.resolve(accessToken);
 		});
-		
+
 		loader.addEventListener(HTTPStatusEvent.HTTP_STATUS, function(e : HTTPStatusEvent) {
 			DC.log("http status: " + e);
 			if (e.status!=200) {
-				throw "Refresh token error";
+				//throw 'Refresh token error: ${e.status}';
+				ret.throwError('Refresh token error: ${e.status}');
+				//prom.reject('Refresh token error: ${e.status}');
 			}
 		});
-		
+
 		loader.load(request);
 		return ret.promise();
 	}
@@ -140,12 +142,22 @@ class Auth {
 		var ret : Promise<String> = null;
 		if (storage.data.refreshToken!=null) {
 			// Use refresh token
-			ret = getNewTokenUsingRefreshToken(storage.data.refreshToken);
+			var tokenUsingRefresh = getNewTokenUsingRefreshToken(storage.data.refreshToken);
+			var dRet = new Deferred<String>();
+			tokenUsingRefresh.catchError(function (x){
+				trace("error using refresh token, retrying with auth code");
+				getAuthCode().pipe(getNewTokenUsingCode).then(function(token) {
+					dRet.resolve(token);
+				});
+			}).then(function (token){
+				dRet.resolve(token);
+			});
+			ret = dRet.promise();
 		} else {
 			// No refresh_token:
 			ret = getAuthCode().pipe(getNewTokenUsingCode);
 		}
-		ret.then(function(_) authStatus = Ok).catchError(function(_) authStatus = Failed);
+		ret.catchError(function(x) { trace('error: $x'); authStatus = Failed; return 'err'; }).then(function(_) authStatus = Ok);
 		return ret;
 	}
 
