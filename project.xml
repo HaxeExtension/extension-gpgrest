@@ -6,6 +6,9 @@
 	
 	<source path="Source" />
 
+	<haxelib name="lime" />
+	<haxelib name="stablexui" />
+	<haxelib name="actuate" />
 	<haxelib name="openfl" />
 	<haxelib name="openfl-webview" />
 	<haxelib name="promhx" />
