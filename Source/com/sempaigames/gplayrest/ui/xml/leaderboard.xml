@@ -1,16 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<Widget 
+<Scroll skin:Paint-border="1" hScroll="false" vScroll="true" defaults="'Screen'" name="'scroll'" on-enterFrame="onEnterFrame();" >
 
-	w="400"
-	h="400"
-	skin:Paint-border="1"
-	skin:Paint-color="0x449944" >
+	<VBox padding="5" childPadding="5" skin:Paint-border="2" widthPt="100" name="'main_area'">
+		
+		<meta:include src="com/sempaigames/gplayrest/ui/xml/leaderboardtitle.xml" name="'leaderboard_title'" />
 
-	<Scroll name="'scroll'" hScroll="false" vScroll="true" skin:Paint-color="0xff0000" widthPt="100" heightPt="100" >
-		<VBox name="'vbox'" childPadding="40" skin:Paint-color="0xff00ff" >
-			
+		<VBox padding="5" childPadding="5" widthPt="100" name="'leaderboard_player_entries'" >
+			<meta:include src="com/sempaigames/gplayrest/ui/xml/leaderboardentry.xml" />
+			<meta:include src="com/sempaigames/gplayrest/ui/xml/leaderboardentry.xml" />
+			<meta:include src="com/sempaigames/gplayrest/ui/xml/leaderboardentry.xml" />
+			<meta:include src="com/sempaigames/gplayrest/ui/xml/leaderboardentry.xml" />
+			<meta:include src="com/sempaigames/gplayrest/ui/xml/leaderboardentry.xml" />
+			<meta:include src="com/sempaigames/gplayrest/ui/xml/leaderboardentry.xml" />
+			<meta:include src="com/sempaigames/gplayrest/ui/xml/leaderboardentry.xml" />
+			<meta:include src="com/sempaigames/gplayrest/ui/xml/leaderboardentry.xml" />
 		</VBox>
-	</Scroll>
 
-</Widget>
+	</VBox>
+
+</Scroll>

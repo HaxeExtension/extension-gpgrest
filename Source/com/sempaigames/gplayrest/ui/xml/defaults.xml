@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Defaults>
+	
+	<Text>
+		
+		<Title
+			filters="[new flash.filters.DropShadowFilter()]"
+			label-selectable="false"
+			mouseEnabled="false"
+			format-size="30"
+			format-color="0xffffff"
+			format-bold="true"
+		/>
+
+		<PlayerName
+			label-selectable="false"
+			mouseEnabled="false"
+			format-size="20"
+		/>
+
+		<PlayerRank
+			label-selectable="false"
+			mouseEnabled="false"
+			format-size="20"	
+		/>
+
+		<PlayerScore
+			label-selectable="false"
+			mouseEnabled="false"
+			format-size="20"	
+		/>
+
+	</Text>
+
+</Defaults>

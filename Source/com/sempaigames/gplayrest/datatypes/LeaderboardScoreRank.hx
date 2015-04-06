@@ -21,18 +21,4 @@ class LeaderboardScoreRank extends GoogleDataType {
 		]);
 	}
 
-/*
-	public function toString() : String {
-		return
-'
-{
-	rank = $rank
-	formattedRank = $formattedRank
-	numScores = $numScores
-	formattedNumScores = $formattedNumScores
-}
-';
-	}
-*/
-
 }

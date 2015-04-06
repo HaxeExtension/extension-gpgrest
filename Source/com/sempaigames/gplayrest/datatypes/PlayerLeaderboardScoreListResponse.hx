@@ -20,17 +20,4 @@ class PlayerLeaderboardScoreListResponse extends GoogleDataType {
 		}
 	}
 
-/*
-	public function toString() : String {
-		return
-'
-{
-	nextPageToken = $nextPageToken
-	player = ${player}
-	items = $items
-}
-';
-	}
-*/
-
 }

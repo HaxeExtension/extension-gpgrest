@@ -23,19 +23,4 @@ class Leaderboard extends GoogleDataType {
 		this.order = LeaderboardOrder.createByName(obj.order);
 	}
 
-/*
-	public function toString() {
-		return
-'
-{
-	id = $id
-	name = $name
-	iconUrl = $iconUrl
-	isIconUrlDefault = $isIconUrlDefault
-	order = $order
-}
-';
-	}
-*/
-
 }

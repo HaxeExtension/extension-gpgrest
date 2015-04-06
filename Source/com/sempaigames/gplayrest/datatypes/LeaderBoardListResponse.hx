@@ -19,16 +19,4 @@ class LeaderboardListResponse extends GoogleDataType {
 		}
 	}
 
-/*
-	public function toString() : String {
-		return
-'
-{
-nextPageToken = $nextPageToken
-items = $items
-}
-';
-	}
-*/
-
 }

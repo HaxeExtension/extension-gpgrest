@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<HBox skin:Paint-border="2" widthPt="100" layout:Column-cols="[0, 0, -1, 0]" >
+
+	<Box>
+		<Text text="'12'" defaults="'Default'" name="'entry_ranking'" />
+	</Box>
+
+	<!--url="'http://www.online-image-editor.com//styles/2014/images/example_image.png'"-->
+	<UrlBmp stretch="true" keepAspect="true" w="50" h="50" name="'entry_image'" />
+
+	<Box>
+		<Text text="'Juan Carlos Random'" defaults="'Default'" name="'entry_name'" />
+	</Box>
+
+	<Box>
+		<Text text="'234.546'" defaults="'Default'" name="'entry_score'" />
+	</Box>
+
+</HBox>

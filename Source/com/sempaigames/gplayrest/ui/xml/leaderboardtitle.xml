@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<HBox skin:Paint-border="3" widthPt="100" layout:Column-cols="[0, -1]" >
+	
+	<!--url="'http://cdn1.tnwcdn.com/wp-content/blogs.dir/1/files/2012/01/Clover-Square.png'"-->
+	<UrlBmp stretch="true" keepAspect="true" w="100" h="100" name="'title_icon'" />
+
+	<VBox skin:Paint-color="0x111111" >
+		<Text text="'Titulo de test'" defaults="'H1'" name="'title_text'" />
+		<HBox childPadding="20">
+			<Options options="[['Today', 1], ['Weekly', 2], ['All time', 3]]" on-change="onTimeLapseChange($this.value);" />
+			<Options options="[['Social', 1], ['All', 2]]" on-change="onRankTypeChange($this.value);"/>
+		</HBox>
+	</VBox>
+	
+</HBox>
