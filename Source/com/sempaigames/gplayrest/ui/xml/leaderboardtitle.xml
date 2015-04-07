@@ -8,8 +8,8 @@
 	<VBox skin:Paint-color="0x111111" >
 		<Text text="'Titulo de test'" defaults="'H1'" name="'title_text'" />
 		<HBox childPadding="20">
-			<Options options="[['Today', 1], ['Weekly', 2], ['All time', 3]]" on-change="onTimeLapseChange($this.value);" />
-			<Options options="[['Social', 1], ['All', 2]]" on-change="onRankTypeChange($this.value);"/>
+			<Options options="[['All time', 1], ['Weekly', 2], ['Daily', 3]]" on-change="onTimeLapseChange($this.value);" />
+			<Options options="[['Public', 1], ['Social', 2]]" on-change="onRankTypeChange($this.value);"/>
 		</HBox>
 	</VBox>
 	

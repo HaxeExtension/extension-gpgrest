@@ -2,7 +2,7 @@
 
 <HBox skin:Paint-border="2" widthPt="100" layout:Column-cols="[0, 0, -1, 0]" >
 
-	<Box>
+	<Box padding="2" >
 		<Text text="'12'" defaults="'Default'" name="'entry_ranking'" />
 	</Box>
 

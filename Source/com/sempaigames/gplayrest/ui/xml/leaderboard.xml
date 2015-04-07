@@ -6,16 +6,7 @@
 		
 		<meta:include src="com/sempaigames/gplayrest/ui/xml/leaderboardtitle.xml" name="'leaderboard_title'" />
 
-		<VBox padding="5" childPadding="5" widthPt="100" name="'leaderboard_player_entries'" >
-			<meta:include src="com/sempaigames/gplayrest/ui/xml/leaderboardentry.xml" />
-			<meta:include src="com/sempaigames/gplayrest/ui/xml/leaderboardentry.xml" />
-			<meta:include src="com/sempaigames/gplayrest/ui/xml/leaderboardentry.xml" />
-			<meta:include src="com/sempaigames/gplayrest/ui/xml/leaderboardentry.xml" />
-			<meta:include src="com/sempaigames/gplayrest/ui/xml/leaderboardentry.xml" />
-			<meta:include src="com/sempaigames/gplayrest/ui/xml/leaderboardentry.xml" />
-			<meta:include src="com/sempaigames/gplayrest/ui/xml/leaderboardentry.xml" />
-			<meta:include src="com/sempaigames/gplayrest/ui/xml/leaderboardentry.xml" />
-		</VBox>
+		<VBox padding="5" childPadding="5" widthPt="100" name="'leaderboard_player_entries'" />
 
 	</VBox>
 

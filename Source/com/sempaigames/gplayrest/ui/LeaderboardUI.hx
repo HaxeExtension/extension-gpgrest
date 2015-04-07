@@ -20,6 +20,12 @@ class LeaderboardUI extends Sprite {
 
 	var nextPageToken : String;
 	var isLoading : Bool;
+	var isFirstLoad : Bool;
+
+	var displayingTimeSpan : TimeSpan;
+	var loadedTimeSpan : TimeSpan;
+	var displayingRankType : LeaderBoardCollection;
+	var loadedRankType : LeaderBoardCollection;
 
 	public function new(gPlay : GPlay, leaderboardId : String) {
 		super();
@@ -32,6 +38,7 @@ class LeaderboardUI extends Sprite {
 		leaderboard = UIBuilder.buildFn('com/sempaigames/gplayrest/ui/xml/leaderboard.xml')();
 		nextPageToken = "";
 		isLoading = true;
+		isFirstLoad = true;
 
 		this.gPlay = gPlay;
 		this.leaderboardId = leaderboardId;
@@ -41,11 +48,16 @@ class LeaderboardUI extends Sprite {
 		Lib.current.stage.addEventListener(Event.RESIZE, onResize);
 
 		gPlay.Leaderboards_get(leaderboardId)
-			.catchError(function(err) trace("Error :'( " + err))
-			.then(function (leaderboard) {
+			.catchError(function(err) {
+				trace("Error :'( " + err);
+				isLoading = false;
+			}).then(function (leaderboard) {
 				updateTitleBar(leaderboard.iconUrl, leaderboard.name);
 				isLoading = false;
 			});
+
+		displayingTimeSpan = loadedTimeSpan = TimeSpan.ALL_TIME;
+		displayingRankType = loadedRankType = LeaderBoardCollection.PUBLIC;
 
 	}
 
@@ -57,36 +69,58 @@ class LeaderboardUI extends Sprite {
 	}
 	
 	function onEnterFrame() {
-
-		//var scroll = cast(leaderboard, Scroll);
-		/*
-		if (scroll.scrollY == scroll.h - scroll.box.h && !isLoading) {
-			trace("aca");
+		var scroll = cast(leaderboard, Scroll);
+		if (displayingRankType!=loadedRankType || displayingTimeSpan!=loadedTimeSpan) {
+			clearResults();
+			isFirstLoad = true;
+			nextPageToken = "";
+		}
+		if (scroll.h - scroll.box.h - scroll.scrollY >= 0 && !isLoading && 
+			(nextPageToken!="" || isFirstLoad) && nextPageToken!=null) {
 			isLoading = true;
-			gPlay.Scores_list(LeaderBoardCollection.PUBLIC, leaderboardId, TimeSpan.ALL_TIME, 25, nextPageToken)
-				.catchError(function(err) trace("Error :'( " + err))
-				.then(function (scores) {
-					addResults(scores);
+			isFirstLoad = false;
+			var loadingRankType = LeaderBoardCollection.createByIndex(displayingRankType.getIndex());
+			var loadingTimeSpan = TimeSpan.createByIndex(displayingTimeSpan.getIndex());
+			gPlay.Scores_list(loadingRankType, leaderboardId, loadingTimeSpan, 25, nextPageToken)
+				.catchError(function(err) {
+					trace("Error :'( " + err);
 					isLoading = false;
+				}).then(function (scores) {
+					addResults(scores);
+					nextPageToken = scores.nextPageToken;
+					isLoading = false;
+					loadedRankType = loadingRankType;
+					loadedTimeSpan = loadingTimeSpan;
 				});
 		}
-		*/
-		/* else if (scroll.scrollY==0) {
-			
+	}
+
+	function onTimeLapseChange(timeSpan : Dynamic) {
+		switch (timeSpan) {
+			case 1: displayingTimeSpan = TimeSpan.ALL_TIME;
+			case 2: displayingTimeSpan = TimeSpan.WEEKLY;
+			case 3: displayingTimeSpan = TimeSpan.DAILY;
+			default: {}
 		}
-		*/
 	}
 
-	function onTimeLapseChange(timeLapse : Dynamic) {
-		trace(timeLapse);
-	}
-
-	function onRankTypeChange(rankType : Dynamic) {
-		trace(rankType);
+	function onRankTypeChange(leaderboardCollection : Dynamic) {
+		switch (leaderboardCollection) {
+			case 1: displayingRankType = LeaderBoardCollection.PUBLIC;
+			case 2: displayingRankType = LeaderBoardCollection.SOCIAL;
+			default: {}
+		}
 	}
 
 	function clearResults() {
-
+		var entriesBox = leaderboard.getChildAs("leaderboard_player_entries", VBox);
+		while (entriesBox.numChildren>0) {
+			var c = entriesBox.getChildAt(0);
+			if (c!=null) {
+				entriesBox.removeChild(c);
+				cast(c, Widget).free();
+			}
+		}
 	}
 
 	function updateTitleBar(imageUrl : String, title : String) {
@@ -104,7 +138,7 @@ class LeaderboardUI extends Sprite {
 			var rank = entryUI.getChildAs("entry_ranking", Text);
 			var image = entryUI.getChildAs("entry_image", UrlBmp);
 			var name = entryUI.getChildAs("entry_name", Text);
-			var score = entryUI.getChildAs("entry_name", Text);
+			var score = entryUI.getChildAs("entry_score", Text);
 			rank.text = entry.formattedScoreRank;
 			image.url = entry.player.avatarImageUrl;
 			name.text = entry.player.displayName;
