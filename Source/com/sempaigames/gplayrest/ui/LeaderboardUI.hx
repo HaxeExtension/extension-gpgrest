@@ -21,6 +21,7 @@ class LeaderboardUI extends Sprite {
 	var nextPageToken : String;
 	var isLoading : Bool;
 	var isFirstLoad : Bool;
+	var errorCount : Int;
 
 	var displayingTimeSpan : TimeSpan;
 	var loadedTimeSpan : TimeSpan;
@@ -39,6 +40,7 @@ class LeaderboardUI extends Sprite {
 		nextPageToken = "";
 		isLoading = true;
 		isFirstLoad = true;
+		errorCount = 0;
 
 		this.gPlay = gPlay;
 		this.leaderboardId = leaderboardId;
@@ -75,7 +77,7 @@ class LeaderboardUI extends Sprite {
 			isFirstLoad = true;
 			nextPageToken = "";
 		}
-		if (scroll.h - scroll.box.h - scroll.scrollY >= 0 && !isLoading && 
+		if (scroll.h - scroll.box.h - scroll.scrollY >= 0 && !isLoading && errorCount<5 &&
 			(nextPageToken!="" || isFirstLoad) && nextPageToken!=null) {
 			isLoading = true;
 			isFirstLoad = false;
@@ -83,19 +85,21 @@ class LeaderboardUI extends Sprite {
 			var loadingTimeSpan = TimeSpan.createByIndex(displayingTimeSpan.getIndex());
 			gPlay.Scores_list(loadingRankType, leaderboardId, loadingTimeSpan, 25, nextPageToken)
 				.catchError(function(err) {
-					trace("Error :'( " + err);
+					trace("Error :'( " + err + ", err count: " + errorCount);
 					isLoading = false;
+					errorCount++;
 				}).then(function (scores) {
 					addResults(scores);
 					nextPageToken = scores.nextPageToken;
-					isLoading = false;
 					loadedRankType = loadingRankType;
 					loadedTimeSpan = loadingTimeSpan;
+					isLoading = false;
 				});
 		}
 	}
 
 	function onTimeLapseChange(timeSpan : Dynamic) {
+		errorCount = 0;
 		switch (timeSpan) {
 			case 1: displayingTimeSpan = TimeSpan.ALL_TIME;
 			case 2: displayingTimeSpan = TimeSpan.WEEKLY;
@@ -105,6 +109,7 @@ class LeaderboardUI extends Sprite {
 	}
 
 	function onRankTypeChange(leaderboardCollection : Dynamic) {
+		errorCount = 0;
 		switch (leaderboardCollection) {
 			case 1: displayingRankType = LeaderBoardCollection.PUBLIC;
 			case 2: displayingRankType = LeaderBoardCollection.SOCIAL;
