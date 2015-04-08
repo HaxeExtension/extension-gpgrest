@@ -8,7 +8,7 @@ import flash.display.*;
 import flash.utils.ByteArray;
 
 class UrlBmp extends Bmp {
-	
+
 	public var url(default, set) : String;
 
 	public function new() {

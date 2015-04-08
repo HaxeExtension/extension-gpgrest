@@ -30,10 +30,7 @@ class LeaderboardUI extends Sprite {
 
 	public function new(gPlay : GPlay, leaderboardId : String) {
 		super();
-		UIBuilder.setTheme('ru.stablex.ui.themes.android4');
-		UIBuilder.init('com/sempaigames/gplayrest/ui/xml/defaults.xml');
-		UIBuilder.regClass('UrlBmp');
-		UIBuilder.regClass('Loading');
+		Stablex.init();
 		
 		loading = UIBuilder.buildFn('com/sempaigames/gplayrest/ui/xml/loading.xml')();
 		leaderboard = UIBuilder.buildFn('com/sempaigames/gplayrest/ui/xml/leaderboard.xml')();
