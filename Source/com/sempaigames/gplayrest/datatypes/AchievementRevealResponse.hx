@@ -4,7 +4,7 @@ import haxe.Json;
 
 class AchievementRevealResponse extends GoogleDataType {
 
-	var currentState : AchievementState;
+	public var currentState(default, null) : AchievementState;
 
 	public function new(data : String) {
 		super();

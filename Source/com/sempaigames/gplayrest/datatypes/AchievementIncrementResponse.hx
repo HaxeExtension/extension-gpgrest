@@ -4,8 +4,8 @@ import haxe.Json;
 
 class AchievementIncrementResponse extends GoogleDataType {
 
-	public var currentSteps : Int;
-	public var newlyUnlocked : Bool;
+	public var currentSteps(default, null) : Int;
+	public var newlyUnlocked(default, null) : Bool;
 
 	public function new(data : String) {
 		super();
