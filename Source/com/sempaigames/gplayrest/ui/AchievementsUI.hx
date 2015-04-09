@@ -1,21 +1,24 @@
 package com.sempaigames.gplayrest.ui;
 
 import com.sempaigames.gplayrest.GPlay;
+import com.sempaigames.gplayrest.datatypes.AchievementDefinition;
+import com.sempaigames.gplayrest.datatypes.AchievementDefinitionsListResponse;
+import com.sempaigames.gplayrest.datatypes.PlayerAchievementListResponse;
 import flash.events.Event;
 import flash.display.Sprite;
 import flash.Lib;
 import ru.stablex.ui.widgets.*;
 import ru.stablex.ui.UIBuilder;
-import com.sempaigames.gplayrest.datatypes.AchievementDefinitionsListResponse;
-import com.sempaigames.gplayrest.datatypes.PlayerAchievementListResponse;
 
 class AchievementsUI extends Sprite {
 
 	var achievementsUI : Widget;
+	var achievementsToAdd : Array<AchievementDefinition>;
 	var loading : Widget;
 
 	public function new(gPlay : GPlay) {
 		super();
+		achievementsToAdd = [];
 		Stablex.init();
 		achievementsUI = UIBuilder.buildFn('com/sempaigames/gplayrest/ui/xml/achievements.xml')();
 		loading = UIBuilder.buildFn('com/sempaigames/gplayrest/ui/xml/loading.xml')();
@@ -38,9 +41,10 @@ class AchievementsUI extends Sprite {
 		achievementsUI.refresh();
 	}
 
-	function loadAchievements(achievements : AchievementDefinitionsListResponse) {
-		var entriesBox = achievementsUI.getChildAs("achievements_entries", VBox);
-		for (ach in achievements.items) {
+	function onEnterFrame() {
+		var ach = achievementsToAdd.shift();
+		if (ach!=null) {
+			var entriesBox = achievementsUI.getChildAs("achievements_entries", VBox);
 			var entryUI = UIBuilder.buildFn('com/sempaigames/gplayrest/ui/xml/achievemententry.xml')();
 			var image = entryUI.getChildAs("entry_image", UrlBmp);
 			var title = entryUI.getChildAs("entry_title", Text);
@@ -52,6 +56,12 @@ class AchievementsUI extends Sprite {
 			description.text = ach.description;
 			experience.text = Std.string(ach.experiencePoints);
 			entriesBox.addChild(entryUI);
+		}
+	}
+
+	function loadAchievements(achievements : AchievementDefinitionsListResponse) {
+		for (ach in achievements.items) {
+			achievementsToAdd.push(ach);
 		}
 	}
 
