@@ -8,7 +8,7 @@ class PlayerAchievement extends GoogleDataType {
 	public var currentSteps(default, null) : Int;
 	public var formattedCurrentStepsString(default, null) : String;
 	public var achievementState(default, null) : AchievementState;
-	public var lastUpdatedTimestamp(default, null) : Int;
+	public var lastUpdatedTimestamp(default, null) : Float;
 	public var experiencePoints(default, null) : Int;
 
 	public function new(data : String) {

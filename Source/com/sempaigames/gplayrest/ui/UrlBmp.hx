@@ -18,8 +18,7 @@ class UrlBmp extends Bmp {
 		this.url = url;
 		var size = Std.int(Math.max(this.w, this.h));
 		if (url!=null) {
-			url+='=s$size';
-			trace(url);
+			url+='=-s$size';
 			UrlLoader.load(url, onLoadComplete);
 		}
 		return url;

@@ -3,7 +3,7 @@
 <HBox skin:Paint-border="2" skin:Paint-color="0x111111" widthPt="100" layout:Column-cols="[0, -1]" >
 	
 	<Box padding="10" >
-		<UrlBmp stretch="true" keepAspect="true" w="90" h="90" name="'entry_image'" />
+		<ProgressBmp stretch="true" keepAspect="true" w="90" h="90" name="'entry_image'" />
 	</Box>
 
 	<VBox layout:Row-rows="[0, -1, 0]" >

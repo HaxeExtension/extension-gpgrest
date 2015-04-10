@@ -11,6 +11,7 @@ class Stablex {
 			UIBuilder.setTheme('ru.stablex.ui.themes.android4');
 			UIBuilder.init('com/sempaigames/gplayrest/ui/xml/defaults.xml');
 			UIBuilder.regClass('UrlBmp');
+			UIBuilder.regClass('ProgressBmp');
 			UIBuilder.regClass('Loading');
 			initted = true;
 		}

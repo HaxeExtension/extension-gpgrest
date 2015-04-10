@@ -3,17 +3,21 @@ package com.sempaigames.gplayrest.ui;
 import com.sempaigames.gplayrest.GPlay;
 import com.sempaigames.gplayrest.datatypes.AchievementDefinition;
 import com.sempaigames.gplayrest.datatypes.AchievementDefinitionsListResponse;
+import com.sempaigames.gplayrest.datatypes.AchievementState;
+import com.sempaigames.gplayrest.datatypes.PlayerAchievement;
 import com.sempaigames.gplayrest.datatypes.PlayerAchievementListResponse;
 import flash.events.Event;
 import flash.display.Sprite;
 import flash.Lib;
+import openfl.system.Capabilities;
+import promhx.Promise;
 import ru.stablex.ui.widgets.*;
 import ru.stablex.ui.UIBuilder;
 
 class AchievementsUI extends Sprite {
 
 	var achievementsUI : Widget;
-	var achievementsToAdd : Array<AchievementDefinition>;
+	var achievementsToAdd : Array<{definition : AchievementDefinition, state : PlayerAchievement}>;
 	var loading : Widget;
 
 	public function new(gPlay : GPlay) {
@@ -25,43 +29,103 @@ class AchievementsUI extends Sprite {
 		this.addChild(loading);
 		this.addEventListener(Event.ADDED_TO_STAGE, onResize);
 		Lib.current.stage.addEventListener(Event.RESIZE, onResize);
-		gPlay.AchievementDefinitions_list().catchError(function(err) {
+		
+		var pAchievementsDefinition = gPlay.AchievementDefinitions_list();
+		var pAchievementsState = gPlay.Achievements_list("me");
+		pAchievementsDefinition.catchError(function(err) {
 			trace("Error :'( " + err);
-		}).then(function(achievements) {
-			this.removeChild(loading);
-			this.addChild(achievementsUI);
-			loadAchievements(achievements);
 		});
+		pAchievementsState.catchError(function(err) {
+			trace("Error :'( " + err);
+		});
+
+		Promise.when(pAchievementsDefinition, pAchievementsState)
+			.then(function(achievementsDefinition, achievementsState) {
+				this.removeChild(loading);
+				this.addChild(achievementsUI);
+				loadAchievements(achievementsDefinition, achievementsState);
+			});
+
 	}
 
 	function onResize(_) {
-		loading.w = achievementsUI.w = Lib.current.stage.stageWidth;
-		loading.h = achievementsUI.h = Lib.current.stage.stageHeight;
+		var scale = Capabilities.screenDPI / 200;
+		loading.w = Lib.current.stage.stageWidth;
+		loading.h = Lib.current.stage.stageHeight;
+		achievementsUI.w = Lib.current.stage.stageWidth/scale;
+		achievementsUI.h = Lib.current.stage.stageHeight/scale;
+		achievementsUI.scaleX = achievementsUI.scaleY = scale;
 		loading.refresh();
 		achievementsUI.refresh();
 	}
 
 	function onEnterFrame() {
-		var ach = achievementsToAdd.shift();
+		if (achievementsToAdd.length==0) {
+			return;
+		}
+		var ach = null;
+		for (state in [AchievementState.UNLOCKED, AchievementState.REVEALED, AchievementState.HIDDEN]) {
+			for (a in achievementsToAdd) {
+				if (a.state.achievementState==state) {
+					ach = a;
+					break;
+				}
+			}
+			if (ach!=null) {
+				break;
+			}
+		}
 		if (ach!=null) {
+			achievementsToAdd.remove(ach);
+			var definition = ach.definition;
+			var state = ach.state;
 			var entriesBox = achievementsUI.getChildAs("achievements_entries", VBox);
 			var entryUI = UIBuilder.buildFn('com/sempaigames/gplayrest/ui/xml/achievemententry.xml')();
-			var image = entryUI.getChildAs("entry_image", UrlBmp);
+			var image = entryUI.getChildAs("entry_image", ProgressBmp);
 			var title = entryUI.getChildAs("entry_title", Text);
 			var description = entryUI.getChildAs("entry_description", Text);
 			var experience = entryUI.getChildAs("entry_experience", Text);
 			var date = entryUI.getChildAs("entry_date", Text);
-			title.text = ach.name;
-			image.url = ach.unlockedIconUrl;
-			description.text = ach.description;
-			experience.text = Std.string(ach.experiencePoints);
+			title.text = definition.name;
+			description.text = definition.description;
+			experience.text = Std.string(definition.experiencePoints) + " XP";
+
+			if (state.lastUpdatedTimestamp>0) {
+				var d = Date.fromTime(state.lastUpdatedTimestamp);
+				date.text = '${d.getFullYear()}/${d.getMonth()}/${d.getDay()}';
+			} else {
+				date.text = "";
+			}
+
+			switch (state.achievementState) {
+				case UNLOCKED:	{
+					image.url = definition.unlockedIconUrl;
+				}
+				case REVEALED: {
+					switch (definition.achievementType) {
+						case STANDARD: 		image.url = definition.revealedIconUrl;
+						case INCREMENTAL:	image.progress = state.currentSteps/definition.totalSteps;
+					}
+				}
+				case HIDDEN: {
+					title.text = "Secret";
+					description.text = "Keep playing to discover more.";
+					experience.text = "";
+					date.text = "";
+				}
+				default: {}
+			}
 			entriesBox.addChild(entryUI);
 		}
 	}
 
-	function loadAchievements(achievements : AchievementDefinitionsListResponse) {
-		for (ach in achievements.items) {
-			achievementsToAdd.push(ach);
+	function loadAchievements(achievementsDefinition : AchievementDefinitionsListResponse, achievementState : PlayerAchievementListResponse) {
+		for (def in achievementsDefinition.items) {
+			for (state in achievementState.items) {
+				if (state.id == def.id) {
+					achievementsToAdd.push({definition : def, state : state});
+				}
+			}
 		}
 	}
 
