@@ -120,13 +120,18 @@ class AchievementsUI extends Sprite {
 	}
 
 	function loadAchievements(achievementsDefinition : AchievementDefinitionsListResponse, achievementState : PlayerAchievementListResponse) {
+		var nUnlocked = 0;
 		for (def in achievementsDefinition.items) {
 			for (state in achievementState.items) {
 				if (state.id == def.id) {
 					achievementsToAdd.push({definition : def, state : state});
+					if (state.achievementState==AchievementState.UNLOCKED) {
+						nUnlocked++;
+					}
 				}
 			}
 		}
+		achievementsUI.getChildAs("txt_progress", Text).text = '$nUnlocked/${achievementsDefinition.items.length}';
 	}
 
 }
