@@ -5,7 +5,6 @@ import openfl.events.*;
 import openfl.net.*;
 import promhx.Promise;
 import promhx.Deferred;
-import pgr.dconsole.DC;
 
 enum LeaderBoardCollection {
 	PUBLIC;
@@ -56,7 +55,6 @@ class GPlay {
 			if (removeLast) {
 				url = url.substr(0, url.length-1);
 			}
-			DC.log("url: " + url);
 			var request = new URLRequest(url);
 			request.requestHeaders = [new URLRequestHeader("Authorization", "Bearer "+token)];
 			request.method = method;

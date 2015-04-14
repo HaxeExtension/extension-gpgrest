@@ -6,7 +6,7 @@ import com.sempaigames.gplayrest.datatypes.AchievementDefinitionsListResponse;
 import com.sempaigames.gplayrest.datatypes.AchievementState;
 import com.sempaigames.gplayrest.datatypes.PlayerAchievement;
 import com.sempaigames.gplayrest.datatypes.PlayerAchievementListResponse;
-import flash.events.Event;
+import flash.events.*;
 import flash.display.Sprite;
 import flash.Lib;
 import openfl.system.Capabilities;
@@ -29,6 +29,7 @@ class AchievementsUI extends Sprite {
 		this.addChild(loading);
 		this.addEventListener(Event.ADDED_TO_STAGE, onResize);
 		Lib.current.stage.addEventListener(Event.RESIZE, onResize);
+		Lib.current.stage.addEventListener(KeyboardEvent.KEY_UP, onKeyUp);
 		
 		var pAchievementsDefinition = gPlay.AchievementDefinitions_list();
 		var pAchievementsState = gPlay.Achievements_list("me");
@@ -46,6 +47,14 @@ class AchievementsUI extends Sprite {
 				loadAchievements(achievementsDefinition, achievementsState);
 			});
 
+	}
+
+	function onKeyUp(k : KeyboardEvent) {
+		if (k.keyCode==27) {
+			trace("keyup close");
+			k.stopImmediatePropagation();
+			close();
+		}
 	}
 
 	function onResize(_) {
@@ -132,6 +141,17 @@ class AchievementsUI extends Sprite {
 			}
 		}
 		achievementsUI.getChildAs("txt_progress", Text).text = '$nUnlocked/${achievementsDefinition.items.length}';
+	}
+
+	function close() {
+		if (this.parent!=null) {
+			Lib.current.stage.removeEventListener(Event.RESIZE, onResize);
+			Lib.current.stage.removeEventListener(KeyboardEvent.KEY_UP, onKeyUp);
+			var p = this.parent;
+			p.removeChild(this);
+			achievementsUI.free();
+			loading.free();
+		}
 	}
 
 }
