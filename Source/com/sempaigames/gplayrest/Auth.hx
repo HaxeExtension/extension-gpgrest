@@ -7,7 +7,6 @@ import haxe.ds.Option;
 import haxe.Timer;
 import promhx.Deferred;
 import promhx.Promise;
-import pgr.dconsole.DC;
 import extension.webview.WebView;
 
 enum AuthStatus {
@@ -59,7 +58,6 @@ class Auth {
 				}
 			}
 		}
-		//WebView.onClose = function() pgr.dconsole.DC.log("Close webview");
 		WebView.open(authCodeUrl, true, null, ["(http|https)://localhost(.*)"]);
 		#else
 		Lib.getURL(new URLRequest(authCodeUrl));
@@ -69,7 +67,6 @@ class Auth {
 	}
 
 	function getNewTokenUsingCode(code : String) : Promise<String> {
-		DC.log("Get token using code: " + code);
 		var request = new URLRequest("https://www.googleapis.com/oauth2/v3/token");
 		var variables = new URLVariables();
 		var ret = new Deferred<String>();
@@ -104,7 +101,6 @@ class Auth {
 	}
 
 	function getNewTokenUsingRefreshToken(refreshToken : String) : Promise<String> {
-		DC.log("Use refresh token...");
 		var ret = new Deferred<String>();
 		var request = new URLRequest("https://www.googleapis.com/oauth2/v3/token");
 		var variables = new URLVariables();
@@ -125,7 +121,6 @@ class Auth {
 		});
 
 		loader.addEventListener(HTTPStatusEvent.HTTP_STATUS, function(e : HTTPStatusEvent) {
-			DC.log("http status: " + e);
 			if (e.status!=200) {
 				//throw 'Refresh token error: ${e.status}';
 				ret.throwError('Refresh token error: ${e.status}');
@@ -166,10 +161,8 @@ class Auth {
 		if (token!=null && Timer.stamp()<tokenExpireTime) {
 			var ret = new Deferred<String>();
 			ret.resolve(token);
-			DC.log("return cached");
 			return ret.promise();
 		} else if (this.pendingTokenPromise!=null) {
-			DC.log("return pending");
 			return this.pendingTokenPromise;
 		} else {
 			this.pendingTokenPromise = getNewToken();

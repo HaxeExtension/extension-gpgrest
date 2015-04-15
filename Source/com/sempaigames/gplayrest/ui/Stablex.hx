@@ -13,6 +13,7 @@ class Stablex {
 			UIBuilder.regClass('UrlBmp');
 			UIBuilder.regClass('ProgressBmp');
 			UIBuilder.regClass('Loading');
+			UIBuilder.regClass('Grid');
 			initted = true;
 		}
 	}

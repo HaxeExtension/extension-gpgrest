@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<VBox skin:Paint-color="0xffffff" layout:Row-rows="[0, -1]" on-click="onClick($this);" >
+	<Box padding="40">
+		<UrlBmp name="'img'" stretch="true" keepAspect="true" w="200" h="200" />
+	</Box>
+	
+	<Text name="'title'" widthPt="100" text="'Top scores'" label-wordWrap="true" defaults="'H1'" format-color="0x101010" align="'center,top'" />
+	
+</VBox>

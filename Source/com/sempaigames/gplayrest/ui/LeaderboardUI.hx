@@ -1,7 +1,7 @@
 package com.sempaigames.gplayrest.ui;
 
 import com.sempaigames.gplayrest.GPlay;
-import flash.events.Event;
+import flash.events.*;
 import flash.display.Sprite;
 import flash.Lib;
 import ru.stablex.ui.widgets.*;
@@ -45,6 +45,7 @@ class LeaderboardUI extends Sprite {
 		this.addChild(loading);
 		this.addEventListener(Event.ADDED_TO_STAGE, onResize);
 		Lib.current.stage.addEventListener(Event.RESIZE, onResize);
+		Lib.current.stage.addEventListener(KeyboardEvent.KEY_UP, onKeyUp);
 
 		gPlay.Leaderboards_get(leaderboardId)
 			.catchError(function(err) {
@@ -57,6 +58,7 @@ class LeaderboardUI extends Sprite {
 
 		displayingTimeSpan = loadedTimeSpan = TimeSpan.ALL_TIME;
 		displayingRankType = loadedRankType = LeaderBoardCollection.PUBLIC;
+		onResize(null);
 
 	}
 
@@ -146,6 +148,24 @@ class LeaderboardUI extends Sprite {
 			name.text = entry.player.displayName;
 			score.text = entry.formattedScore;
 			entriesBox.addChild(entryUI);
+		}
+	}
+
+	function onKeyUp(k : KeyboardEvent) {
+		if (k.keyCode==27) {
+			k.stopImmediatePropagation();
+			close();
+		}
+	}
+
+	function close() {
+		if (this.parent!=null) {
+			Lib.current.stage.removeEventListener(Event.RESIZE, onResize);
+			Lib.current.stage.removeEventListener(KeyboardEvent.KEY_UP, onKeyUp);
+			var p = this.parent;
+			p.removeChild(this);
+			leaderboard.free();
+			loading.free();
 		}
 	}
 

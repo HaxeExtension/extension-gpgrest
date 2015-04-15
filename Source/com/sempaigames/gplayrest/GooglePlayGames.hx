@@ -1,7 +1,9 @@
 package com.sempaigames.gplayrest;
 
 import com.sempaigames.gplayrest.datatypes.*;
+import com.sempaigames.gplayrest.ui.*;
 import com.sempaigames.gplayrest.GPlay;
+import flash.Lib;
 
 class GooglePlayGames {
 
@@ -22,6 +24,7 @@ class GooglePlayGames {
 	//////////////////////////////////////////////////////////////////////
 
 	public static function displayScoreboard(id:String) : Bool {
+		Lib.current.stage.addChild(new LeaderboardUI(gPlayInstance, id));
 		return false;
 	}
 
@@ -42,6 +45,7 @@ class GooglePlayGames {
 	//////////////////////////////////////////////////////////////////////
 
 	public static function displayAchievements() : Bool {
+		Lib.current.stage.addChild(new AchievementsUI(gPlayInstance));
 		return false;
 	}
 
@@ -99,14 +103,13 @@ class GooglePlayGames {
 
 	//public static function init(stage:flash.display.Stage, enableCloudStorage:Bool){
 	public static function init(clientId : String, clientSecret : String) {
-		gPlayInstance = new GPlay(clientSecret, clientSecret);
+		gPlayInstance = new GPlay(clientId, clientSecret);
 	}
 
 	//////////////////////////////////////////////////////////////////////
 	///////////// UTILS: ID MANAGEMENT
 	//////////////////////////////////////////////////////////////////////
 
-	/*
 	public static var id(default,null):Map<String,String>=new Map<String,String>();
 
 	public static function loadResourcesFromXML(text:String){
@@ -127,7 +130,6 @@ class GooglePlayGames {
 		}
 		return id.get(alias);
 	}
-	*/
 
 	//////////////////////////////////////////////////////////////////////
 	///////////// EVENTS RECEPTION
