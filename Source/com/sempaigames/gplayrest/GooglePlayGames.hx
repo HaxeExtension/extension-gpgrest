@@ -24,11 +24,18 @@ class GooglePlayGames {
 	//////////////////////////////////////////////////////////////////////
 
 	public static function displayScoreboard(id:String) : Bool {
+		if (!isInitted()) {
+			return false;
+		}
 		Lib.current.stage.addChild(new LeaderboardUI(gPlayInstance, id));
 		return false;
 	}
 
 	public static function displayAllScoreboards() : Bool {
+		if (!isInitted()) {
+			return false;
+		}
+		Lib.current.stage.addChild(new AllLeaderboardsUI(gPlayInstance));
 		return false;
 	}
 

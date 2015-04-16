@@ -28,14 +28,24 @@ class AllLeaderboardsUI extends Sprite {
 		Lib.current.stage.addEventListener(KeyboardEvent.KEY_UP, onKeyUp);
 
 		this.addChild(loading);
+		#if mobile
 		gPlay.Leaderboards_list().then(function(leaderboards) {
 			loadLeaderBoards(leaderboards);
 			this.addChild(allLeaderboards);
 			this.removeChild(loading);
+			allLeaderboards.getChildAs("all_leaderboards_entries", Widget).applyLayout();
 		});
-
+		#else
+		haxe.Timer.delay(function() {
+			var leaderboards = new LeaderboardListResponse(openfl.Assets.getText("assets/leaderboardslistresponse.json"));
+			loadLeaderBoards(leaderboards);
+			this.addChild(allLeaderboards);
+			this.removeChild(loading);
+			var entriesBox = allLeaderboards.getChildAs("all_leaderboards_entries", Widget);
+			entriesBox.applyLayout();
+		}, 1);
+		#end
 		onResize(null);
-
 	}
 
 	function onKeyUp(k : KeyboardEvent) {

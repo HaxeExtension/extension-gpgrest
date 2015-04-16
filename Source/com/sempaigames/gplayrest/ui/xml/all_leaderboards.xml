@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<Box skin:Paint-color="0x228866" >
+<Widget skin:Paint-color="0x228866" >
 	<Scroll widthPt="100" heightPt="100" hScroll="false" hBar-visible="false" vBar-visible="false" >
-		<Widget layout:Grid-childPadding="15" widthPt="100" name="'all_leaderboards_entries'" />
+		<Widget layout:Grid-childPadding="15" widthPt="100" name="'all_leaderboards_entries'" skin:Paint-color="0x228866" />
 	</Scroll>
-</Box>
+</Widget>
