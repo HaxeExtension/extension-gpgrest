@@ -24,7 +24,6 @@ class Loading extends Widget {
 	function render() {
 		var radius = Math.min(w, h)/2;
 
-
 		var tmp = new Sprite();
 		var gfx = tmp.graphics;
 		gfx.beginFill(0);

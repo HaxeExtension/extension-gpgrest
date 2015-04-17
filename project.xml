@@ -12,7 +12,6 @@
 	<haxelib name="openfl" />
 	<haxelib name="openfl-webview" />
 	<haxelib name="promhx" />
-	<haxelib name="dconsole" />
 	
 	<assets path="Assets" rename="assets" exclude="openfl.svg" />
 	<icon path="Assets/openfl.svg" />

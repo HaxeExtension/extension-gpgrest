@@ -19,12 +19,13 @@ class UIManager {
 
 	function new() {
 		viewsStack = [];
-		Lib.current.stage.addEventListener(KeyboardEvent.KEY_UP, onKeyUp);
+		Lib.current.stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown, 1000);
+		Lib.current.stage.addEventListener(KeyboardEvent.KEY_UP, onKeyUp, 1000);
 		Lib.current.stage.addEventListener(Event.RESIZE, onResize);
 	}
 
-	function currentView() {
-		return ;
+	function onKeyDown(e : KeyboardEvent) {
+		e.stopImmediatePropagation();
 	}
 
 	function onKeyUp(e : KeyboardEvent) {
@@ -32,6 +33,8 @@ class UIManager {
 		if (v!=null) {
 			v.onKeyUp(e);
 		}
+		e.stopImmediatePropagation();
+		e.stopPropagation();
 	}
 
 	function onResize(e : Event) {

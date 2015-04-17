@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <Widget x="0" y="0" skin:Paint-color="0xee1111" >
-	<Loading name="'loading'" leftPt="25" topPt="25" widthPt="50" heightPt="50" skin:Paint-color="0xeeeeee" />
+	<Loading name="'loading'" leftPt="25" topPt="25" widthPt="50" heightPt="50" />
 </Widget>

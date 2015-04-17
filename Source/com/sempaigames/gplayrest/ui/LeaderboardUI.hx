@@ -9,6 +9,7 @@ import ru.stablex.ui.UIBuilder;
 import com.sempaigames.gplayrest.datatypes.Leaderboard;
 import com.sempaigames.gplayrest.datatypes.LeaderboardScores;
 import com.sempaigames.gplayrest.datatypes.TimeSpan;
+import openfl.system.Capabilities;
 
 class LeaderboardUI extends UI {
 
@@ -59,8 +60,13 @@ class LeaderboardUI extends UI {
 	}
 
 	override public function onResize(_) {
-		loading.w = leaderboard.w = Lib.current.stage.stageWidth;
-		loading.h = leaderboard.h = Lib.current.stage.stageHeight;
+		//var scale = Capabilities.screenDPI / 200;
+		var scale = 1;
+		loading.w = Capabilities.screenResolutionX;
+		loading.h = Capabilities.screenResolutionY;
+		leaderboard.w = Capabilities.screenResolutionX/scale;
+		leaderboard.h = Capabilities.screenResolutionX/scale;
+		leaderboard.scaleX = leaderboard.scaleY = scale;
 		loading.refresh();
 		leaderboard.refresh();
 	}
@@ -154,7 +160,6 @@ class LeaderboardUI extends UI {
 
 	override public function onKeyUp(k : KeyboardEvent) {
 		if (k.keyCode==27) {
-			k.stopImmediatePropagation();
 			UIManager.getInstance().closeCurrentView();
 		}
 	}

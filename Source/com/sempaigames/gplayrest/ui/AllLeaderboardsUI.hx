@@ -46,10 +46,10 @@ class AllLeaderboardsUI extends UI {
 
 	override public function onResize(_) {
 		var scale = Capabilities.screenDPI / 200;
-		loading.w = Lib.current.stage.stageWidth;
-		loading.h = Lib.current.stage.stageHeight;
-		allLeaderboards.w = Lib.current.stage.stageWidth/scale;
-		allLeaderboards.h = Lib.current.stage.stageHeight/scale;
+		loading.w = Capabilities.screenResolutionX;
+		loading.h = Capabilities.screenResolutionY;
+		allLeaderboards.w = Capabilities.screenResolutionX/scale;
+		allLeaderboards.h = Capabilities.screenResolutionY/scale;
 		allLeaderboards.scaleX = allLeaderboards.scaleY = scale;
 		loading.refresh();
 		allLeaderboards.refresh();
@@ -80,8 +80,8 @@ class AllLeaderboardsUI extends UI {
 	}
 
 	override public function onKeyUp(k : KeyboardEvent) {
+		k.stopImmediatePropagation();
 		if (k.keyCode==27) {
-			k.stopImmediatePropagation();
 			UIManager.getInstance().closeCurrentView();
 		}
 	}

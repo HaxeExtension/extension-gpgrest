@@ -27,7 +27,7 @@ class GooglePlayGames {
 		if (!isInitted()) {
 			return false;
 		}
-		Lib.current.stage.addChild(new LeaderboardUI(gPlayInstance, id));
+		UIManager.getInstance().showLeaderboard(gPlayInstance, id);
 		return false;
 	}
 
@@ -35,7 +35,7 @@ class GooglePlayGames {
 		if (!isInitted()) {
 			return false;
 		}
-		Lib.current.stage.addChild(new AllLeaderboardsUI(gPlayInstance));
+		UIManager.getInstance().showAllLeaderboards(gPlayInstance);
 		return false;
 	}
 
@@ -52,7 +52,7 @@ class GooglePlayGames {
 	//////////////////////////////////////////////////////////////////////
 
 	public static function displayAchievements() : Bool {
-		Lib.current.stage.addChild(new AchievementsUI(gPlayInstance));
+		UIManager.getInstance().showAchievements(gPlayInstance);
 		return false;
 	}
 
@@ -105,7 +105,7 @@ class GooglePlayGames {
 	//////////////////////////////////////////////////////////////////////
 
 	static function isInitted() : Bool {
-		return (gPlayInstance==null /*||*/ );
+		return (gPlayInstance!=null);
 	}
 
 	//public static function init(stage:flash.display.Stage, enableCloudStorage:Bool){
