@@ -9,7 +9,7 @@ import flash.display.Sprite;
 import flash.Lib;
 import openfl.system.Capabilities;
 
-class AllLeaderboardsUI extends Sprite {
+class AllLeaderboardsUI extends UI {
 
 	var allLeaderboards : Widget;
 	var loading : Widget;
@@ -23,9 +23,6 @@ class AllLeaderboardsUI extends Sprite {
 		this.btnLeaderboardId = new Map<Widget, String>();
 		loading = UIBuilder.buildFn('com/sempaigames/gplayrest/ui/xml/loading.xml')();
 		allLeaderboards = UIBuilder.buildFn('com/sempaigames/gplayrest/ui/xml/all_leaderboards.xml')();
-
-		Lib.current.stage.addEventListener(Event.RESIZE, onResize);
-		Lib.current.stage.addEventListener(KeyboardEvent.KEY_UP, onKeyUp);
 
 		this.addChild(loading);
 		#if mobile
@@ -45,17 +42,9 @@ class AllLeaderboardsUI extends Sprite {
 			entriesBox.applyLayout();
 		}, 1);
 		#end
-		onResize(null);
 	}
 
-	function onKeyUp(k : KeyboardEvent) {
-		if (k.keyCode==27) {
-			k.stopImmediatePropagation();
-			close();
-		}
-	}
-
-	function onResize(_) {
+	override public function onResize(_) {
 		var scale = Capabilities.screenDPI / 200;
 		loading.w = Lib.current.stage.stageWidth;
 		loading.h = Lib.current.stage.stageHeight;
@@ -67,8 +56,7 @@ class AllLeaderboardsUI extends Sprite {
 	}
 
 	function onClick(w : Widget) {
-		trace("asasdasd:::: " + btnLeaderboardId[w]);
-		Lib.current.stage.addChild(new LeaderboardUI(gPlay, btnLeaderboardId[w]));
+		UIManager.getInstance().showLeaderboard(gPlay, btnLeaderboardId[w]);
 	}
 
 	function loadLeaderBoards(leaderboards : LeaderboardListResponse) {
@@ -86,14 +74,15 @@ class AllLeaderboardsUI extends Sprite {
 		}
 	}
 
-	function close() {
-		if (this.parent!=null) {
-			Lib.current.stage.removeEventListener(Event.RESIZE, onResize);
-			Lib.current.stage.removeEventListener(KeyboardEvent.KEY_UP, onKeyUp);
-			var p = this.parent;
-			p.removeChild(this);
-			allLeaderboards.free();
-			loading.free();
+	override public function onClose() {
+		allLeaderboards.free();
+		loading.free();
+	}
+
+	override public function onKeyUp(k : KeyboardEvent) {
+		if (k.keyCode==27) {
+			k.stopImmediatePropagation();
+			UIManager.getInstance().closeCurrentView();
 		}
 	}
 

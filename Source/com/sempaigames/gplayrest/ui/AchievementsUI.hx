@@ -14,7 +14,7 @@ import promhx.Promise;
 import ru.stablex.ui.widgets.*;
 import ru.stablex.ui.UIBuilder;
 
-class AchievementsUI extends Sprite {
+class AchievementsUI extends UI {
 
 	var achievementsUI : Widget;
 	var achievementsToAdd : Array<{definition : AchievementDefinition, state : PlayerAchievement}>;
@@ -27,9 +27,6 @@ class AchievementsUI extends Sprite {
 		achievementsUI = UIBuilder.buildFn('com/sempaigames/gplayrest/ui/xml/achievements.xml')();
 		loading = UIBuilder.buildFn('com/sempaigames/gplayrest/ui/xml/loading.xml')();
 		this.addChild(loading);
-		this.addEventListener(Event.ADDED_TO_STAGE, onResize);
-		Lib.current.stage.addEventListener(Event.RESIZE, onResize);
-		Lib.current.stage.addEventListener(KeyboardEvent.KEY_UP, onKeyUp);
 		
 		var pAchievementsDefinition = gPlay.AchievementDefinitions_list();
 		var pAchievementsState = gPlay.Achievements_list("me");
@@ -49,15 +46,7 @@ class AchievementsUI extends Sprite {
 
 	}
 
-	function onKeyUp(k : KeyboardEvent) {
-		if (k.keyCode==27) {
-			trace("keyup close");
-			k.stopImmediatePropagation();
-			close();
-		}
-	}
-
-	function onResize(_) {
+	override public function onResize(_) {
 		var scale = Capabilities.screenDPI / 200;
 		loading.w = Lib.current.stage.stageWidth;
 		loading.h = Lib.current.stage.stageHeight;
@@ -143,14 +132,15 @@ class AchievementsUI extends Sprite {
 		achievementsUI.getChildAs("txt_progress", Text).text = '$nUnlocked/${achievementsDefinition.items.length}';
 	}
 
-	function close() {
-		if (this.parent!=null) {
-			Lib.current.stage.removeEventListener(Event.RESIZE, onResize);
-			Lib.current.stage.removeEventListener(KeyboardEvent.KEY_UP, onKeyUp);
-			var p = this.parent;
-			p.removeChild(this);
-			achievementsUI.free();
-			loading.free();
+	override public function onClose() {
+		achievementsUI.free();
+		loading.free();
+	}
+
+	override public function onKeyUp(k : KeyboardEvent) {
+		if (k.keyCode==27) {
+			k.stopImmediatePropagation();
+			UIManager.getInstance().closeCurrentView();
 		}
 	}
 

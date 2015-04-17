@@ -3,7 +3,7 @@
 <HBox widthPt="100" skin:Paint-color="0x222222" skin:Paint-border="2" >
 
 	<Widget heightPt="100">
-		<Bmp src="'assets/back.png'" heightPt="100" stretch="true" keepAspect="true" on-click="close();" />
+		<Bmp src="'assets/back.png'" heightPt="100" stretch="true" keepAspect="true" on-click="UIManager.getInstance().closeCurrentView();" />
 	</Widget>
 
 	<HBox widthPt="100">

@@ -10,7 +10,7 @@ import com.sempaigames.gplayrest.datatypes.Leaderboard;
 import com.sempaigames.gplayrest.datatypes.LeaderboardScores;
 import com.sempaigames.gplayrest.datatypes.TimeSpan;
 
-class LeaderboardUI extends Sprite {
+class LeaderboardUI extends UI {
 
 	var leaderboard : Widget;
 	var loading : Widget;
@@ -43,9 +43,6 @@ class LeaderboardUI extends Sprite {
 		this.leaderboardId = leaderboardId;
 
 		this.addChild(loading);
-		this.addEventListener(Event.ADDED_TO_STAGE, onResize);
-		Lib.current.stage.addEventListener(Event.RESIZE, onResize);
-		Lib.current.stage.addEventListener(KeyboardEvent.KEY_UP, onKeyUp);
 
 		gPlay.Leaderboards_get(leaderboardId)
 			.catchError(function(err) {
@@ -58,11 +55,10 @@ class LeaderboardUI extends Sprite {
 
 		displayingTimeSpan = loadedTimeSpan = TimeSpan.ALL_TIME;
 		displayingRankType = loadedRankType = LeaderBoardCollection.PUBLIC;
-		onResize(null);
 
 	}
 
-	function onResize(_) {
+	override public function onResize(_) {
 		loading.w = leaderboard.w = Lib.current.stage.stageWidth;
 		loading.h = leaderboard.h = Lib.current.stage.stageHeight;
 		loading.refresh();
@@ -151,21 +147,15 @@ class LeaderboardUI extends Sprite {
 		}
 	}
 
-	function onKeyUp(k : KeyboardEvent) {
-		if (k.keyCode==27) {
-			k.stopImmediatePropagation();
-			close();
-		}
+	override public function onClose() {
+		leaderboard.free();
+		loading.free();
 	}
 
-	function close() {
-		if (this.parent!=null) {
-			Lib.current.stage.removeEventListener(Event.RESIZE, onResize);
-			Lib.current.stage.removeEventListener(KeyboardEvent.KEY_UP, onKeyUp);
-			var p = this.parent;
-			p.removeChild(this);
-			leaderboard.free();
-			loading.free();
+	override public function onKeyUp(k : KeyboardEvent) {
+		if (k.keyCode==27) {
+			k.stopImmediatePropagation();
+			UIManager.getInstance().closeCurrentView();
 		}
 	}
 

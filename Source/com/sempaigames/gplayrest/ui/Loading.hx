@@ -59,6 +59,6 @@ class Loading extends Widget {
 	override public function onResize() : Void {
 		super.onResize();
 		render();
-    }
+	}
 
 }
