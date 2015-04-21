@@ -48,10 +48,17 @@ class AchievementsUI extends UI {
 
 	override public function onResize(_) {
 		var scale = Capabilities.screenDPI / 200;
-		loading.w = Capabilities.screenResolutionX;
-		loading.h = Capabilities.screenResolutionY;
-		achievementsUI.w = Capabilities.screenResolutionX/scale;
-		achievementsUI.h = Capabilities.screenResolutionY/scale;
+		#if desktop
+		var sx = Lib.current.stage.stageWidth;
+		var sy = Lib.current.stage.stageHeight;
+		#else
+		var sx = Capabilities.screenResolutionX;
+		var sy = Capabilities.screenResolutionY;
+		#end
+		loading.w = sx;
+		loading.h = sy;
+		achievementsUI.w = sx/scale;
+		achievementsUI.h = sy/scale;
 		achievementsUI.scaleX = achievementsUI.scaleY = scale;
 		loading.refresh();
 		achievementsUI.refresh();
