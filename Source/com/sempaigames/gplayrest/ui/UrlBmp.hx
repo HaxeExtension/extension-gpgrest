@@ -19,13 +19,18 @@ class UrlBmp extends Bmp {
 		var size = Std.int(Math.max(this.w, this.h));
 		if (url!=null) {
 			url+='=-s$size';
-			UrlLoader.load(url, onLoadComplete);
+			var cachedBmp = BmpDataCache.getInstance().get(url);
+			if (cachedBmp!=null) {
+				trace("load cached bmp : " + url);
+				onBitmapDataLoaded(cachedBmp);
+			} else {
+				UrlLoader.load(url, onLoadComplete.bind(url));
+			}
 		}
 		return url;
 	}
 
-	function onLoadComplete(e : Event) {
-		
+	function onLoadComplete(url : String, e : Event) {
 		var b : String = e.target.data;
 		var arr = new ByteArray();
 		arr.writeUTFBytes(b);
@@ -33,10 +38,13 @@ class UrlBmp extends Bmp {
 			return;
 		}
 		var bmpData : BitmapData = BitmapData.loadFromBytes(arr);
+		BmpDataCache.getInstance().set(url, bmpData);
+		onBitmapDataLoaded(bmpData);
+	}
+
+	function onBitmapDataLoaded(bmpData : BitmapData) {
 		this.bitmapData = bmpData;
-
 		this.refresh();
-
 	}
 
 }
