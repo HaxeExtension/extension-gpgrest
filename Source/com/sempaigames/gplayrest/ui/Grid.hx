@@ -12,26 +12,23 @@ class Grid extends Layout {
 
 	public function new() {
 		super();
-		childWidth = 300;
-		childHeight = 400;
+		childWidth = 200;
+		childHeight = 280;
 		childPadding = 15;
 	}
 
 	function set_childWidth(w : Float) : Float {
 		this.childWidth = w;
-		//arrangeChildren();
 		return w;
 	}
 
 	function set_childHeight(h : Float) : Float {
 		this.childHeight = h;
-		//arrangeChildren();
 		return h;
 	}
 
 	function set_childPadding(p : Float) : Float {
 		this.childPadding = p;
-		//arrangeChildren();
 		return p;
 	}
 

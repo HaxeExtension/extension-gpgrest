@@ -65,6 +65,14 @@ class GPlay {
 				}
 			});
 			loader.addEventListener(Event.COMPLETE, function(e : Event) {
+				/*
+				trace("B=====================================================");
+				var str : String = e.target.data;
+				for (s in str.split("\n")) {
+					trace(s);
+				}
+				trace("E=====================================================");
+				*/
 				ret.resolve(Ok(e.target.data));
 			});
 			loader.load(request);

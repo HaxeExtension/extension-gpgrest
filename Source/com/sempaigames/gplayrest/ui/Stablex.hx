@@ -1,6 +1,9 @@
 package com.sempaigames.gplayrest.ui;
 
+import flash.display.BitmapData;
 import ru.stablex.ui.UIBuilder;
+
+@:bitmap("Assets/gplusweb_back.png") class BackBmp extends BitmapData {}
 
 class Stablex {
 	
@@ -17,5 +20,10 @@ class Stablex {
 			initted = true;
 		}
 	}
+
+	public static function getBackBmp() {
+		return new BackBmp(0, 0);
+	}
+
 
 }

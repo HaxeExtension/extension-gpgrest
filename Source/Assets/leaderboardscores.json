@@ -1,0 +1,952 @@
+{
+  "kind": "games#leaderboardScores",
+  "nextPageToken": "ChUxMDExOTI4Njc4MTc5NTcwMzIxOTESEkNna0ktYmZlcmFjS0VBSVFQURoVMTA2MzE0NTQwMjI0MDQwMDM4MDM2II6QByoECAEQATACOBlg3f2DibwpaOek-LfNKXCNsdKzzSk",
+  "numScores": "569",
+  "playerScore": {
+    "kind": "games#leaderboardEntry",
+    "player": {
+      "kind": "games#player",
+      "playerId": "101192867817957032191",
+      "displayName": "Daniel Uranga",
+      "avatarImageUrl": "http://lh3.googleusercontent.com/-1vq686wGKz8/AAAAAAAAAAI/AAAAAAAABh0/iidKM7H0EbQ/photo.jpg",
+      "name": {
+        "familyName": "Uranga",
+        "givenName": "Daniel"
+      },
+      "experienceInfo": {
+        "kind": "games#playerExperienceInfo",
+        "currentExperiencePoints": "52000",
+        "lastLevelUpTimestampMillis": "1421018731053",
+        "currentLevel": {
+          "kind": "games#playerLevel",
+          "level": 9,
+          "minExperiencePoints": "50000",
+          "maxExperiencePoints": "60000"
+        },
+        "nextLevel": {
+          "kind": "games#playerLevel",
+          "level": 10,
+          "minExperiencePoints": "60000",
+          "maxExperiencePoints": "70000"
+        }
+      },
+      "title": "Top Gun"
+    },
+    "scoreRank": "357",
+    "formattedScoreRank": "357th",
+    "scoreValue": "1750",
+    "formattedScore": "1,750",
+    "timeSpan": "ALL_TIME",
+    "writeTimestampMillis": "1428690966526"
+  },
+  "items": [
+    {
+      "kind": "games#leaderboardEntry",
+      "player": {
+        "kind": "games#player",
+        "playerId": "103988359796210018783",
+        "displayName": "aliasaa smatti",
+        "name": {
+          "familyName": "smatti",
+          "givenName": "aliasaa"
+        },
+        "experienceInfo": {
+          "kind": "games#playerExperienceInfo",
+          "currentExperiencePoints": "49500",
+          "lastLevelUpTimestampMillis": "1411591264120",
+          "currentLevel": {
+            "kind": "games#playerLevel",
+            "level": 8,
+            "minExperiencePoints": "40000",
+            "maxExperiencePoints": "50000"
+          },
+          "nextLevel": {
+            "kind": "games#playerLevel",
+            "level": 9,
+            "minExperiencePoints": "50000",
+            "maxExperiencePoints": "60000"
+          }
+        },
+        "title": "Casual Games Master"
+      },
+      "scoreRank": "1",
+      "formattedScoreRank": "1st",
+      "scoreValue": "6845450",
+      "formattedScore": "6,845,450",
+      "timeSpan": "ALL_TIME",
+      "writeTimestampMillis": "1424092517027"
+    },
+    {
+      "kind": "games#leaderboardEntry",
+      "player": {
+        "kind": "games#player",
+        "playerId": "104848183094763514704",
+        "displayName": "Maisaroh Siregar",
+        "name": {
+          "familyName": "Siregar",
+          "givenName": "Maisaroh"
+        },
+        "experienceInfo": {
+          "kind": "games#playerExperienceInfo",
+          "currentExperiencePoints": "33000",
+          "lastLevelUpTimestampMillis": "1423470513144",
+          "currentLevel": {
+            "kind": "games#playerLevel",
+            "level": 7,
+            "minExperiencePoints": "30000",
+            "maxExperiencePoints": "40000"
+          },
+          "nextLevel": {
+            "kind": "games#playerLevel",
+            "level": 8,
+            "minExperiencePoints": "40000",
+            "maxExperiencePoints": "50000"
+          }
+        },
+        "title": "Casual Games Master"
+      },
+      "scoreRank": "2",
+      "formattedScoreRank": "2nd",
+      "scoreValue": "5644000",
+      "formattedScore": "5,644,000",
+      "timeSpan": "ALL_TIME",
+      "writeTimestampMillis": "1426759291475"
+    },
+    {
+      "kind": "games#leaderboardEntry",
+      "player": {
+        "kind": "games#player",
+        "playerId": "114851592871869785491",
+        "displayName": "clyde frog",
+        "avatarImageUrl": "http://lh5.googleusercontent.com/-0Q3mswXxpos/AAAAAAAAAAI/AAAAAAAAAiU/1zf0OikhAkg/photo.jpg",
+        "name": {
+          "familyName": "frog",
+          "givenName": "clyde"
+        },
+        "experienceInfo": {
+          "kind": "games#playerExperienceInfo",
+          "currentExperiencePoints": "53000",
+          "lastLevelUpTimestampMillis": "1419962590662",
+          "currentLevel": {
+            "kind": "games#playerLevel",
+            "level": 9,
+            "minExperiencePoints": "50000",
+            "maxExperiencePoints": "60000"
+          },
+          "nextLevel": {
+            "kind": "games#playerLevel",
+            "level": 10,
+            "minExperiencePoints": "60000",
+            "maxExperiencePoints": "70000"
+          }
+        },
+        "title": "Casual Games Master"
+      },
+      "scoreRank": "3",
+      "formattedScoreRank": "3rd",
+      "scoreValue": "3707900",
+      "formattedScore": "3,707,900",
+      "timeSpan": "ALL_TIME",
+      "writeTimestampMillis": "1421240238335"
+    },
+    {
+      "kind": "games#leaderboardEntry",
+      "player": {
+        "kind": "games#player",
+        "playerId": "111405238385663430873",
+        "displayName": "Federico Bricker",
+        "avatarImageUrl": "http://lh5.googleusercontent.com/-sq65Q00hv_U/AAAAAAAAAAI/AAAAAAAAcKg/6b9vvlTyB0M/photo.jpg",
+        "name": {
+          "familyName": "Bricker",
+          "givenName": "Federico"
+        },
+        "experienceInfo": {
+          "kind": "games#playerExperienceInfo",
+          "currentExperiencePoints": "0",
+          "currentLevel": {
+            "kind": "games#playerLevel",
+            "level": 1,
+            "minExperiencePoints": "0",
+            "maxExperiencePoints": "1000"
+          },
+          "nextLevel": {
+            "kind": "games#playerLevel",
+            "level": 2,
+            "minExperiencePoints": "1000",
+            "maxExperiencePoints": "2500"
+          }
+        },
+        "title": "Rookie"
+      },
+      "scoreRank": "4",
+      "formattedScoreRank": "4th",
+      "scoreValue": "1004143",
+      "formattedScore": "1,004,143",
+      "timeSpan": "ALL_TIME",
+      "writeTimestampMillis": "1410906412578"
+    },
+    {
+      "kind": "games#leaderboardEntry",
+      "player": {
+        "kind": "games#player",
+        "playerId": "117842577446927936185",
+        "displayName": "joacko bengochea",
+        "name": {
+          "familyName": "bengochea",
+          "givenName": "joacko"
+        },
+        "experienceInfo": {
+          "kind": "games#playerExperienceInfo",
+          "currentExperiencePoints": "388000",
+          "lastLevelUpTimestampMillis": "1420462666358",
+          "currentLevel": {
+            "kind": "games#playerLevel",
+            "level": 19,
+            "minExperiencePoints": "350000",
+            "maxExperiencePoints": "400000"
+          },
+          "nextLevel": {
+            "kind": "games#playerLevel",
+            "level": 20,
+            "minExperiencePoints": "400000",
+            "maxExperiencePoints": "450000"
+          }
+        },
+        "title": "Puzzle Master"
+      },
+      "scoreRank": "5",
+      "formattedScoreRank": "5th",
+      "scoreValue": "583350",
+      "formattedScore": "583,350",
+      "timeSpan": "ALL_TIME",
+      "writeTimestampMillis": "1414900230761"
+    },
+    {
+      "kind": "games#leaderboardEntry",
+      "player": {
+        "kind": "games#player",
+        "playerId": "105554872550815078708",
+        "displayName": "marine lartigue",
+        "name": {
+          "familyName": "lartigue",
+          "givenName": "marine"
+        },
+        "experienceInfo": {
+          "kind": "games#playerExperienceInfo",
+          "currentExperiencePoints": "24500",
+          "lastLevelUpTimestampMillis": "1424696745991",
+          "currentLevel": {
+            "kind": "games#playerLevel",
+            "level": 6,
+            "minExperiencePoints": "20000",
+            "maxExperiencePoints": "30000"
+          },
+          "nextLevel": {
+            "kind": "games#playerLevel",
+            "level": 7,
+            "minExperiencePoints": "30000",
+            "maxExperiencePoints": "40000"
+          }
+        },
+        "title": "Casual Games Master"
+      },
+      "scoreRank": "6",
+      "formattedScoreRank": "6th",
+      "scoreValue": "489500",
+      "formattedScore": "489,500",
+      "timeSpan": "ALL_TIME",
+      "writeTimestampMillis": "1426443305455"
+    },
+    {
+      "kind": "games#leaderboardEntry",
+      "player": {
+        "kind": "games#player",
+        "playerId": "110747235906739136725",
+        "displayName": "Галина КС",
+        "name": {
+          "familyName": "КС",
+          "givenName": "Галина"
+        },
+        "experienceInfo": {
+          "kind": "games#playerExperienceInfo",
+          "currentExperiencePoints": "8500",
+          "lastLevelUpTimestampMillis": "1423657696572",
+          "currentLevel": {
+            "kind": "games#playerLevel",
+            "level": 4,
+            "minExperiencePoints": "5000",
+            "maxExperiencePoints": "10000"
+          },
+          "nextLevel": {
+            "kind": "games#playerLevel",
+            "level": 5,
+            "minExperiencePoints": "10000",
+            "maxExperiencePoints": "20000"
+          }
+        },
+        "title": "Casual Games Pro"
+      },
+      "scoreRank": "7",
+      "formattedScoreRank": "7th",
+      "scoreValue": "377250",
+      "formattedScore": "377,250",
+      "timeSpan": "ALL_TIME",
+      "writeTimestampMillis": "1429017677677"
+    },
+    {
+      "kind": "games#leaderboardEntry",
+      "player": {
+        "kind": "games#player",
+        "playerId": "100077951714373241924",
+        "displayName": "maulu dina Novia",
+        "avatarImageUrl": "http://lh4.googleusercontent.com/-7XfebAIfqh8/AAAAAAAAAAI/AAAAAAAAACU/PK5h5edGls0/photo.jpg",
+        "name": {
+          "familyName": "Novia",
+          "givenName": "maulu dina"
+        },
+        "experienceInfo": {
+          "kind": "games#playerExperienceInfo",
+          "currentExperiencePoints": "16500",
+          "lastLevelUpTimestampMillis": "1428584350055",
+          "currentLevel": {
+            "kind": "games#playerLevel",
+            "level": 5,
+            "minExperiencePoints": "10000",
+            "maxExperiencePoints": "20000"
+          },
+          "nextLevel": {
+            "kind": "games#playerLevel",
+            "level": 6,
+            "minExperiencePoints": "20000",
+            "maxExperiencePoints": "30000"
+          }
+        },
+        "title": "Casual Games Master"
+      },
+      "scoreRank": "8",
+      "formattedScoreRank": "8th",
+      "scoreValue": "374150",
+      "formattedScore": "374,150",
+      "timeSpan": "ALL_TIME",
+      "writeTimestampMillis": "1428881425189"
+    },
+    {
+      "kind": "games#leaderboardEntry",
+      "player": {
+        "kind": "games#player",
+        "playerId": "114538026769884732472",
+        "displayName": "Komang Rayani",
+        "name": {
+          "familyName": "Rayani",
+          "givenName": "Komang"
+        },
+        "experienceInfo": {
+          "kind": "games#playerExperienceInfo",
+          "currentExperiencePoints": "23000",
+          "lastLevelUpTimestampMillis": "1425960141830",
+          "currentLevel": {
+            "kind": "games#playerLevel",
+            "level": 6,
+            "minExperiencePoints": "20000",
+            "maxExperiencePoints": "30000"
+          },
+          "nextLevel": {
+            "kind": "games#playerLevel",
+            "level": 7,
+            "minExperiencePoints": "30000",
+            "maxExperiencePoints": "40000"
+          }
+        },
+        "title": "Casual Games Master"
+      },
+      "scoreRank": "9",
+      "formattedScoreRank": "9th",
+      "scoreValue": "357000",
+      "formattedScore": "357,000",
+      "timeSpan": "ALL_TIME",
+      "writeTimestampMillis": "1427284113614"
+    },
+    {
+      "kind": "games#leaderboardEntry",
+      "player": {
+        "kind": "games#player",
+        "playerId": "117094880556972289375",
+        "displayName": "안후남",
+        "name": {
+          "familyName": "안",
+          "givenName": "후남"
+        },
+        "experienceInfo": {
+          "kind": "games#playerExperienceInfo",
+          "currentExperiencePoints": "8000",
+          "lastLevelUpTimestampMillis": "1418045238277",
+          "currentLevel": {
+            "kind": "games#playerLevel",
+            "level": 4,
+            "minExperiencePoints": "5000",
+            "maxExperiencePoints": "10000"
+          },
+          "nextLevel": {
+            "kind": "games#playerLevel",
+            "level": 5,
+            "minExperiencePoints": "10000",
+            "maxExperiencePoints": "20000"
+          }
+        },
+        "title": "Casual Games Pro"
+      },
+      "scoreRank": "10",
+      "formattedScoreRank": "10th",
+      "scoreValue": "326450",
+      "formattedScore": "326,450",
+      "timeSpan": "ALL_TIME",
+      "writeTimestampMillis": "1421658378930"
+    },
+    {
+      "kind": "games#leaderboardEntry",
+      "player": {
+        "kind": "games#player",
+        "playerId": "101826947317157333504",
+        "displayName": "Boylang Thang",
+        "name": {
+          "familyName": "Thang",
+          "givenName": "Boylang"
+        },
+        "experienceInfo": {
+          "kind": "games#playerExperienceInfo",
+          "currentExperiencePoints": "13500",
+          "lastLevelUpTimestampMillis": "1425112450168",
+          "currentLevel": {
+            "kind": "games#playerLevel",
+            "level": 5,
+            "minExperiencePoints": "10000",
+            "maxExperiencePoints": "20000"
+          },
+          "nextLevel": {
+            "kind": "games#playerLevel",
+            "level": 6,
+            "minExperiencePoints": "20000",
+            "maxExperiencePoints": "30000"
+          }
+        },
+        "title": "Casual Games Master"
+      },
+      "scoreRank": "11",
+      "formattedScoreRank": "11th",
+      "scoreValue": "282650",
+      "formattedScore": "282,650",
+      "timeSpan": "ALL_TIME",
+      "writeTimestampMillis": "1425112449603"
+    },
+    {
+      "kind": "games#leaderboardEntry",
+      "player": {
+        "kind": "games#player",
+        "playerId": "115702083002342842123",
+        "displayName": "Augusto P",
+        "avatarImageUrl": "http://lh3.googleusercontent.com/-YLbMR7p-04k/AAAAAAAAAAI/AAAAAAAAAGA/keeavoe0fCA/photo.jpg",
+        "name": {
+          "familyName": "P",
+          "givenName": "Augusto"
+        },
+        "experienceInfo": {
+          "kind": "games#playerExperienceInfo",
+          "currentExperiencePoints": "0",
+          "currentLevel": {
+            "kind": "games#playerLevel",
+            "level": 1,
+            "minExperiencePoints": "0",
+            "maxExperiencePoints": "1000"
+          },
+          "nextLevel": {
+            "kind": "games#playerLevel",
+            "level": 2,
+            "minExperiencePoints": "1000",
+            "maxExperiencePoints": "2500"
+          }
+        },
+        "title": "Rookie"
+      },
+      "scoreRank": "12",
+      "formattedScoreRank": "12th",
+      "scoreValue": "271800",
+      "formattedScore": "271,800",
+      "timeSpan": "ALL_TIME",
+      "writeTimestampMillis": "1413041009149"
+    },
+    {
+      "kind": "games#leaderboardEntry",
+      "player": {
+        "kind": "games#player",
+        "playerId": "107983377585988749571",
+        "displayName": "Bangun Puji",
+        "avatarImageUrl": "http://lh6.googleusercontent.com/-YBSui9kADOc/AAAAAAAAAAI/AAAAAAAAADY/A67cPeVvrog/photo.jpg",
+        "name": {
+          "familyName": "Puji",
+          "givenName": "Bangun"
+        },
+        "experienceInfo": {
+          "kind": "games#playerExperienceInfo",
+          "currentExperiencePoints": "21000",
+          "lastLevelUpTimestampMillis": "1428114385255",
+          "currentLevel": {
+            "kind": "games#playerLevel",
+            "level": 6,
+            "minExperiencePoints": "20000",
+            "maxExperiencePoints": "30000"
+          },
+          "nextLevel": {
+            "kind": "games#playerLevel",
+            "level": 7,
+            "minExperiencePoints": "30000",
+            "maxExperiencePoints": "40000"
+          }
+        },
+        "title": "Speed Demon"
+      },
+      "scoreRank": "13",
+      "formattedScoreRank": "13th",
+      "scoreValue": "240750",
+      "formattedScore": "240,750",
+      "timeSpan": "ALL_TIME",
+      "writeTimestampMillis": "1429536117351"
+    },
+    {
+      "kind": "games#leaderboardEntry",
+      "player": {
+        "kind": "games#player",
+        "playerId": "101329398780811794939",
+        "displayName": "森川良子",
+        "name": {
+          "familyName": "森川",
+          "givenName": "良子"
+        },
+        "experienceInfo": {
+          "kind": "games#playerExperienceInfo",
+          "currentExperiencePoints": "8000",
+          "lastLevelUpTimestampMillis": "1417247402896",
+          "currentLevel": {
+            "kind": "games#playerLevel",
+            "level": 4,
+            "minExperiencePoints": "5000",
+            "maxExperiencePoints": "10000"
+          },
+          "nextLevel": {
+            "kind": "games#playerLevel",
+            "level": 5,
+            "minExperiencePoints": "10000",
+            "maxExperiencePoints": "20000"
+          }
+        },
+        "title": "Casual Games Pro"
+      },
+      "scoreRank": "14",
+      "formattedScoreRank": "14th",
+      "scoreValue": "203600",
+      "formattedScore": "203,600",
+      "timeSpan": "ALL_TIME",
+      "writeTimestampMillis": "1421047461150"
+    },
+    {
+      "kind": "games#leaderboardEntry",
+      "player": {
+        "kind": "games#player",
+        "playerId": "114554512195205056043",
+        "displayName": "Jana Hermanova",
+        "name": {
+          "familyName": "Hermanova",
+          "givenName": "Jana"
+        },
+        "experienceInfo": {
+          "kind": "games#playerExperienceInfo",
+          "currentExperiencePoints": "8500",
+          "lastLevelUpTimestampMillis": "1424599883824",
+          "currentLevel": {
+            "kind": "games#playerLevel",
+            "level": 4,
+            "minExperiencePoints": "5000",
+            "maxExperiencePoints": "10000"
+          },
+          "nextLevel": {
+            "kind": "games#playerLevel",
+            "level": 5,
+            "minExperiencePoints": "10000",
+            "maxExperiencePoints": "20000"
+          }
+        },
+        "title": "Casual Games Pro"
+      },
+      "scoreRank": "15",
+      "formattedScoreRank": "15th",
+      "scoreValue": "180700",
+      "formattedScore": "180,700",
+      "timeSpan": "ALL_TIME",
+      "writeTimestampMillis": "1426862708228"
+    },
+    {
+      "kind": "games#leaderboardEntry",
+      "player": {
+        "kind": "games#player",
+        "playerId": "103531399530558420043",
+        "displayName": "I Wayan Santika",
+        "name": {
+          "familyName": "Santika",
+          "givenName": "I Wayan"
+        },
+        "experienceInfo": {
+          "kind": "games#playerExperienceInfo",
+          "currentExperiencePoints": "7000",
+          "lastLevelUpTimestampMillis": "1416036741170",
+          "currentLevel": {
+            "kind": "games#playerLevel",
+            "level": 4,
+            "minExperiencePoints": "5000",
+            "maxExperiencePoints": "10000"
+          },
+          "nextLevel": {
+            "kind": "games#playerLevel",
+            "level": 5,
+            "minExperiencePoints": "10000",
+            "maxExperiencePoints": "20000"
+          }
+        },
+        "title": "Casual Games Pro"
+      },
+      "scoreRank": "16",
+      "formattedScoreRank": "16th",
+      "scoreValue": "174150",
+      "formattedScore": "174,150",
+      "timeSpan": "ALL_TIME",
+      "writeTimestampMillis": "1427340845104"
+    },
+    {
+      "kind": "games#leaderboardEntry",
+      "player": {
+        "kind": "games#player",
+        "playerId": "114952764879694224752",
+        "displayName": "Angga Indrias",
+        "name": {
+          "familyName": "Indrias",
+          "givenName": "Angga"
+        },
+        "experienceInfo": {
+          "kind": "games#playerExperienceInfo",
+          "currentExperiencePoints": "7000",
+          "lastLevelUpTimestampMillis": "1418108795005",
+          "currentLevel": {
+            "kind": "games#playerLevel",
+            "level": 4,
+            "minExperiencePoints": "5000",
+            "maxExperiencePoints": "10000"
+          },
+          "nextLevel": {
+            "kind": "games#playerLevel",
+            "level": 5,
+            "minExperiencePoints": "10000",
+            "maxExperiencePoints": "20000"
+          }
+        },
+        "title": "Casual Games Pro"
+      },
+      "scoreRank": "17",
+      "formattedScoreRank": "17th",
+      "scoreValue": "167150",
+      "formattedScore": "167,150",
+      "timeSpan": "ALL_TIME",
+      "writeTimestampMillis": "1418802199396"
+    },
+    {
+      "kind": "games#leaderboardEntry",
+      "player": {
+        "kind": "games#player",
+        "playerId": "108264345773054864697",
+        "displayName": "Geanes Ragiel",
+        "name": {
+          "familyName": "Ragiel",
+          "givenName": "Geanes"
+        },
+        "experienceInfo": {
+          "kind": "games#playerExperienceInfo",
+          "currentExperiencePoints": "7500",
+          "lastLevelUpTimestampMillis": "1424348292038",
+          "currentLevel": {
+            "kind": "games#playerLevel",
+            "level": 4,
+            "minExperiencePoints": "5000",
+            "maxExperiencePoints": "10000"
+          },
+          "nextLevel": {
+            "kind": "games#playerLevel",
+            "level": 5,
+            "minExperiencePoints": "10000",
+            "maxExperiencePoints": "20000"
+          }
+        },
+        "title": "Casual Games Pro"
+      },
+      "scoreRank": "18",
+      "formattedScoreRank": "18th",
+      "scoreValue": "165300",
+      "formattedScore": "165,300",
+      "timeSpan": "ALL_TIME",
+      "writeTimestampMillis": "1427098083290"
+    },
+    {
+      "kind": "games#leaderboardEntry",
+      "player": {
+        "kind": "games#player",
+        "playerId": "113321657753234947986",
+        "displayName": "Rony dozer karli",
+        "avatarImageUrl": "http://lh6.googleusercontent.com/-AeHms1PSYvQ/AAAAAAAAAAI/AAAAAAAAAGE/u8SbwqVj3Ts/photo.jpg",
+        "name": {
+          "familyName": "dozer karli",
+          "givenName": "Rony"
+        },
+        "experienceInfo": {
+          "kind": "games#playerExperienceInfo",
+          "currentExperiencePoints": "101000",
+          "lastLevelUpTimestampMillis": "1428054872115",
+          "currentLevel": {
+            "kind": "games#playerLevel",
+            "level": 12,
+            "minExperiencePoints": "90000",
+            "maxExperiencePoints": "110000"
+          },
+          "nextLevel": {
+            "kind": "games#playerLevel",
+            "level": 13,
+            "minExperiencePoints": "110000",
+            "maxExperiencePoints": "130000"
+          }
+        },
+        "title": "General"
+      },
+      "scoreRank": "19",
+      "formattedScoreRank": "19th",
+      "scoreValue": "147900",
+      "formattedScore": "147,900",
+      "timeSpan": "ALL_TIME",
+      "writeTimestampMillis": "1418538934118"
+    },
+    {
+      "kind": "games#leaderboardEntry",
+      "player": {
+        "kind": "games#player",
+        "playerId": "103428862471272614414",
+        "displayName": "Sebastian Stawecki",
+        "avatarImageUrl": "http://lh6.googleusercontent.com/-et__2S0MuWk/AAAAAAAAAAI/AAAAAAAAAGs/QRjJiybdRZw/photo.jpg",
+        "name": {
+          "familyName": "Stawecki",
+          "givenName": "Sebastian"
+        },
+        "experienceInfo": {
+          "kind": "games#playerExperienceInfo",
+          "currentExperiencePoints": "141500",
+          "lastLevelUpTimestampMillis": "1423333316228",
+          "currentLevel": {
+            "kind": "games#playerLevel",
+            "level": 14,
+            "minExperiencePoints": "130000",
+            "maxExperiencePoints": "150000"
+          },
+          "nextLevel": {
+            "kind": "games#playerLevel",
+            "level": 15,
+            "minExperiencePoints": "150000",
+            "maxExperiencePoints": "200000"
+          }
+        },
+        "title": "Casual Games Master"
+      },
+      "scoreRank": "20",
+      "formattedScoreRank": "20th",
+      "scoreValue": "131650",
+      "formattedScore": "131,650",
+      "timeSpan": "ALL_TIME",
+      "writeTimestampMillis": "1409683473362"
+    },
+    {
+      "kind": "games#leaderboardEntry",
+      "player": {
+        "kind": "games#player",
+        "playerId": "110933590905405666050",
+        "displayName": "RODRIGO FENIX",
+        "avatarImageUrl": "http://lh4.googleusercontent.com/-v7N21XCY9Gg/AAAAAAAAAAI/AAAAAAAABTs/e7Kruy7ubp0/photo.jpg",
+        "name": {
+          "familyName": "FENIX",
+          "givenName": "RODRIGO"
+        },
+        "experienceInfo": {
+          "kind": "games#playerExperienceInfo",
+          "currentExperiencePoints": "263000",
+          "lastLevelUpTimestampMillis": "1428975815876",
+          "currentLevel": {
+            "kind": "games#playerLevel",
+            "level": 17,
+            "minExperiencePoints": "250000",
+            "maxExperiencePoints": "300000"
+          },
+          "nextLevel": {
+            "kind": "games#playerLevel",
+            "level": 18,
+            "minExperiencePoints": "300000",
+            "maxExperiencePoints": "350000"
+          }
+        },
+        "title": "Superhero"
+      },
+      "scoreRank": "21",
+      "formattedScoreRank": "21st",
+      "scoreValue": "129800",
+      "formattedScore": "129,800",
+      "timeSpan": "ALL_TIME",
+      "writeTimestampMillis": "1428070264702"
+    },
+    {
+      "kind": "games#leaderboardEntry",
+      "player": {
+        "kind": "games#player",
+        "playerId": "114394684969425045858",
+        "displayName": "Cristian Mastromarino",
+        "avatarImageUrl": "http://lh5.googleusercontent.com/-haBJ94gysCw/AAAAAAAAAAI/AAAAAAAAHWM/Ai4IFSWkfIo/photo.jpg",
+        "name": {
+          "familyName": "Mastromarino",
+          "givenName": "Cristian"
+        },
+        "experienceInfo": {
+          "kind": "games#playerExperienceInfo",
+          "currentExperiencePoints": "111000",
+          "lastLevelUpTimestampMillis": "1428453810077",
+          "currentLevel": {
+            "kind": "games#playerLevel",
+            "level": 13,
+            "minExperiencePoints": "110000",
+            "maxExperiencePoints": "130000"
+          },
+          "nextLevel": {
+            "kind": "games#playerLevel",
+            "level": 14,
+            "minExperiencePoints": "130000",
+            "maxExperiencePoints": "150000"
+          }
+        },
+        "title": "General"
+      },
+      "scoreRank": "22",
+      "formattedScoreRank": "22nd",
+      "scoreValue": "125650",
+      "formattedScore": "125,650",
+      "timeSpan": "ALL_TIME",
+      "writeTimestampMillis": "1409669709800"
+    },
+    {
+      "kind": "games#leaderboardEntry",
+      "player": {
+        "kind": "games#player",
+        "playerId": "107041805302401072382",
+        "displayName": "arsya rahman",
+        "avatarImageUrl": "http://lh6.googleusercontent.com/-KxSXG6jKqRo/AAAAAAAAAAI/AAAAAAAAAC4/ZapLc0NQH58/photo.jpg",
+        "name": {
+          "familyName": "rahman",
+          "givenName": "arsya"
+        },
+        "experienceInfo": {
+          "kind": "games#playerExperienceInfo",
+          "currentExperiencePoints": "0",
+          "currentLevel": {
+            "kind": "games#playerLevel",
+            "level": 1,
+            "minExperiencePoints": "0",
+            "maxExperiencePoints": "1000"
+          },
+          "nextLevel": {
+            "kind": "games#playerLevel",
+            "level": 2,
+            "minExperiencePoints": "1000",
+            "maxExperiencePoints": "2500"
+          }
+        },
+        "title": "Rookie"
+      },
+      "scoreRank": "23",
+      "formattedScoreRank": "23rd",
+      "scoreValue": "117400",
+      "formattedScore": "117,400",
+      "timeSpan": "ALL_TIME",
+      "writeTimestampMillis": "1426755570327"
+    },
+    {
+      "kind": "games#leaderboardEntry",
+      "player": {
+        "kind": "games#player",
+        "playerId": "114612302419538042446",
+        "displayName": "zulkifli hamdani",
+        "name": {
+          "familyName": "hamdani",
+          "givenName": "zulkifli"
+        },
+        "experienceInfo": {
+          "kind": "games#playerExperienceInfo",
+          "currentExperiencePoints": "17000",
+          "lastLevelUpTimestampMillis": "1425001750252",
+          "currentLevel": {
+            "kind": "games#playerLevel",
+            "level": 5,
+            "minExperiencePoints": "10000",
+            "maxExperiencePoints": "20000"
+          },
+          "nextLevel": {
+            "kind": "games#playerLevel",
+            "level": 6,
+            "minExperiencePoints": "20000",
+            "maxExperiencePoints": "30000"
+          }
+        },
+        "title": "Casual Games Master"
+      },
+      "scoreRank": "24",
+      "formattedScoreRank": "24th",
+      "scoreValue": "116950",
+      "formattedScore": "116,950",
+      "timeSpan": "ALL_TIME",
+      "writeTimestampMillis": "1427388530460"
+    },
+    {
+      "kind": "games#leaderboardEntry",
+      "player": {
+        "kind": "games#player",
+        "playerId": "106314540224040038036",
+        "displayName": "Yusma Wati",
+        "avatarImageUrl": "http://lh4.googleusercontent.com/-hjm6KlLajcU/AAAAAAAAAAI/AAAAAAAAIoI/gzkfs8CJkE4/photo.jpg",
+        "name": {
+          "familyName": "Wati",
+          "givenName": "Yusma"
+        },
+        "experienceInfo": {
+          "kind": "games#playerExperienceInfo",
+          "currentExperiencePoints": "6500",
+          "lastLevelUpTimestampMillis": "1424421428106",
+          "currentLevel": {
+            "kind": "games#playerLevel",
+            "level": 4,
+            "minExperiencePoints": "5000",
+            "maxExperiencePoints": "10000"
+          },
+          "nextLevel": {
+            "kind": "games#playerLevel",
+            "level": 5,
+            "minExperiencePoints": "10000",
+            "maxExperiencePoints": "20000"
+          }
+        },
+        "title": "Casual Games Pro"
+      },
+      "scoreRank": "25",
+      "formattedScoreRank": "25th",
+      "scoreValue": "116750",
+      "formattedScore": "116,750",
+      "timeSpan": "ALL_TIME",
+      "writeTimestampMillis": "1424874340061"
+    }
+  ]
+}

@@ -45,11 +45,19 @@ class AllLeaderboardsUI extends UI {
 	}
 
 	override public function onResize(_) {
-		var scale = Capabilities.screenDPI / 200;
-		loading.w = Capabilities.screenResolutionX;
-		loading.h = Capabilities.screenResolutionY;
-		allLeaderboards.w = Capabilities.screenResolutionX/scale;
-		allLeaderboards.h = Capabilities.screenResolutionY/scale;
+		var scale = Capabilities.screenDPI / 114;
+		trace("scale: " + scale);
+		#if desktop
+		var sx = Lib.current.stage.stageWidth;
+		var sy = Lib.current.stage.stageHeight;
+		#else
+		var sx = Capabilities.screenResolutionX;
+		var sy = Capabilities.screenResolutionY;
+		#end
+		loading.w = sx;
+		loading.h = sy;
+		allLeaderboards.w = sx/scale;
+		allLeaderboards.h = sy/scale;
 		allLeaderboards.scaleX = allLeaderboards.scaleY = scale;
 		loading.refresh();
 		allLeaderboards.refresh();

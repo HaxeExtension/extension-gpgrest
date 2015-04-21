@@ -2,7 +2,6 @@
 
 <HBox skin:Paint-border="3" widthPt="100" layout:Column-cols="[0, -1]" >
 	
-	<!--url="'http://cdn1.tnwcdn.com/wp-content/blogs.dir/1/files/2012/01/Clover-Square.png'"-->
 	<UrlBmp stretch="true" keepAspect="true" w="100" h="100" name="'title_icon'" />
 
 	<VBox skin:Paint-color="0x111111" >

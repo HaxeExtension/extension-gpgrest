@@ -45,6 +45,7 @@ class LeaderboardUI extends UI {
 
 		this.addChild(loading);
 
+		#if mobile
 		gPlay.Leaderboards_get(leaderboardId)
 			.catchError(function(err) {
 				trace("Error :'( " + err);
@@ -53,6 +54,13 @@ class LeaderboardUI extends UI {
 				updateTitleBar(leaderboard.iconUrl, leaderboard.name);
 				isLoading = false;
 			});
+		#else
+		haxe.Timer.delay(function() {
+			var leaderboard = new Leaderboard(openfl.Assets.getText("assets/gamesleaderboard.json"));
+			updateTitleBar(leaderboard.iconUrl, leaderboard.name);
+			isLoading = false;
+		}, 1);
+		#end
 
 		displayingTimeSpan = loadedTimeSpan = TimeSpan.ALL_TIME;
 		displayingRankType = loadedRankType = LeaderBoardCollection.PUBLIC;
@@ -60,19 +68,28 @@ class LeaderboardUI extends UI {
 	}
 
 	override public function onResize(_) {
-		//var scale = Capabilities.screenDPI / 200;
-		var scale = 1;
-		loading.w = Capabilities.screenResolutionX;
-		loading.h = Capabilities.screenResolutionY;
-		leaderboard.w = Capabilities.screenResolutionX/scale;
-		leaderboard.h = Capabilities.screenResolutionX/scale;
+		var scale = Capabilities.screenDPI / 114;
+		//trace("scale : " + Capabilities.screenDPI);
+		//var scale = 1;
+		#if desktop
+		var sx = Lib.current.stage.stageWidth;
+		var sy = Lib.current.stage.stageHeight;
+		#else
+		var sx = Capabilities.screenResolutionX;
+		var sy = Capabilities.screenResolutionY;
+		#end
+		loading.w = sx;
+		loading.h = sy;
+		leaderboard.w = sx/scale;
+		leaderboard.h = sy/scale;
 		leaderboard.scaleX = leaderboard.scaleY = scale;
 		loading.refresh();
 		leaderboard.refresh();
 	}
 	
 	function onEnterFrame() {
-		var scroll = cast(leaderboard, Scroll);
+		//var scroll = cast(leaderboard, Scroll);
+		var scroll = leaderboard.getChildAs("scroll", Scroll);
 		if (displayingRankType!=loadedRankType || displayingTimeSpan!=loadedTimeSpan) {
 			clearResults();
 			isFirstLoad = true;
@@ -84,6 +101,8 @@ class LeaderboardUI extends UI {
 			isFirstLoad = false;
 			var loadingRankType = LeaderBoardCollection.createByIndex(displayingRankType.getIndex());
 			var loadingTimeSpan = TimeSpan.createByIndex(displayingTimeSpan.getIndex());
+
+			#if mobile
 			gPlay.Scores_list(loadingRankType, leaderboardId, loadingTimeSpan, 25, nextPageToken)
 				.catchError(function(err) {
 					trace("Error :'( " + err + ", err count: " + errorCount);
@@ -96,6 +115,14 @@ class LeaderboardUI extends UI {
 					loadedTimeSpan = loadingTimeSpan;
 					isLoading = false;
 				});
+			#else
+			var scores = new LeaderboardScores(openfl.Assets.getText("assets/leaderboardscores.json"));
+			addResults(scores);
+			nextPageToken = scores.nextPageToken;
+			loadedRankType = loadingRankType;
+			loadedTimeSpan = loadingTimeSpan;
+			isLoading = false;
+			#end
 		}
 	}
 

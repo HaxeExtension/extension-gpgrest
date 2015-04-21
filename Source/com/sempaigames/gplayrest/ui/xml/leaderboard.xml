@@ -1,13 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<Scroll skin:Paint-border="1" hScroll="false" vScroll="true" defaults="'Screen'" name="'scroll'" on-enterFrame="onEnterFrame();" >
+<VBox layout:Row-rows="[0, -1]" >
 
-	<VBox padding="5" childPadding="5" skin:Paint-border="2" widthPt="100" name="'main_area'">
-		
-		<meta:include src="com/sempaigames/gplayrest/ui/xml/leaderboardtitle.xml" name="'leaderboard_title'" />
+	<meta:include src="com/sempaigames/gplayrest/ui/xml/leaderboardbackbar.xml" />
 
-		<VBox padding="5" childPadding="5" widthPt="100" name="'leaderboard_player_entries'" />
+	<Scroll skin:Paint-border="1" hScroll="false" vScroll="true" defaults="'Screen'" name="'scroll'" on-enterFrame="onEnterFrame();" >
 
-	</VBox>
+		<VBox padding="5" childPadding="5" skin:Paint-border="2" widthPt="100" name="'main_area'" defaults="'Screen'" >
+			
+			<meta:include src="com/sempaigames/gplayrest/ui/xml/leaderboardtitle.xml" name="'leaderboard_title'" />
 
-</Scroll>
+			<VBox padding="5" childPadding="5" widthPt="100" name="'leaderboard_player_entries'" />
+
+		</VBox>
+
+	</Scroll>
+
+</VBox>

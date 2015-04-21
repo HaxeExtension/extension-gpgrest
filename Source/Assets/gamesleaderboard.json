@@ -1,0 +1,8 @@
+{
+  "kind": "games#leaderboard",
+  "id": "CgkI-bferacKEAIQPQ",
+  "name": "Champions Race (Cumulative scores)",
+  "iconUrl": "https://lh5.ggpht.com/6x8p8Fb3WV4dUe8XaLeiFVUj1WtynaNZRmxwG8ndE8jKkwDotTFnaKjhErN1m-uCag",
+  "isIconUrlDefault": false,
+  "order": "LARGER_IS_BETTER"
+}
