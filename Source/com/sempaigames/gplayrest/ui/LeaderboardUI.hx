@@ -56,7 +56,7 @@ class LeaderboardUI extends UI {
 			});
 		#else
 		haxe.Timer.delay(function() {
-			var leaderboard = new Leaderboard(openfl.Assets.getText("assets/gamesleaderboard.json"));
+			var leaderboard = new Leaderboard(Stablex.getGamesLeaderBoard());
 			updateTitleBar(leaderboard.iconUrl, leaderboard.name);
 			isLoading = false;
 		}, 1);
@@ -116,7 +116,7 @@ class LeaderboardUI extends UI {
 					isLoading = false;
 				});
 			#else
-			var scores = new LeaderboardScores(openfl.Assets.getText("assets/leaderboardscores.json"));
+			var scores = new LeaderboardScores(Stablex.getLeaderBaordScores());
 			addResults(scores);
 			nextPageToken = scores.nextPageToken;
 			loadedRankType = loadingRankType;

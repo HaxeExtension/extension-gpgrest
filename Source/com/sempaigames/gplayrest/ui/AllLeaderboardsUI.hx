@@ -34,7 +34,7 @@ class AllLeaderboardsUI extends UI {
 		});
 		#else
 		haxe.Timer.delay(function() {
-			var leaderboards = new LeaderboardListResponse(openfl.Assets.getText("assets/leaderboardslistresponse.json"));
+			var leaderboards = new LeaderboardListResponse(Stablex.getLeaderboardsListResponse());
 			loadLeaderBoards(leaderboards);
 			this.addChild(allLeaderboards);
 			this.removeChild(loading);
