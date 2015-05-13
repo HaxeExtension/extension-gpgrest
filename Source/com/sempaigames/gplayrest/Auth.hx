@@ -1,13 +1,24 @@
 package com.sempaigames.gplayrest;
 
-import openfl.Lib;
-import openfl.events.*;
-import openfl.net.*;
+#if (android || iphone)
+import extension.webview.WebView;
+#end
+
 import haxe.ds.Option;
 import haxe.Timer;
+import openfl.events.*;
+import openfl.Lib;
+import openfl.net.*;
 import promhx.Deferred;
 import promhx.Promise;
-import extension.webview.WebView;
+
+#if cpp
+import cpp.vm.Thread;
+#end
+
+#if neko
+import neko.vm.Thread;
+#end
 
 enum AuthStatus {
 	Ok;
@@ -35,15 +46,19 @@ class Auth {
 		this.authStatus = Pending;
 	}
 
-	static var stripString = "http://localhost/?";
+	static var stripString = "http://localhost:8099/?";
+	static var redirectUri = "http://localhost:8099/";
+
 	function getAuthCode() : Promise<String> {
 		var ret = new Deferred<String>();
 		var clientId = "client_id=" + this.clientId;
 		var responseType = "response_type=" + "code";
-		var redirectUri = "redirect_uri=" + "http://localhost";
-		var scope = "scope=" + StringTools.urlEncode("https://www.googleapis.com/auth/games https://www.googleapis.com/auth/drive.appdata");
-		var authCodeUrl = 'https://accounts.google.com/o/oauth2/auth?${clientId}&${responseType}&${redirectUri}&${scope}&include_granted_scopes=true';
+
+		var scope = "scope=" + StringTools.urlEncode("https://www.googleapis.com/auth/games");
+		var authCodeUrl = 'https://accounts.google.com/o/oauth2/auth?${clientId}&${responseType}&${"redirect_uri="+redirectUri}&${scope}&include_granted_scopes=true';
+
 		#if (android || iphone)
+
 		WebView.onURLChanging = function(url : String) {
 			if (StringTools.startsWith(url, stripString)) {
 				var url = StringTools.replace(url, stripString, "");
@@ -59,10 +74,41 @@ class Auth {
 			}
 		}
 		WebView.open(authCodeUrl, true, null, ["(http|https)://localhost(.*)"]);
+
 		#else
+
+		Thread.create(function() {
+			var server = new HttpServer();
+			server.onGet = function(socket, str) {
+				if (ret.isResolved()) {
+					server.stopClient(socket);
+					return;
+				}
+				var code = ~/.*code=/.replace(str, "");
+				code = code.split("&")[0];
+
+				socket.write(
+"<!DOCTYPE html>
+<html>
+<body>
+
+<h1>My First Heading</h1>
+
+<p>My first paragraph.</p>
+
+</body>
+</html>
+");
+				server.stopClient(socket);
+				ret.resolve(code);
+			};
+			server.run("localhost", 8099);
+		});
+		
 		Lib.getURL(new URLRequest(authCodeUrl));
-		ret.resolve("");
+
 		#end
+
 		return ret.promise();
 	}
 
@@ -74,7 +120,7 @@ class Auth {
 		variables.code = code;
 		variables.client_id = clientId;
 		variables.client_secret = clientSecret;
-		variables.redirect_uri = "http://localhost";
+		variables.redirect_uri = redirectUri;
 		request.data = variables;
 		request.method = URLRequestMethod.POST;
 		var loader = new URLLoader();
@@ -95,6 +141,13 @@ class Auth {
 			this.storage.flush();
 
 			ret.resolve(accessToken);
+		});
+		loader.addEventListener(HTTPStatusEvent.HTTP_STATUS, function(e : HTTPStatusEvent) {
+			if (e.status!=200) {
+				//throw 'Refresh token error: ${e.status}';
+				ret.throwError('getNewTokenUsingCode error: ${e.status}');
+				//prom.reject('Refresh token error: ${e.status}');
+			}
 		});
 		loader.load(request);
 		return ret.promise();
@@ -157,7 +210,6 @@ class Auth {
 	}
 
 	public function getToken() : Promise<String> {
-		#if (android || iphone)
 		if (token!=null && Timer.stamp()<tokenExpireTime) {
 			var ret = new Deferred<String>();
 			ret.resolve(token);
@@ -166,13 +218,9 @@ class Auth {
 			return this.pendingTokenPromise;
 		} else {
 			this.pendingTokenPromise = getNewToken();
+			pendingTokenPromise.then(function(token) trace("token: " + token));
 			return this.pendingTokenPromise;
 		}
-		#else
-		var ret = new Deferred<String>();
-		ret.resolve("notset");
-		return ret.promise();
-		#end
 	}
 
 }
