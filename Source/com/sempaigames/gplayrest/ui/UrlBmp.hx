@@ -1,6 +1,9 @@
 package com.sempaigames.gplayrest.ui;
 
 import flash.display.*;
+import flash.display.Bitmap;
+import flash.display.BitmapData;
+import flash.display.Sprite;
 import flash.events.Event;
 import flash.geom.Matrix;
 import flash.utils.ByteArray;
@@ -8,10 +11,26 @@ import ru.stablex.ui.widgets.*;
 
 class UrlBmp extends Bmp {
 
+	public var bmpMask(default, set) : BitmapData;
 	public var url(default, set) : String;
+	var maskSpr : Sprite;
 
 	public function new() {
 		super();
+		maskSpr = new Sprite();
+		this.addChild(maskSpr);
+	}
+
+	function set_bmpMask(bmpMask : BitmapData) {
+		this.bmpMask = bmpMask;
+		
+		while (maskSpr.numChildren>0) {
+			maskSpr.removeChildAt(0);
+		}
+		var bmp = new Bitmap(bmpMask, true);
+		maskSpr.addChild(bmp);
+		
+		return bmpMask;
 	}
 
 	function set_url(url : String) : String {
@@ -53,6 +72,12 @@ class UrlBmp extends Bmp {
 	function onBitmapDataLoaded(bmpData : BitmapData) {
 		this.bitmapData = bmpData;
 		this.refresh();
+	}
+
+	override function refresh() {
+		super.refresh();
+		maskSpr.scaleX = maskSpr.scaleY = 1;
+		maskSpr.scaleX = maskSpr.scaleY = w/maskSpr.width;
 	}
 
 }

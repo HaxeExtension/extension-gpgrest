@@ -2,7 +2,8 @@
 
 <VBox layout:Row-rows="[0, -1]" >
 
-	<meta:include src="com/sempaigames/gplayrest/ui/xml/leaderboardbackbar.xml" />
+	<!-- <meta:include src="com/sempaigames/gplayrest/ui/xml/leaderboardbackbar.xml" /> -->
+	<TitleBar name="'leaderboard_backbar'" onBack="UIManager.getInstance().closeCurrentView" />
 
 	<Scroll hScroll="false" vScroll="true" defaults="'Screen'" name="'scroll'" on-enterFrame="onEnterFrame();" skin:Paint-color="Stablex.color2" >
 

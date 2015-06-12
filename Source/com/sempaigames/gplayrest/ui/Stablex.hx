@@ -8,6 +8,7 @@ import ru.stablex.ui.UIBuilder;
 @:bitmap("Assets/avatar_default.png") class AvatarDefault extends BitmapData {}
 @:bitmap("Assets/gplusweb_back.png") class BackBmp extends BitmapData {}
 @:bitmap("Assets/loading.png") class LoadingBmp extends BitmapData {}
+@:bitmap("Assets/mask.png") class MaskBmp extends BitmapData {}
 @:file("Assets/gamesleaderboard.json") class GamesLeaderBoard extends ByteArray {}
 @:file("Assets/leaderboardscores.json") class LeaderboardsScores extends ByteArray {}
 @:file("Assets/leaderboardslistresponse.json") class LeaderboardsListResponse extends ByteArray {}
@@ -43,6 +44,10 @@ class Stablex {
 
 	public static function getLoadingBmp() {
 		return new LoadingBmp(0, 0);
+	}
+
+	public static function getMaskBmp() {
+		return new MaskBmp(0, 0);
 	}
 
 	public static function getGamesLeaderBoard() {

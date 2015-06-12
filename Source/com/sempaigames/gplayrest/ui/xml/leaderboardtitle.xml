@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<HBox widthPt="100" layout:Column-cols="[0, -1]" >
+<HBox widthPt="100"  >
 	
+<!--
+	layout:Column-cols="[0, -1]"
 	<UrlBmp stretch="true" keepAspect="true" w="100" h="100" name="'title_icon'" />
+-->
 
 	<VBox skin:Paint-color="Stablex.color2" >
+		<!--
 		<Text text="'Titulo de test'" defaults="'H1'" name="'title_text'" />
+		-->
 		<HBox childPadding="20">
 			<Options options="[['All time', 1], ['Weekly', 2], ['Daily', 3]]" on-change="onTimeLapseChange($this.value);" />
 			<Options options="[['Public', 1], ['Social', 2]]" on-change="onRankTypeChange($this.value);"/>

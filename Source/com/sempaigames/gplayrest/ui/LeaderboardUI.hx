@@ -168,8 +168,9 @@ class LeaderboardUI extends UI {
 	}
 
 	function updateTitleBar(imageUrl : String, title : String) {
-		leaderboard.getChildAs("title_icon", UrlBmp).url = imageUrl;
-		leaderboard.getChildAs("title_text", Text).text = title;
+		//leaderboard.getChildAs("title_icon", UrlBmp).url = imageUrl;
+		//leaderboard.getChildAs("title_text", Text).text = title;
+		leaderboard.getChildAs("leaderboard_backbar", TitleBar).title = title;
 		
 		this.removeChild(loading);
 		
@@ -184,12 +185,7 @@ class LeaderboardUI extends UI {
 		if (freed) {
 			return;
 		}
-		
 		loading.visible = false;
-		/*
-		trace("visible false");
-		*/
-		trace("visible false");
 		var entriesBox = leaderboard.getChildAs("leaderboard_player_entries", VBox);
 		for (entry in results.items) {
 			var entryUI = UIBuilder.buildFn('com/sempaigames/gplayrest/ui/xml/leaderboardentry.xml')();
@@ -198,7 +194,11 @@ class LeaderboardUI extends UI {
 			var name = entryUI.getChildAs("entry_name", Text);
 			var score = entryUI.getChildAs("entry_score", Text);
 			rank.text = entry.formattedScoreRank;
-			image.url = entry.player.avatarImageUrl;
+			if (entry.player.avatarImageUrl!=null) {
+				image.url = entry.player.avatarImageUrl;
+			} else {
+				image.bitmapData = Stablex.getAvatarDefaultBmp();
+			}
 			name.text = entry.player.displayName;
 			score.text = entry.formattedScore;
 			entriesBox.addChild(entryUI);
