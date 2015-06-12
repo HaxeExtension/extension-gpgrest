@@ -20,7 +20,11 @@ class Leaderboard extends GoogleDataType {
 			"iconUrl",
 			"isIconUrlDefault"
 		]);
-		this.order = LeaderboardOrder.createByName(obj.order);
+		try {
+			this.order = LeaderboardOrder.createByName(obj.order);
+		} catch (d:Dynamic) {
+			this.order = LeaderboardOrder.LARGER_IS_BETTER;
+		}
 	}
 
 }

@@ -17,32 +17,16 @@ class Loading extends Widget {
 		lastTime = 0;
 		gear = new Sprite();
 		this.addChild(gear);
+		var bmp = new Bitmap(Stablex.getLoadingBmp());
+		gear.addChild(bmp);
+		bmp.x = -bmp.width/2;
+		bmp.y = -bmp.height/2;
 		this.addEventListener(Event.ENTER_FRAME, onEnterFrame);
 		render();
 	}
 
 	function render() {
-		var radius = Math.min(w, h)/2;
 
-		var tmp = new Sprite();
-		var gfx = tmp.graphics;
-		gfx.beginFill(0);
-		gfx.drawRect(0, 0, radius*2, radius*2);
-
-		gfx.beginFill(0xff00ff);
-		gfx.drawCircle(radius, radius, radius*0.8);
-		/*
-		gfx.drawRect(-radius*0.2, radius*0.8, radius*2.4, radius*0.4);
-		gfx.drawRect(radius*0.8, -radius*0.2, radius*0.4, radius*2.4);
-		*/
-
-		gfx.endFill();
-		tmp.x = -radius;
-		tmp.y = -radius;
-		while (gear.numChildren>0) {
-			gear.removeChildAt(0);
-		}
-		gear.addChild(tmp);
 		gear.x = w/2;
 		gear.y = h/2;
 

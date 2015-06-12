@@ -18,16 +18,27 @@ class BmpDataCache {
 	}
 
 	function new() {
-		so = SharedObject.getLocal("gplusweb_bmpcache");
+		try {
+			so = SharedObject.getLocal("gplusweb_bmpcache");
+		} catch (d : Dynamic) {
+			trace("Catched: " + d);
+			//SharedObject.deleteAll("gplusweb_bmpcache");
+		}
 	}
 
 	public function get(name : String) : BitmapData {
-		var ret = Reflect.getProperty(so.data, Md5.encode(name));
-		return ret;
+		try {
+			return Reflect.getProperty(so.data, Md5.encode(name));
+		} catch (d : Dynamic) {
+			return null;
+		}
 	}
 
 	public function set(name : String, bmpData : BitmapData) {
 		Reflect.setField(so.data, Md5.encode(name), bmpData);
+		#if cpp
+		so.flush();
+		#end
 	}
 
 }

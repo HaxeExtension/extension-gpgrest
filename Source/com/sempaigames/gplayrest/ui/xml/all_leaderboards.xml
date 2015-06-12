@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<VBox skin:Paint-color="0x228866" layout:Row-rows="[0, -1]" >
+<VBox skin:Paint-color="Stablex.color2" layout:Row-rows="[0, -1]" on-enterFrame="onEnterFrame();" >
 	
 	<meta:include src="com/sempaigames/gplayrest/ui/xml/all_leaderboardstitle.xml" />
 	
 	<Scroll widthPt="100" heightPt="100" hScroll="false" hBar-visible="false" vBar-visible="false" >
-		<Widget layout:Grid-childPadding="15" widthPt="100" name="'all_leaderboards_entries'" skin:Paint-color="0x228866" />
+		<Widget layout:Grid-childPadding="15" widthPt="100" name="'all_leaderboards_entries'" skin:Paint-color="Stablex.color2" />
 	</Scroll>
 
 </VBox>

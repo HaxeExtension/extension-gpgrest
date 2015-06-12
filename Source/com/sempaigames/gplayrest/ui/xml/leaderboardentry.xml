@@ -1,21 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<HBox widthPt="100" layout:Column-cols="[50, 0, -1, 0]" >
-
-	<Box padding="2" >
-		<Text text="'12'" defaults="'Default'" name="'entry_ranking'" />
-	</Box>
-
-	<Box w="50" h="50" >
-		<UrlBmp stretch="true" keepAspect="true" w="40" h="40" name="'entry_image'" />
-	</Box>
+<HBox widthPt="100" layout:Column-cols="[50, 0, -1]" >
 
 	<Box>
-		<Text text="'Juan Carlos Random'" defaults="'Default'" name="'entry_name'" format-size="16"/>
+		<Text text="'12'" defaults="'PlayerRank'" name="'entry_ranking'" />
 	</Box>
 
-	<Box>
-		<Text text="'234.546'" defaults="'Default'" name="'entry_score'" format-size="16" />
+	<Box w="120" >
+		<UrlBmp stretch="true" keepAspect="true" w="80" h="80" name="'entry_image'" />
 	</Box>
+
+	<VBox align="'left,middle'">
+		<Text text="'Juan Carlos Random'" defaults="'PlayerName'" name="'entry_name'" />
+		<Text text="'234.546'" defaults="'PlayerScore'" name="'entry_score'" />
+	</VBox>
 
 </HBox>

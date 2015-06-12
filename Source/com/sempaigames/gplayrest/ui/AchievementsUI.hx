@@ -47,14 +47,19 @@ class AchievementsUI extends UI {
 	}
 
 	override public function onResize(_) {
-		var scale = Capabilities.screenDPI / 200;
+		//var scale = Capabilities.screenDPI / 200;
+		var scale = 1;
+		/*
 		#if desktop
+		*/
 		var sx = Lib.current.stage.stageWidth;
 		var sy = Lib.current.stage.stageHeight;
+		/*
 		#else
 		var sx = Capabilities.screenResolutionX;
 		var sy = Capabilities.screenResolutionY;
 		#end
+		*/
 		loading.w = sx;
 		loading.h = sy;
 		achievementsUI.w = sx/scale;
@@ -109,7 +114,13 @@ class AchievementsUI extends UI {
 				case REVEALED: {
 					switch (definition.achievementType) {
 						case STANDARD: 		image.url = definition.revealedIconUrl;
-						case INCREMENTAL:	image.progress = state.currentSteps/definition.totalSteps;
+						case INCREMENTAL: {
+							try {
+								image.progress = state.currentSteps/definition.totalSteps;
+							} catch (d : Dynamic) {
+								image.progress = 0;
+							}
+						}
 					}
 				}
 				case HIDDEN: {
@@ -136,7 +147,8 @@ class AchievementsUI extends UI {
 				}
 			}
 		}
-		achievementsUI.getChildAs("txt_progress", Text).text = '$nUnlocked/${achievementsDefinition.items.length}';
+		achievementsUI.getChildAs("title_bar", TitleBar).title = 
+			'Achievements: $nUnlocked/${achievementsDefinition.items.length}';
 	}
 
 	override public function onClose() {

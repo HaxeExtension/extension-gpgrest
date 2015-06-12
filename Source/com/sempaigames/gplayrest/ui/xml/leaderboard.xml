@@ -4,13 +4,13 @@
 
 	<meta:include src="com/sempaigames/gplayrest/ui/xml/leaderboardbackbar.xml" />
 
-	<Scroll skin:Paint-border="1" hScroll="false" vScroll="true" defaults="'Screen'" name="'scroll'" on-enterFrame="onEnterFrame();" >
+	<Scroll hScroll="false" vScroll="true" defaults="'Screen'" name="'scroll'" on-enterFrame="onEnterFrame();" skin:Paint-color="Stablex.color2" >
 
-		<VBox padding="5" childPadding="5" skin:Paint-border="2" widthPt="100" name="'main_area'" defaults="'Screen'" >
+		<VBox padding="25" childPadding="25" widthPt="100" name="'main_area'">
 			
 			<meta:include src="com/sempaigames/gplayrest/ui/xml/leaderboardtitle.xml" name="'leaderboard_title'" />
 
-			<VBox padding="5" childPadding="5" widthPt="100" name="'leaderboard_player_entries'" />
+			<VBox childPadding="25" padding="25" widthPt="100" name="'leaderboard_player_entries'" skin:Paint-color="0xffffff" />
 
 		</VBox>
 

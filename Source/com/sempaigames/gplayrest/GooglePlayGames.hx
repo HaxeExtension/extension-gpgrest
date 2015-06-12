@@ -1,8 +1,8 @@
 package com.sempaigames.gplayrest;
 
 import com.sempaigames.gplayrest.datatypes.*;
-import com.sempaigames.gplayrest.ui.*;
 import com.sempaigames.gplayrest.GPlay;
+import com.sempaigames.gplayrest.ui.*;
 import flash.Lib;
 
 class GooglePlayGames {
@@ -17,6 +17,15 @@ class GooglePlayGames {
 
 	public static function login() : Void {
 		gPlayInstance.auth.getToken();
+	}
+
+	static function isInitted() : Bool {
+		return (gPlayInstance!=null);
+	}
+
+	//public static function init(stage:flash.display.Stage, enableCloudStorage:Bool){
+	public static function init(clientId : String, clientSecret : String) {
+		gPlayInstance = new GPlay(clientId, clientSecret);
 	}
 
 	//////////////////////////////////////////////////////////////////////
@@ -98,19 +107,6 @@ class GooglePlayGames {
 
 	public static function cloudGet(key:Int):Bool{
 		return false;
-	}
-
-	//////////////////////////////////////////////////////////////////////
-	///////////// HAXE IMPLEMENTATIONS
-	//////////////////////////////////////////////////////////////////////
-
-	static function isInitted() : Bool {
-		return (gPlayInstance!=null);
-	}
-
-	//public static function init(stage:flash.display.Stage, enableCloudStorage:Bool){
-	public static function init(clientId : String, clientSecret : String) {
-		gPlayInstance = new GPlay(clientId, clientSecret);
 	}
 
 	//////////////////////////////////////////////////////////////////////

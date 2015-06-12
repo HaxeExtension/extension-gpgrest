@@ -3,8 +3,8 @@ package com.sempaigames.gplayrest;
 import com.sempaigames.gplayrest.datatypes.*;
 import openfl.events.*;
 import openfl.net.*;
-import promhx.Promise;
 import promhx.Deferred;
+import promhx.Promise;
 
 enum LeaderBoardCollection {
 	PUBLIC;
@@ -41,7 +41,9 @@ class GPlay {
 		) : Promise<RequestResult> {
 
 		var ret = new Deferred<RequestResult>();
-		auth.getToken().then(function(token) {
+		auth.getToken().catchError(function(e) {
+			trace("getToken() error: " + e);
+		}).then(function(token) {
 			if (params==null)	params = [];
 			if (method==null)	method = URLRequestMethod.GET;
 			if (params.length>0) {
@@ -65,20 +67,11 @@ class GPlay {
 				}
 			});
 			loader.addEventListener(Event.COMPLETE, function(e : Event) {
-				/*
-				trace("B=====================================================");
-				var str : String = e.target.data;
-				for (s in str.split("\n")) {
-					trace(s);
-				}
-				trace("E=====================================================");
-				*/
 				ret.resolve(Ok(e.target.data));
 			});
 			loader.load(request);
 		});
 		return ret.promise();
-
 	}
 
 	@:generic

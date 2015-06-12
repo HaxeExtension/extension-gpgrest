@@ -1,10 +1,10 @@
 package com.sempaigames.gplayrest.ui;
 
-import flash.geom.Matrix;
-import ru.stablex.ui.widgets.*;
-import flash.events.Event;
 import flash.display.*;
+import flash.events.Event;
+import flash.geom.Matrix;
 import flash.utils.ByteArray;
+import ru.stablex.ui.widgets.*;
 
 class UrlBmp extends Bmp {
 
@@ -19,21 +19,29 @@ class UrlBmp extends Bmp {
 		var size = Std.int(Math.max(this.w, this.h));
 		if (url!=null) {
 			url+='=-s$size';
-			var cachedBmp = BmpDataCache.getInstance().get(url);
-			if (cachedBmp!=null) {
-				trace("load cached bmp : " + url);
+			var cachedBmp = null;
+			try {
+				cachedBmp = BmpDataCache.getInstance().get(url);
+			} catch (d : Dynamic) { trace("Catched: " + d); }
+			if (cachedBmp!=null && false) {
 				onBitmapDataLoaded(cachedBmp);
 			} else {
-				UrlLoader.load(url, onLoadComplete.bind(url));
+				UrlLoader.load(url,
+					function(data) {
+						onLoadComplete(url, data);
+					},
+					function() {
+						onBitmapDataLoaded(Stablex.getAvatarDefaultBmp());
+					}
+				);
 			}
 		}
 		return url;
 	}
 
-	function onLoadComplete(url : String, e : Event) {
-		var b : String = e.target.data;
+	function onLoadComplete(url : String, data : String) {
 		var arr = new ByteArray();
-		arr.writeUTFBytes(b);
+		arr.writeUTFBytes(data);
 		if (arr.length==0) {
 			return;
 		}

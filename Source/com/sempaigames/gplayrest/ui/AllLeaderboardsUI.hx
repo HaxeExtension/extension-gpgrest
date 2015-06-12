@@ -15,10 +15,12 @@ class AllLeaderboardsUI extends UI {
 	var loading : Widget;
 	var btnLeaderboardId : Map<Widget, String>;
 	var gPlay : GPlay;
+	var lastTime : Int;
 
 	public function new(gPlay : GPlay) {
 		super();
 		this.gPlay = gPlay;
+		this.lastTime = Lib.getTimer();
 		Stablex.init();
 		this.btnLeaderboardId = new Map<Widget, String>();
 		loading = UIBuilder.buildFn('com/sempaigames/gplayrest/ui/xml/loading.xml')();
@@ -45,20 +47,25 @@ class AllLeaderboardsUI extends UI {
 	}
 
 	override public function onResize(_) {
-		var scale = Capabilities.screenDPI / 114;
+		//var scale = Capabilities.screenDPI / 114;
+		var scale = 1;
 		trace("scale: " + scale);
+		/*
 		#if desktop
+		*/
 		var sx = Lib.current.stage.stageWidth;
 		var sy = Lib.current.stage.stageHeight;
+		/*
 		#else
 		var sx = Capabilities.screenResolutionX;
 		var sy = Capabilities.screenResolutionY;
 		#end
+		*/
 		loading.w = sx;
 		loading.h = sy;
 		allLeaderboards.w = sx/scale;
 		allLeaderboards.h = sy/scale;
-		allLeaderboards.scaleX = allLeaderboards.scaleY = scale;
+		//allLeaderboards.scaleX = allLeaderboards.scaleY = scale;
 		loading.refresh();
 		allLeaderboards.refresh();
 	}
@@ -68,6 +75,7 @@ class AllLeaderboardsUI extends UI {
 	}
 
 	function loadLeaderBoards(leaderboards : LeaderboardListResponse) {
+
 		var entriesBox = allLeaderboards.getChildAs("all_leaderboards_entries", Widget);
 		for (leaderboard in leaderboards.items) {
 			var entryUI = UIBuilder.buildFn('com/sempaigames/gplayrest/ui/xml/all_leaderboardsentry.xml')();
@@ -78,7 +86,7 @@ class AllLeaderboardsUI extends UI {
 
 			allLeaderboards.onResize();
 			allLeaderboards.refresh();
-			
+
 		}
 	}
 
@@ -92,6 +100,15 @@ class AllLeaderboardsUI extends UI {
 		if (k.keyCode==27) {
 			UIManager.getInstance().closeCurrentView();
 		}
+	}
+
+	function onEnterFrame() {
+		var now = Lib.getTimer();
+		var delta = Math.abs(now-lastTime);
+		if (delta>100) {
+			trace("Frozen: " + delta/1000 + "s");
+		}
+		lastTime = now;
 	}
 
 }

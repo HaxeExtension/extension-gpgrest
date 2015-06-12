@@ -1,16 +1,3 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<HBox widthPt="100" skin:Paint-color="0x222222" skin:Paint-border="2" >
-
-	<Widget heightPt="100">
-		<Bmp bitmapData="Stablex.getBackBmp()" heightPt="100" stretch="true" keepAspect="true" on-click="UIManager.getInstance().closeCurrentView();" />
-	</Widget>
-
-	<HBox widthPt="100">
-		
-		<Text text="'Achievements:'" defaults="'H1'"/>
-		<Text text="'saraza'" defaults="'H1'" name="'txt_progress'" />
-
-	</HBox>
-
-</HBox>
+<TitleBar name="'title_bar'" onBack="UIManager.getInstance().closeCurrentView" />

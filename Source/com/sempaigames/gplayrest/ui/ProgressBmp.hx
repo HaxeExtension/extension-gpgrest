@@ -17,7 +17,9 @@ class ProgressBmp extends UrlBmp {
 		addChild(txt);
 		txt.textColor = 0xffffff;
 		txt.autoSize = TextFieldAutoSize.LEFT;
-		txt.defaultTextFormat = new TextFormat(15, 0xffffff);
+		var format = new TextFormat(30, 0xffffff);
+		format.font = "Arial";
+		txt.defaultTextFormat = format;
 	}
 
 	public inline static function degToRad(deg:Float) : Float {

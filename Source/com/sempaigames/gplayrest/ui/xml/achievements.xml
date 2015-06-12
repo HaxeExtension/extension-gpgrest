@@ -6,7 +6,7 @@
 
 	<Scroll hScroll="false" vScroll="true" defaults="'Screen'" on-enterFrame="onEnterFrame();" >
 
-		<VBox skin:Paint-color="0x228866" padding="10" childPadding="5" widthPt="100" name="'achievements_entries'" skin:Paint-border="2" />
+		<VBox skin:Paint-color="0x228866" childPadding="5" widthPt="100" name="'achievements_entries'" skin:Paint-border="2" />
 
 	</Scroll>
 

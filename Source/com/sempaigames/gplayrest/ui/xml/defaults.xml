@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <Defaults>
-	
+
 	<Text>
-		
+
 		<Title
 			filters="[new flash.filters.DropShadowFilter()]"
 			label-selectable="false"
@@ -16,19 +16,33 @@
 		<PlayerName
 			label-selectable="false"
 			mouseEnabled="false"
-			format-size="20"
+			format-size="24"
+			format-font="'Arial'"
+			format-color="0x000000"
 		/>
 
 		<PlayerRank
 			label-selectable="false"
 			mouseEnabled="false"
-			format-size="20"	
+			format-size="24"
+			format-font="'Arial'"
+			format-color="0x000000"
 		/>
 
 		<PlayerScore
 			label-selectable="false"
 			mouseEnabled="false"
-			format-size="20"	
+			format-size="20"
+			format-font="'Arial'"
+			format-color="Stablex.color2"
+		/>
+
+		<AchievementsDefault
+			label-selectable="false"
+			mouseEnabled="false"
+			format-size="24"
+			format-color="0xbbbbbb"
+			format-font="'Arial'"
 		/>
 
 	</Text>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<extension>
-	
+<project>
+
 	<assets path="Assets" rename="assets" include="*.png" />
 	<haxelib name="openfl-webview" />
 
-</extension>
+</project>

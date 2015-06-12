@@ -29,10 +29,13 @@ class LeaderboardUI extends UI {
 	var displayingRankType : LeaderBoardCollection;
 	var loadedRankType : LeaderBoardCollection;
 
+	var freed : Bool;
+
 	public function new(gPlay : GPlay, leaderboardId : String) {
 		super();
 		Stablex.init();
-		
+		freed = false;
+
 		loading = UIBuilder.buildFn('com/sempaigames/gplayrest/ui/xml/loading.xml')();
 		leaderboard = UIBuilder.buildFn('com/sempaigames/gplayrest/ui/xml/leaderboard.xml')();
 		nextPageToken = "";
@@ -44,6 +47,9 @@ class LeaderboardUI extends UI {
 		this.leaderboardId = leaderboardId;
 
 		this.addChild(loading);
+
+		displayingTimeSpan = loadedTimeSpan = TimeSpan.ALL_TIME;
+		displayingRankType = loadedRankType = LeaderBoardCollection.PUBLIC;
 
 		#if mobile
 		gPlay.Leaderboards_get(leaderboardId)
@@ -59,36 +65,37 @@ class LeaderboardUI extends UI {
 			var leaderboard = new Leaderboard(Stablex.getGamesLeaderBoard());
 			updateTitleBar(leaderboard.iconUrl, leaderboard.name);
 			isLoading = false;
-		}, 1);
+		}, 1000);
 		#end
-
-		displayingTimeSpan = loadedTimeSpan = TimeSpan.ALL_TIME;
-		displayingRankType = loadedRankType = LeaderBoardCollection.PUBLIC;
 
 	}
 
 	override public function onResize(_) {
 		var scale = Capabilities.screenDPI / 114;
+		var scale = 1;
 		//trace("scale : " + Capabilities.screenDPI);
 		//var scale = 1;
+		/*
 		#if desktop
+		*/
 		var sx = Lib.current.stage.stageWidth;
 		var sy = Lib.current.stage.stageHeight;
+		/*
 		#else
 		var sx = Capabilities.screenResolutionX;
 		var sy = Capabilities.screenResolutionY;
 		#end
+		*/
 		loading.w = sx;
 		loading.h = sy;
 		leaderboard.w = sx/scale;
 		leaderboard.h = sy/scale;
-		leaderboard.scaleX = leaderboard.scaleY = scale;
+		//leaderboard.scaleX = leaderboard.scaleY = scale;
 		loading.refresh();
 		leaderboard.refresh();
 	}
-	
+
 	function onEnterFrame() {
-		//var scroll = cast(leaderboard, Scroll);
 		var scroll = leaderboard.getChildAs("scroll", Scroll);
 		if (displayingRankType!=loadedRankType || displayingTimeSpan!=loadedTimeSpan) {
 			clearResults();
@@ -97,32 +104,36 @@ class LeaderboardUI extends UI {
 		}
 		if (scroll.h - scroll.box.h - scroll.scrollY >= 0 && !isLoading && errorCount<5 &&
 			(nextPageToken!="" || isFirstLoad) && nextPageToken!=null) {
+
 			isLoading = true;
 			isFirstLoad = false;
 			var loadingRankType = LeaderBoardCollection.createByIndex(displayingRankType.getIndex());
 			var loadingTimeSpan = TimeSpan.createByIndex(displayingTimeSpan.getIndex());
 
 			#if mobile
-			gPlay.Scores_list(loadingRankType, leaderboardId, loadingTimeSpan, 25, nextPageToken)
-				.catchError(function(err) {
-					trace("Error :'( " + err + ", err count: " + errorCount);
-					isLoading = false;
-					errorCount++;
-				}).then(function (scores) {
+				gPlay.Scores_list(loadingRankType, leaderboardId, loadingTimeSpan, 25, nextPageToken)
+					.catchError(function(err) {
+						trace("Error :'( " + err + ", err count: " + errorCount);
+						isLoading = false;
+						errorCount++;
+					}).then(function (scores) {
+						addResults(scores);
+						nextPageToken = scores.nextPageToken;
+						loadedRankType = loadingRankType;
+						loadedTimeSpan = loadingTimeSpan;
+						isLoading = false;
+					});
+			#else
+				haxe.Timer.delay(function() {
+					var scores = new LeaderboardScores(Stablex.getLeaderBaordScores());
 					addResults(scores);
 					nextPageToken = scores.nextPageToken;
 					loadedRankType = loadingRankType;
 					loadedTimeSpan = loadingTimeSpan;
 					isLoading = false;
-				});
-			#else
-			var scores = new LeaderboardScores(Stablex.getLeaderBaordScores());
-			addResults(scores);
-			nextPageToken = scores.nextPageToken;
-			loadedRankType = loadingRankType;
-			loadedTimeSpan = loadingTimeSpan;
-			isLoading = false;
+				}, 3000);
 			#end
+
 		}
 	}
 
@@ -159,12 +170,26 @@ class LeaderboardUI extends UI {
 	function updateTitleBar(imageUrl : String, title : String) {
 		leaderboard.getChildAs("title_icon", UrlBmp).url = imageUrl;
 		leaderboard.getChildAs("title_text", Text).text = title;
+		
 		this.removeChild(loading);
+		
 		this.removeChild(leaderboard);
 		this.addChild(leaderboard);
+		
+		this.addChild(loading);
+		
 	}
 
 	function addResults(results : LeaderboardScores) {
+		if (freed) {
+			return;
+		}
+		
+		loading.visible = false;
+		/*
+		trace("visible false");
+		*/
+		trace("visible false");
 		var entriesBox = leaderboard.getChildAs("leaderboard_player_entries", VBox);
 		for (entry in results.items) {
 			var entryUI = UIBuilder.buildFn('com/sempaigames/gplayrest/ui/xml/leaderboardentry.xml')();
@@ -181,6 +206,7 @@ class LeaderboardUI extends UI {
 	}
 
 	override public function onClose() {
+		freed = true;
 		leaderboard.free();
 		loading.free();
 	}
