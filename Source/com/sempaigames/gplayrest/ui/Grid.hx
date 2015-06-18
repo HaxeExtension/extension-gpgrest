@@ -50,6 +50,7 @@ class Grid extends Layout {
 		var colPos = 0;
 		var rowPos = 0;
 		var xCorrection = (holder.w - (childPadding*(cols-1) + (cols)*childWidth))/2;
+
 		for (c in childs) {
 
 			var ch = cast(c, Widget);

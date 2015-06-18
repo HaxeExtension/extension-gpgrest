@@ -1,5 +1,6 @@
 package com.sempaigames.gplayrest.ui;
 
+import flash.text.TextFormatAlign;
 import ru.stablex.ui.widgets.Text;
 
 class TextWithMaxHeight extends Text {
@@ -8,6 +9,7 @@ class TextWithMaxHeight extends Text {
 
 	public function new() {
 		super();
+		this.format.align = TextFormatAlign.CENTER;
 	}
 
 	function set_maxHeight(maxHeight : Float) : Float {

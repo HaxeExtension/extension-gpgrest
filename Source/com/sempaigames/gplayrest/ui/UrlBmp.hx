@@ -13,12 +13,14 @@ class UrlBmp extends Bmp {
 
 	public var bmpMask(default, set) : BitmapData;
 	public var url(default, set) : String;
+	public var useAvatarDefaultBmp : Bool;
 	var maskSpr : Sprite;
 
 	public function new() {
 		super();
 		maskSpr = new Sprite();
 		this.addChild(maskSpr);
+		useAvatarDefaultBmp = false;
 	}
 
 	function set_bmpMask(bmpMask : BitmapData) {
@@ -50,7 +52,9 @@ class UrlBmp extends Bmp {
 						onLoadComplete(url, data);
 					},
 					function() {
-						onBitmapDataLoaded(Stablex.getAvatarDefaultBmp());
+						if (useAvatarDefaultBmp) {
+							onBitmapDataLoaded(Stablex.getAvatarDefaultBmp());
+						}
 					}
 				);
 			}

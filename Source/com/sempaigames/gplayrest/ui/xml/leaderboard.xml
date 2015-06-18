@@ -2,16 +2,15 @@
 
 <VBox layout:Row-rows="[0, -1]" >
 
-	<!-- <meta:include src="com/sempaigames/gplayrest/ui/xml/leaderboardbackbar.xml" /> -->
 	<TitleBar name="'leaderboard_backbar'" onBack="UIManager.getInstance().closeCurrentView" />
 
 	<Scroll hScroll="false" vScroll="true" defaults="'Screen'" name="'scroll'" on-enterFrame="onEnterFrame();" skin:Paint-color="Stablex.color2" >
 
-		<VBox padding="25" childPadding="25" widthPt="100" name="'main_area'">
+		<VBox padding="15" childPadding="15" widthPt="100" name="'main_area'">
 			
 			<meta:include src="com/sempaigames/gplayrest/ui/xml/leaderboardtitle.xml" name="'leaderboard_title'" />
 
-			<VBox childPadding="25" padding="25" widthPt="100" name="'leaderboard_player_entries'" skin:Paint-color="0xffffff" />
+			<VBox childPadding="25" padding="20" widthPt="100" name="'leaderboard_player_entries'" skin:Paint-color="0xffffff" />
 
 		</VBox>
 

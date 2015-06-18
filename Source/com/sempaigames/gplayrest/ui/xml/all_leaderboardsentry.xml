@@ -6,6 +6,6 @@
 		<UrlBmp name="'img'" stretch="true" keepAspect="true" w="160" h="160" />
 	</Box>
 	
-	<TextWithMaxHeight name="'title'" widthPt="80" text="'Top scores'" label-wordWrap="true" format-size="26" label-selectable="false" format-color="0x101010" align="'center,middle'" format-font="'Arial'" maxHeight="65" />
+	<TextWithMaxHeight name="'title'" widthPt="80" text="'Top scores'" label-wordWrap="true" format-size="26" label-selectable="false" format-color="0x101010" align="'left,middle'" format-font="'Arial'" maxHeight="65" />
 	
 </VBox>

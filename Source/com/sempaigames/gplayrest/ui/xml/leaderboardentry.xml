@@ -7,7 +7,7 @@
 	</Box>
 
 	<Box w="120" >
-		<UrlBmp bitmapData="Stablex.getAvatarDefaultBmp()" bmpMask="Stablex.getMaskBmp()" smooth="true" stretch="true" keepAspect="true" w="80" h="80" name="'entry_image'" />
+		<UrlBmp bitmapData="Stablex.getAvatarDefaultBmp()" bmpMask="Stablex.getMaskBmp()" smooth="true" stretch="true" keepAspect="true" w="80" h="80" name="'entry_image'" useAvatarDefaultBmp="true" />
 	</Box>
 
 	<VBox align="'left,middle'">

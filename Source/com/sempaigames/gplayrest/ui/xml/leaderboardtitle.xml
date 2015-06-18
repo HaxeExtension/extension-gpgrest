@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<HBox widthPt="100"  >
-	
+<HBox widthPt="100" layout:Column-cols="[-1, 15, -1]" >
+
 <!--
-	layout:Column-cols="[0, -1]"
-	<UrlBmp stretch="true" keepAspect="true" w="100" h="100" name="'title_icon'" />
+	<LeaderboardOptions options="[['All time', 1], ['Weekly', 2], ['Daily', 3]]" on-change="onTimeLapseChange($this.value);" format-size="20" format-font="'Arial'" skin:Paint-color="0xff0000" h="50" />
+
+	<Box />
+
+	<LeaderboardOptions options="[['Public', 1], ['Social', 2]]" on-change="onRankTypeChange($this.value);" format-size="20" format-font="'Arial'" skin:Paint-color="0xff0000" h="50" />
 -->
 
-	<VBox skin:Paint-color="Stablex.color2" >
-		<!--
-		<Text text="'Titulo de test'" defaults="'H1'" name="'title_text'" />
-		-->
-		<HBox childPadding="20">
-			<Options options="[['All time', 1], ['Weekly', 2], ['Daily', 3]]" on-change="onTimeLapseChange($this.value);" />
-			<Options options="[['Public', 1], ['Social', 2]]" on-change="onRankTypeChange($this.value);"/>
-		</HBox>
-	</VBox>
-	
+	<LeaderboardOptions options="[['All time', 1], ['Weekly', 2], ['Daily', 3]]" on-change="onTimeLapseChange($this.value);" skin:Paint-color="0x4ea085" h="50" />
+
+	<Box />
+
+	<LeaderboardOptions options="[['Public', 1], ['Social', 2]]" on-change="onRankTypeChange($this.value);" skin:Paint-color="0x4ea085" h="50" />
+
 </HBox>

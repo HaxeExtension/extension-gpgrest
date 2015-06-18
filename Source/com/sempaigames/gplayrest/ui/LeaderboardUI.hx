@@ -91,6 +91,18 @@ class LeaderboardUI extends UI {
 		leaderboard.w = sx/scale;
 		leaderboard.h = sy/scale;
 		//leaderboard.scaleX = leaderboard.scaleY = scale;
+		var titleBar = leaderboard.getChildAs("leaderboard_backbar", TitleBar);
+		var entriesBox = leaderboard.getChildAs("leaderboard_player_entries", VBox);
+		titleBar.leftMargin = entriesBox.x;
+		titleBar.rightMargin = Lib.current.stage.stageWidth - (entriesBox.x + entriesBox.w);
+		titleBar.onResize();
+/*
+		var bmp = titleBar.logoImg;
+		bmp.w = titleBar.h*0.8;
+		bmp.h = titleBar.h*0.8;
+		bmp.x = titleBar.w - titleBar.h*0.9;
+		bmp.y = titleBar.h/2 - bmp.h/2;
+*/
 		loading.refresh();
 		leaderboard.refresh();
 	}
@@ -170,7 +182,15 @@ class LeaderboardUI extends UI {
 	function updateTitleBar(imageUrl : String, title : String) {
 		//leaderboard.getChildAs("title_icon", UrlBmp).url = imageUrl;
 		//leaderboard.getChildAs("title_text", Text).text = title;
-		leaderboard.getChildAs("leaderboard_backbar", TitleBar).title = title;
+		var bmp = new UrlBmp();
+		var titleBar = leaderboard.getChildAs("leaderboard_backbar", TitleBar);
+		titleBar.title = title;
+		bmp.w = titleBar.h*0.8;
+		bmp.h = titleBar.h*0.8;
+		bmp.x = titleBar.w - titleBar.h*0.9;
+		bmp.y = titleBar.h/2 - bmp.h/2;
+		bmp.url = imageUrl;
+		titleBar.logoImg = bmp;
 		
 		this.removeChild(loading);
 		
@@ -185,6 +205,7 @@ class LeaderboardUI extends UI {
 		if (freed) {
 			return;
 		}
+		onResize(null);
 		loading.visible = false;
 		var entriesBox = leaderboard.getChildAs("leaderboard_player_entries", VBox);
 		for (entry in results.items) {

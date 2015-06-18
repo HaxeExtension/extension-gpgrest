@@ -4,6 +4,7 @@ import flash.display.Bitmap;
 import flash.display.PixelSnapping;
 import flash.display.Sprite;
 import flash.events.MouseEvent;
+import flash.Lib;
 import flash.text.TextField;
 import flash.text.TextFieldAutoSize;
 import flash.text.TextFormat;
@@ -17,6 +18,10 @@ class TitleBar extends Widget {
 	var txtField : TextField;
 	var backBtn : Sprite;
 	var backBtnImg : Sprite;
+
+	public var leftMargin(default, set) : Float;
+	public var logoImg(default, set) : Bmp;
+	public var rightMargin(default, set) : Float;
 
 	public function new() {
 		super();
@@ -44,6 +49,10 @@ class TitleBar extends Widget {
 
 		addChild(backBtn);
 
+		logoImg = null;
+
+		leftMargin = rightMargin = 0;
+
 		onResize();
 	}
 
@@ -67,6 +76,27 @@ class TitleBar extends Widget {
 		return title;
 	}
 
+	public function set_logoImg(bmp : Bmp) : Bmp {
+		if (bmp==null) {
+			return null;
+		}
+		removeChild(logoImg);
+		addChild(bmp);
+		return this.logoImg = bmp;
+	}
+
+	public function set_leftMargin(margin : Float) : Float {
+		this.leftMargin = margin;
+		onResize();
+		return margin;
+	}
+
+	public function set_rightMargin(margin : Float) : Float {
+		this.rightMargin = margin;
+		onResize();
+		return margin;
+	}
+
 	override public function onResize() : Void {
 		super.onResize();
 		
@@ -78,8 +108,12 @@ class TitleBar extends Widget {
 		backBtn.graphics.drawRect(0, 0, this.h, this.h);
 		backBtn.graphics.endFill();
 
-		backBtnImg.x = backBtn.width/2 - backBtnImg.width/2;
+		backBtnImg.x = leftMargin;
 		backBtnImg.y = backBtn.height/2 - backBtnImg.height/2;
+
+		if (logoImg!=null) {
+			logoImg.x = Lib.current.stage.stageWidth - rightMargin - logoImg.width;
+		}
 
 		var gfx = this.graphics;
 		gfx.beginFill(Stablex.color1);

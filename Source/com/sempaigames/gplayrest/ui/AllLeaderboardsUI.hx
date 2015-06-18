@@ -66,6 +66,11 @@ class AllLeaderboardsUI extends UI {
 		allLeaderboards.w = sx/scale;
 		allLeaderboards.h = sy/scale;
 		//allLeaderboards.scaleX = allLeaderboards.scaleY = scale;
+		
+		var titleBar = allLeaderboards.getChildAs("all_leaderboards_backbar", TitleBar);
+		titleBar.leftMargin = 25;
+		titleBar.onResize();
+
 		loading.refresh();
 		allLeaderboards.refresh();
 	}

@@ -19,12 +19,14 @@ class Stablex {
 
 	public static var color1 : Int = 0x064030;
 	public static var color2 : Int = 0x228866;
+	public static var color3 : Int = 0x1c7054;
 
 	public static function init() {
 		if (!initted) {
-			UIBuilder.setTheme('ru.stablex.ui.themes.android4');
+			UIBuilder.setTheme('com.sempaigames.gplayrest.ui.theme');
 			UIBuilder.init('com/sempaigames/gplayrest/ui/xml/defaults.xml');
 			UIBuilder.regClass('Grid');
+			UIBuilder.regClass('LeaderboardOptions');
 			UIBuilder.regClass('Loading');
 			UIBuilder.regClass('ProgressBmp');
 			UIBuilder.regClass('TextWithMaxHeight');
