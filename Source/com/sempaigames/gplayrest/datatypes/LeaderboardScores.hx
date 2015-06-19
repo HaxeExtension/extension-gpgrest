@@ -18,8 +18,10 @@ class LeaderboardScores extends GoogleDataType {
 			this.playerScore = new LeaderboardEntry(Json.stringify(obj.playerScore));
 		}
 		this.items = [];
-		for (it in cast(obj.items, Array<Dynamic>)) {
-			this.items.push(new LeaderboardEntry(Json.stringify(it)));
+		if (obj.items!=null) {
+			for (it in cast(obj.items, Array<Dynamic>)) {
+				this.items.push(new LeaderboardEntry(Json.stringify(it)));
+			}
 		}
 		Macro.assign(this, obj, [
 			"nextPageToken",

@@ -13,8 +13,10 @@ class SnapshotListResponse extends GoogleDataType {
 		verifyKind(obj, "games#snapshotListResponse");
 		this.nextPageToken = obj.nextPageToken;
 		this.items = [];
-		for (it in cast(obj.items, Array<Dynamic>)) {
-			this.items.push(new Snapshot(Json.stringify(it)));
+		if (obj.items!=null) {
+			for (it in cast(obj.items, Array<Dynamic>)) {
+				this.items.push(new Snapshot(Json.stringify(it)));
+			}
 		}
 	}
 }

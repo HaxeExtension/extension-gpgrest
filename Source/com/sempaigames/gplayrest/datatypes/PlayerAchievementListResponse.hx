@@ -13,8 +13,10 @@ class PlayerAchievementListResponse extends GoogleDataType {
 		verifyKind(obj, "games#playerAchievementListResponse");
 		this.nextPageToken = obj.nextPageToken;
 		this.items = [];
-		for (it in cast(obj.items, Array<Dynamic>)) {
-			this.items.push(new PlayerAchievement(Json.stringify(it)));
+		if (obj.items!=null) {
+			for (it in cast(obj.items, Array<Dynamic>)) {
+				this.items.push(new PlayerAchievement(Json.stringify(it)));
+			}
 		}
 	}
 

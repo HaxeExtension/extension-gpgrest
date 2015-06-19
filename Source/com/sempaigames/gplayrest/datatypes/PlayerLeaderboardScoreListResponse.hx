@@ -15,8 +15,10 @@ class PlayerLeaderboardScoreListResponse extends GoogleDataType {
 		this.nextPageToken = obj.nextPageToken;
 		this.player = new Player(Json.stringify(obj.player));
 		this.items = [];
-		for (it in cast(obj.items, Array<Dynamic>)) {
-			this.items.push(new PlayerLeaderboardScore(Json.stringify(it)));
+		if (obj.items!=null) {
+			for (it in cast(obj.items, Array<Dynamic>)) {
+				this.items.push(new PlayerLeaderboardScore(Json.stringify(it)));
+			}
 		}
 	}
 
