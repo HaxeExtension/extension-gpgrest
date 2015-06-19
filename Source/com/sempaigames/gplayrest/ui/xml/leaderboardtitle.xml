@@ -10,10 +10,10 @@
 	<LeaderboardOptions options="[['Public', 1], ['Social', 2]]" on-change="onRankTypeChange($this.value);" format-size="20" format-font="'Arial'" skin:Paint-color="0xff0000" h="50" />
 -->
 
-	<LeaderboardOptions options="[['All time', 1], ['Weekly', 2], ['Daily', 3]]" on-change="onTimeLapseChange($this.value);" skin:Paint-color="0x4ea085" h="50" />
+	<LeaderboardOptions options="[['All time', 1], ['Weekly', 2], ['Daily', 3]]" on-change="onTimeLapseChange($this.value);" skin:Paint-color="0x4ea085" h="70" />
 
 	<Box />
 
-	<LeaderboardOptions options="[['Public', 1], ['Social', 2]]" on-change="onRankTypeChange($this.value);" skin:Paint-color="0x4ea085" h="50" />
+	<LeaderboardOptions options="[['Public', 1], ['Social', 2]]" on-change="onRankTypeChange($this.value);" skin:Paint-color="0x4ea085" h="70" />
 
 </HBox>

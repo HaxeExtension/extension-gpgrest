@@ -16,7 +16,7 @@
 		<PlayerName
 			label-selectable="false"
 			mouseEnabled="false"
-			format-size="24"
+			format-size="25"
 			format-font="'Arial'"
 			format-color="0x000000"
 		/>
@@ -40,7 +40,7 @@
 		<AchievementsDefault
 			label-selectable="false"
 			mouseEnabled="false"
-			format-size="24"
+			format-size="24"	
 			format-color="0xbbbbbb"
 			format-font="'Arial'"
 		/>

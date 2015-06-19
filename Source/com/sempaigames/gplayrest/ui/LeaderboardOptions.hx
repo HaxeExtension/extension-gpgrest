@@ -26,18 +26,29 @@ class LeaderboardOptions extends Button {
 
 		this.list = UIBuilder.create(Floating);
 		this.format.font = "Arial";
-		this.format.size = 18;
+		this.format.size = 30;
 		this.format.color = 0xffffff;
 
 		this.box = UIBuilder.create(Box);
 		box.padding = 0;
-		box.childPadding = 2;
+		box.childPadding = 4;
 		box.skin = new Paint();
 		cast(box.skin, Paint).color = Stablex.color2;
 		this.list.addChild(this.box);
 
 		this.addEventListener(MouseEvent.CLICK, this.toggleList);
 		this.list.addEventListener(MouseEvent.CLICK, this.toggleList);
+
+		this.ico.bitmapData = Stablex.getOptionsIcon();
+		this.ico.scaleX = this.ico.scaleY = 1.5;
+		this.icoBeforeLabel = false;
+		this.apart = true;
+		this.paddingRight = 30;
+
+		this.onHout = function(_) { refresh(); };
+		this.onHover = function(_) { refresh(); };
+		this.onPress = function(_) { refresh(); };
+		this.onRelease = function(_) { refresh(); };
 
 	}
 
@@ -91,10 +102,11 @@ class LeaderboardOptions extends Button {
 				selected : (this.selectedIdx == i),
 				name     : Std.string(i),
 				text     : this.options[i][0],
-				w        : this.w
+				w        : this.w,
+				h        : 60
 			});
 			btn.format.font = "Arial";
-			btn.format.size = 16;
+			btn.format.size = 25;
 			this.box.addChild(btn).addEventListener(MouseEvent.CLICK, this._onSelectOption);
 		}
 		this.box.refresh();
@@ -105,13 +117,16 @@ class LeaderboardOptions extends Button {
 		if (this.list.shown) {
 			Lib.current.stage.removeEventListener(MouseEvent.MOUSE_DOWN, this._onClickStage);
 			this.list.hide();
+			this.ico.bitmapData = Stablex.getOptionsIcon();
 		} else {
 			Lib.current.stage.addEventListener(MouseEvent.MOUSE_DOWN, this._onClickStage);
 			this.list.show();
+			this.ico.bitmapData = Stablex.getOptionsIcon2();
 		}
 		var p : Point = this.getAlignedListCoordinates();
 		this.list.left = p.x;
 		this.list.top  = p.y;
+		refresh();
 	}
 
 	private function _onSelectOption(e:MouseEvent) : Void {
@@ -138,6 +153,7 @@ class LeaderboardOptions extends Button {
 				c.toggle();
 			}
 		}
+		this.label.x = this.w/2 - this.label.width/2;
 	}
 
 	function getAlignedListCoordinates() : Point {

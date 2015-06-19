@@ -9,6 +9,8 @@ import ru.stablex.ui.UIBuilder;
 @:bitmap("Assets/gplusweb_back.png") class BackBmp extends BitmapData {}
 @:bitmap("Assets/loading.png") class LoadingBmp extends BitmapData {}
 @:bitmap("Assets/mask.png") class MaskBmp extends BitmapData {}
+@:bitmap("Assets/options_icon.png") class OptionsIcon extends BitmapData {}
+@:bitmap("Assets/options_icon2.png") class OptionsIcon2 extends BitmapData {}
 @:file("Assets/gamesleaderboard.json") class GamesLeaderBoard extends ByteArray {}
 @:file("Assets/leaderboardscores.json") class LeaderboardsScores extends ByteArray {}
 @:file("Assets/leaderboardslistresponse.json") class LeaderboardsListResponse extends ByteArray {}
@@ -50,6 +52,14 @@ class Stablex {
 
 	public static function getMaskBmp() {
 		return new MaskBmp(0, 0);
+	}
+
+	public static function getOptionsIcon() {
+		return new OptionsIcon(0, 0);
+	}
+
+	public static function getOptionsIcon2() {
+		return new OptionsIcon2(0, 0);
 	}
 
 	public static function getGamesLeaderBoard() {

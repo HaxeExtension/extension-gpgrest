@@ -44,7 +44,7 @@ class UrlBmp extends Bmp {
 			try {
 				cachedBmp = BmpDataCache.getInstance().get(url);
 			} catch (d : Dynamic) { trace("Catched: " + d); }
-			if (cachedBmp!=null && false) {
+			if (cachedBmp!=null) {
 				onBitmapDataLoaded(cachedBmp);
 			} else {
 				UrlLoader.load(url,

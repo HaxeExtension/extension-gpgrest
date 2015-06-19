@@ -19,6 +19,7 @@ class Loading extends Widget {
 		this.addChild(gear);
 		var bmp = new Bitmap(Stablex.getLoadingBmp());
 		gear.addChild(bmp);
+		gear.scaleX = gear.scaleY = 0.6;
 		bmp.x = -bmp.width/2;
 		bmp.y = -bmp.height/2;
 		this.addEventListener(Event.ENTER_FRAME, onEnterFrame);
@@ -35,7 +36,7 @@ class Loading extends Widget {
 	function onEnterFrame(_) {
 		var now = Lib.getTimer();
 		var diff = now - lastTime;
-		gear.rotation += 0.1*diff;
+		gear.rotation += 0.15*diff;
 		lastTime = now;
 	}
 
