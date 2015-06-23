@@ -52,8 +52,8 @@ class AchievementsUI extends UI {
 		/*
 		#if desktop
 		*/
-		var sx = Lib.current.stage.stageWidth;
-		var sy = Lib.current.stage.stageHeight;
+		var sx = Capabilities.screenResolutionX;
+		var sy = Capabilities.screenResolutionY;
 		/*
 		#else
 		var sx = Capabilities.screenResolutionX;
