@@ -33,6 +33,8 @@ class AllLeaderboardsUI extends UI {
 			this.addChild(allLeaderboards);
 			this.removeChild(loading);
 			allLeaderboards.getChildAs("all_leaderboards_entries", Widget).applyLayout();
+		}).catchError(function (e) {
+			UIManager.getInstance().onNetworkError();
 		});
 		#else
 		haxe.Timer.delay(function() {

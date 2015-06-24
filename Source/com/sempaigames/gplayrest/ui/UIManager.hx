@@ -1,6 +1,7 @@
 package com.sempaigames.gplayrest.ui;
 
 import com.sempaigames.gplayrest.GPlay;
+import extension.nativedialog.NativeDialog;
 import flash.events.Event;
 import flash.events.KeyboardEvent;
 import flash.Lib;
@@ -70,6 +71,13 @@ class UIManager {
 			var v = viewsStack.pop();
 			Lib.current.stage.removeChild(v);
 			v.onClose();
+		}
+	}
+
+	public function onNetworkError() {
+		NativeDialog.showMessage("Network error", "", "Ok");
+		while (viewsStack.length>0) {
+			closeCurrentView();
 		}
 	}
 

@@ -54,8 +54,8 @@ class LeaderboardUI extends UI {
 		#if mobile
 		gPlay.Leaderboards_get(leaderboardId)
 			.catchError(function(err) {
-				trace("Error :'( " + err);
 				isLoading = false;
+				UIManager.getInstance().onNetworkError();
 			}).then(function (leaderboard) {
 				updateTitleBar(leaderboard.iconUrl, leaderboard.name);
 				isLoading = false;

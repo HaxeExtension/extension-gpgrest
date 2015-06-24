@@ -42,6 +42,8 @@ class AchievementsUI extends UI {
 				this.removeChild(loading);
 				this.addChild(achievementsUI);
 				loadAchievements(achievementsDefinition, achievementsState);
+			}).catchError(function (e) {
+				UIManager.getInstance().onNetworkError();
 			});
 
 	}
