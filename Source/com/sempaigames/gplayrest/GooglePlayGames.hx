@@ -109,6 +109,17 @@ class GooglePlayGames {
 		return false;
 	}
 
+	public static var onCloudGetComplete:Int->String->Void=null;
+	public static var onCloudGetConflict:Int->String->String->Void=null;
+
+	public static var onLoadGameComplete:String->String->Void=null;
+	public static var onLoadGameConflict:String->String->String->Void=null;
+
+	public static var displaySavedGames(default,null) : String->Bool->Bool->Int->Void = function(title:String, allowAddButton:Bool, allowDelete:Bool, maxNumberOfSavedGamesToShow:Int):Void{}
+	public static var discardAndCloseGame(default,null) : Void->Bool = function():Bool { return false; }
+	public static var commitAndCloseGame(default,null) : String->String->Bool = function(data:String, description:String):Bool { return false; }
+	public static var loadSavedGame(default,null) : String->Void = function(name:String):Void{}
+
 	//////////////////////////////////////////////////////////////////////
 	///////////// UTILS: ID MANAGEMENT
 	//////////////////////////////////////////////////////////////////////
