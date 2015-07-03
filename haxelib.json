@@ -1,5 +1,5 @@
 {
-  "name": "gplusweb",
+  "name": "extension-gpgrest",
   "url": "",
   "license": "MIT",
   "tags": [],
@@ -9,8 +9,8 @@
   "classPath": "Source",
   "contributors": [""],
   "dependencies": {
-    "openfl-webview": "",
     "promhx": "",
+    "openfl-nativedialog": "",
     "stablexui": ""
   }
 }
