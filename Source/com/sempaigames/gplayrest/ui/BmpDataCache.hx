@@ -42,7 +42,7 @@ class BmpDataCache {
 	public function get(name : String) : BitmapData {
 		try {
 			var path = cacheDir + "/" + Md5.encode(name);
-			if (daysOld(path)<maxDaysOld) {
+			if (FileSystem.exists(path) && daysOld(path)<maxDaysOld) {
 				var arr = File.getBytes(path);
 				var bmp = BitmapData.loadFromBytes(ByteArray.fromBytes(arr));
 				return bmp;
