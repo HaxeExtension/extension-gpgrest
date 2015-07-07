@@ -24,9 +24,9 @@ class Stablex {
 	public static var color3 : Int = 0x1c7054;
 
 	public static function init() {
+
 		if (!initted) {
-			UIBuilder.setTheme('com.sempaigames.gplayrest.ui.theme');
-			UIBuilder.init('com/sempaigames/gplayrest/ui/xml/defaults.xml');
+
 			UIBuilder.regClass('Grid');
 			UIBuilder.regClass('LeaderboardOptions');
 			UIBuilder.regClass('Loading');
@@ -34,8 +34,13 @@ class Stablex {
 			UIBuilder.regClass('TextWithMaxHeight');
 			UIBuilder.regClass('TitleBar');
 			UIBuilder.regClass('UrlBmp');
+
+			UIBuilder.setTheme('com.sempaigames.gplayrest.ui.theme');
+			UIBuilder.init('com/sempaigames/gplayrest/ui/xml/defaults.xml');
+
 			initted = true;
 		}
+
 	}
 
 	public static function getAvatarDefaultBmp() {

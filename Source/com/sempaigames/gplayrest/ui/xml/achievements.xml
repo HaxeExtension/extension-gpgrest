@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<VBox name="'title_bar'" layout:Row-rows="[0, -1]" >
+<VBox layout:Row-rows="[0, -1]" >
 
 	<meta:include src="com/sempaigames/gplayrest/ui/xml/achievementstitle.xml" />
 
-	<Scroll hScroll="false" vScroll="true" defaults="'Screen'" on-enterFrame="onEnterFrame();" >
+	<Scroll hScroll="false" vScroll="true" defaults="'Screen'" on-enterFrame="onEnterFrame();" skin:Paint-color="Stablex.color2" >
 
-		<VBox skin:Paint-color="0x228866" childPadding="5" widthPt="100" name="'achievements_entries'" skin:Paint-border="2" />
+		<VBox padding="15" widthPt="100" >
+
+			<VBox paddingTop="5" childPadding="5" widthPt="100" name="'achievements_entries'" />
+
+		</VBox>
 
 	</Scroll>
 

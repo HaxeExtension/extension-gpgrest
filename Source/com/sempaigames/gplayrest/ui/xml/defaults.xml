@@ -47,4 +47,14 @@
 
 	</Text>
 
+	<TextWithMaxHeight>
+		<AchievementsDefault
+			label-selectable="false"
+			mouseEnabled="false"
+			format-size="24"	
+			format-color="0xbbbbbb"
+			format-font="'Arial'"
+		/>
+	</TextWithMaxHeight>
+
 </Defaults>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<VBox skin:Paint-color="Stablex.color2" layout:Row-rows="[0, -1]" on-enterFrame="onEnterFrame();" >
+<VBox skin:Paint-color="Stablex.color2" layout:Row-rows="[0, -1]" >
 	
 	<meta:include src="com/sempaigames/gplayrest/ui/xml/all_leaderboardstitle.xml" />
 	

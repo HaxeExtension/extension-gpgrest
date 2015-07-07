@@ -62,6 +62,7 @@ class AllLeaderboardsUI extends UI {
 
 		loading.refresh();
 		allLeaderboards.refresh();
+
 	}
 
 	function onClick(w : Widget) {
@@ -72,6 +73,7 @@ class AllLeaderboardsUI extends UI {
 
 		var entriesBox = allLeaderboards.getChildAs("all_leaderboards_entries", Widget);
 		for (leaderboard in leaderboards.items) {
+
 			var entryUI = UIBuilder.buildFn('com/sempaigames/gplayrest/ui/xml/all_leaderboardsentry.xml')();
 			entryUI.getChildAs("img", UrlBmp).url = leaderboard.iconUrl;
 			entryUI.getChildAs("title", Text).text = leaderboard.name;
@@ -82,6 +84,7 @@ class AllLeaderboardsUI extends UI {
 			allLeaderboards.refresh();
 
 		}
+
 	}
 
 	override public function onClose() {
@@ -94,15 +97,6 @@ class AllLeaderboardsUI extends UI {
 		if (k.keyCode==27) {
 			UIManager.getInstance().closeCurrentView();
 		}
-	}
-
-	function onEnterFrame() {
-		var now = Lib.getTimer();
-		var delta = Math.abs(now-lastTime);
-		if (delta>100) {
-			trace("Frozen: " + delta/1000 + "s");
-		}
-		lastTime = now;
 	}
 
 }

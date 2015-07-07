@@ -10,6 +10,7 @@ class ProgressBmp extends UrlBmp {
 	
 	var txt : TextField;
 	public var progress(default, set) : Float;
+	public var textColor(default, set) : Int;
 
 	public function new() {
 		super();
@@ -17,9 +18,7 @@ class ProgressBmp extends UrlBmp {
 		addChild(txt);
 		txt.textColor = 0xffffff;
 		txt.autoSize = TextFieldAutoSize.LEFT;
-		var format = new TextFormat(30, 0xffffff);
-		format.font = "Arial";
-		txt.defaultTextFormat = format;
+		textColor = 0xffffff;
 	}
 
 	public inline static function degToRad(deg:Float) : Float {
@@ -58,6 +57,14 @@ class ProgressBmp extends UrlBmp {
 		txt.text = Std.int(progress*100) + "%";
 		onResize();
 		return progress;
+	}
+
+	function set_textColor(color : Int) : Int {
+		this.textColor = color;
+		var format = new TextFormat(30, color);
+		format.font = "Arial";
+		txt.defaultTextFormat = format;
+		return color;
 	}
 
 	override public function onResize() : Void {

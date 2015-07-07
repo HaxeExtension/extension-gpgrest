@@ -9,7 +9,7 @@ class TextWithMaxHeight extends Text {
 
 	public function new() {
 		super();
-		this.format.align = TextFormatAlign.CENTER;
+		//this.format.align = TextFormatAlign.CENTER;
 	}
 
 	function set_maxHeight(maxHeight : Float) : Float {
