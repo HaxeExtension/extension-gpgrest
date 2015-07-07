@@ -73,36 +73,18 @@ class LeaderboardUI extends UI {
 	override public function onResize(_) {
 		var scale = Capabilities.screenDPI / 114;
 		var scale = 1;
-		//trace("scale : " + Capabilities.screenDPI);
-		//var scale = 1;
-		/*
-		#if desktop
-		*/
-		var sx = Capabilities.screenResolutionX;
-		var sy = Capabilities.screenResolutionY;
-		/*
-		#else
-		var sx = Capabilities.screenResolutionX;
-		var sy = Capabilities.screenResolutionY;
-		#end
-		*/
+
 		loading.w = sx;
 		loading.h = sy;
 		leaderboard.w = sx/scale;
 		leaderboard.h = sy/scale;
-		//leaderboard.scaleX = leaderboard.scaleY = scale;
+
 		var titleBar = leaderboard.getChildAs("leaderboard_backbar", TitleBar);
 		var entriesBox = leaderboard.getChildAs("leaderboard_player_entries", VBox);
 		titleBar.leftMargin = entriesBox.x;
 		titleBar.rightMargin = Lib.current.stage.stageWidth - (entriesBox.x + entriesBox.w);
 		titleBar.onResize();
-/*
-		var bmp = titleBar.logoImg;
-		bmp.w = titleBar.h*0.8;
-		bmp.h = titleBar.h*0.8;
-		bmp.x = titleBar.w - titleBar.h*0.9;
-		bmp.y = titleBar.h/2 - bmp.h/2;
-*/
+
 		loading.refresh();
 		leaderboard.refresh();
 	}

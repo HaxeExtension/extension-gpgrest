@@ -1,7 +1,10 @@
 package com.sempaigames.gplayrest.ui;
 
-import com.sempaigames.gplayrest.GPlay;
+#if blackberry
 import extension.nativedialog.NativeDialog;
+#end
+
+import com.sempaigames.gplayrest.GPlay;
 import flash.display.DisplayObject;
 import flash.events.Event;
 import flash.events.KeyboardEvent;
@@ -110,7 +113,9 @@ class UIManager {
 	}
 
 	public function onNetworkError() {
+		#if blackberry
 		NativeDialog.showMessage("Network error", "", "Ok");
+		#end
 		while (viewsStack.length>0) {
 			closeCurrentView();
 		}

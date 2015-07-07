@@ -49,27 +49,13 @@ class AllLeaderboardsUI extends UI {
 	}
 
 	override public function onResize(_) {
-		//var scale = Capabilities.screenDPI / 114;
+
 		var scale = 1;
-		trace("scale: " + scale);
-		/*
-		#if desktop
-		*/
-		var sx = Capabilities.screenResolutionX;
-		var sy = Capabilities.screenResolutionY;
-		/*
-		#else
-		var sx = Capabilities.screenResolutionX;
-		var sy = Capabilities.screenResolutionY;
-		#end
-		*/
-		
 		loading.w = sx;
 		loading.h = sy;
 		allLeaderboards.w = sx/scale;
 		allLeaderboards.h = sy/scale;
-		//allLeaderboards.scaleX = allLeaderboards.scaleY = scale;
-		
+
 		var titleBar = allLeaderboards.getChildAs("all_leaderboards_backbar", TitleBar);
 		titleBar.leftMargin = 25;
 		titleBar.onResize();
