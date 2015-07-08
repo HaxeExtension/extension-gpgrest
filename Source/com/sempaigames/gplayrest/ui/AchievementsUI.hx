@@ -27,7 +27,7 @@ class AchievementsUI extends UI {
 		achievementsUI = UIBuilder.buildFn('com/sempaigames/gplayrest/ui/xml/achievements.xml')();
 		loading = UIBuilder.buildFn('com/sempaigames/gplayrest/ui/xml/loading.xml')();
 		this.addChild(loading);
-		
+
 		var pAchievementsDefinition = gPlay.AchievementDefinitions_list();
 		var pAchievementsState = gPlay.Achievements_list("me");
 		pAchievementsDefinition.catchError(function(err) {
@@ -126,6 +126,7 @@ class AchievementsUI extends UI {
 	}
 
 	function loadAchievements(achievementsDefinition : AchievementDefinitionsListResponse, achievementState : PlayerAchievementListResponse) {
+
 		var nUnlocked = 0;
 		for (def in achievementsDefinition.items) {
 			for (state in achievementState.items) {
@@ -137,8 +138,19 @@ class AchievementsUI extends UI {
 				}
 			}
 		}
-		achievementsUI.getChildAs("title_bar", TitleBar).title = 
-			'Achievements: $nUnlocked/${achievementsDefinition.items.length}';
+
+		var titleBar = achievementsUI.getChildAs("title_bar", TitleBar);
+		titleBar.title = "Achievements";
+		var bmp = new ProgressBmp();
+		bmp.w = titleBar.h*0.8;
+		bmp.h = titleBar.h*0.8;
+		bmp.x = titleBar.w - titleBar.h*0.8 - titleBar.h*0.1 - 5;
+		bmp.y = titleBar.h/2 - bmp.h/2;
+		bmp.progress = nUnlocked / achievementsDefinition.items.length;
+		bmp.textSize = 19;
+		titleBar.logoImg = bmp;
+		titleBar.backBtnImg.x = 15;
+
 	}
 
 	override public function onClose() {

@@ -2,16 +2,16 @@
 
 <HBox widthPt="100" h="170" layout:Column-cols="[0, -1]" skin:Paint-color="0xffffff" >
 
-	<Box padding="10" >
-		<ProgressBmp textColor="0x000000" stretch="true" keepAspect="true" w="140" h="140" name="'entry_image'" />
+	<Box padding="20" >
+		<ProgressBmp color1="0xdddddd" textColor="0x444444" textSize="30" stretch="true" keepAspect="true" w="130" h="130" name="'entry_image'" />
 	</Box>
 
-	<Box padding="10" >
+	<Box padding="10" paddingTop="20" paddingBottom="20" >
 		<VBox layout:Row-rows="[0, -1, 0]" widthPt="100" heightPt="100"  >
 
 			<Text text="'Titulo de achievement'" defaults="'Default'" format-size="32" format-color="0x000000" name="'entry_title'" />
 
-			<TextWithMaxHeight text="'Descripcion etc etc etc etc'" maxHeight="90" label-wordWrap="true" widthPt="100" h="90" defaults="'AchievementsDefault'" format-color="0x000000" name="'entry_description'" />
+			<TextWithMaxHeight text="'Descripcion etc etc etc etc'" maxHeight="70" label-wordWrap="true" widthPt="100" h="90" defaults="'AchievementsDefault'" format-color="0x000000" name="'entry_description'" />
 
 			<HBox layout:Column-cols="[0, -1, 0]" >
 				<Text text="'1234 XP'" defaults="'AchievementsDefault'" name="'entry_experience'" />

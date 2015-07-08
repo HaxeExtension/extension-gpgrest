@@ -17,7 +17,7 @@ class TitleBar extends Widget {
 
 	var txtField : TextField;
 	var backBtn : Sprite;
-	var backBtnImg : Sprite;
+	public var backBtnImg : Sprite;
 
 	public var leftMargin(default, set) : Float;
 	public var logoImg(default, set) : Bmp;

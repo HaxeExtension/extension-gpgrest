@@ -40,8 +40,8 @@
 		<AchievementsDefault
 			label-selectable="false"
 			mouseEnabled="false"
-			format-size="24"	
-			format-color="0xbbbbbb"
+			format-size="22"
+			format-color="0x333333"
 			format-font="'Arial'"
 		/>
 
@@ -51,7 +51,7 @@
 		<AchievementsDefault
 			label-selectable="false"
 			mouseEnabled="false"
-			format-size="24"	
+			format-size="22"
 			format-color="0xbbbbbb"
 			format-font="'Arial'"
 		/>
