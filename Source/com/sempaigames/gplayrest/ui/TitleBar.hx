@@ -120,6 +120,8 @@ class TitleBar extends Widget {
 		gfx.drawRect(0, 0, this.w, this.h);
 		gfx.endFill();
 
+		backBtnImg.x = 15;
+
 	}
 
 }

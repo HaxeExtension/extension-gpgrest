@@ -29,9 +29,11 @@ typedef Constructible = {
 class GPlay {
 
 	public var auth : Auth;
+	var pendingRequests : Array<URLLoader>;
 
 	public function new(clientId : String, clientSecret : String) {
 		this.auth = new Auth(clientId, clientSecret);
+		pendingRequests = [];
 	}
 
 	function request(
@@ -63,13 +65,17 @@ class GPlay {
 			var loader = new URLLoader();
 			loader.addEventListener(HTTPStatusEvent.HTTP_STATUS, function(e : HTTPStatusEvent) {
 				if (e.status!=200) {
+					pendingRequests.remove(loader);
 					ret.resolve(Error(e.status));
 				}
 			});
 			loader.addEventListener(Event.COMPLETE, function(e : Event) {
+				pendingRequests.remove(loader);
 				ret.resolve(Ok(e.target.data));
 			});
+			pendingRequests.push(loader);
 			loader.load(request);
+
 		});
 		return ret.promise();
 	}
@@ -299,6 +305,17 @@ class GPlay {
 			handleRequestResult(data, ret);
 		});
 		return ret.promise();
+	}
+
+	public function cancelPendingRequests() {
+		for (p in pendingRequests) {
+			try {
+				p.close();
+			} catch (e : Dynamic) {
+				trace("Already closed");
+			}
+		}
+		pendingRequests = [];
 	}
 
 }

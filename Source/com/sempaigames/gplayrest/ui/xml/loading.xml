@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <Widget x="0" y="0" skin:Paint-color="Stablex.color2" >
+	<TitleBar x="0" y="0" widthPt="100" title="''" onBack="UIManager.getInstance().cancelLoading" />
 	<Loading name="'loading'" leftPt="25" topPt="25" widthPt="50" heightPt="50" />
 </Widget>

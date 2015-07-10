@@ -16,6 +16,9 @@ class GooglePlayGames {
 	//////////////////////////////////////////////////////////////////////
 
 	public static function login() : Void {
+		if (!isInitted()) {
+			return;
+		}
 		gPlayInstance.auth.getToken();
 	}
 
@@ -23,9 +26,15 @@ class GooglePlayGames {
 		return (gPlayInstance!=null);
 	}
 
-	//public static function init(stage:flash.display.Stage, enableCloudStorage:Bool){
 	public static function init(clientId : String, clientSecret : String) {
 		gPlayInstance = new GPlay(clientId, clientSecret);
+	}
+
+	public static function cancelPendingRequests() {
+		if (!isInitted()) {
+			return;
+		}
+		gPlayInstance.cancelPendingRequests();
 	}
 
 	//////////////////////////////////////////////////////////////////////
@@ -145,47 +154,7 @@ class GooglePlayGames {
 		return id.get(alias);
 	}
 
-	//////////////////////////////////////////////////////////////////////
-	///////////// EVENTS RECEPTION
-	//////////////////////////////////////////////////////////////////////
-
-/*
-	public static var onCloudGetComplete:Int->String->Void=null;
-	public static var onCloudGetConflict:Int->String->String->Void=null;
-	private static var initted:Bool=false;
-
-	private static var instance:GooglePlayGames=null;
-
-	private static function getInstance():GooglePlayGames{
-		if(instance==null) instance=new GooglePlayGames();
-		return instance;
-	}
-
-	private function new(){}
-
-	public function cloudGetCallback(key:Int, value:String){
-		if(onCloudGetComplete!=null) onCloudGetComplete(key,value);
-	}
-
-	public function cloudGetConflictCallback(key:Int, localValue:String, serverValue:String){
-		trace("Conflict versions on KEY: "+key+". Local: "+localValue+" - Server: "+serverValue);
-		if(onCloudGetConflict!=null) onCloudGetConflict(key,localValue,serverValue);
-	}
-*/
-
-	//posible returns are: -1 = login failed | 0 = initiated login | 1 = login success
-	//the event is fired in differents circumstances, like if you init and do not login,
-	//can return -1 or 1 but if you log in, will return a series of 0 -1 0 -1 if there is no
-	//connection for example. test it and adapt it to your code and logic.
-
 	public static var onLoginResult:Int->Void=null;
-
-/*
-	public function loginResultCallback(res:Int) {
-		trace("returning result of login");
-		if(onLoginResult!=null) onLoginResult(res);
-	}
-*/
 
 	//////////////////////////////////////////////////////////////////////
 	///////////// GET PLAYER SCORE

@@ -79,6 +79,13 @@ class UIManager {
 		}
 	}
 
+	public function cancelLoading() {
+		trace("start close");
+		GooglePlayGames.cancelPendingRequests();
+		closeCurrentView();
+		trace("end close");
+	}
+
 	public function showAchievements(gplay : GPlay) {
 		var v = new AchievementsUI(gplay);
 		viewsStack.push(v);
