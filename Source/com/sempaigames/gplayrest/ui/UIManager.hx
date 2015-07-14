@@ -17,6 +17,7 @@ class UIManager {
 	var maxScreenResolution : Float;
 	var pushedUIelements : Array<DisplayObject>;
 	var viewsStack : Array<UI>;
+	var canceling : Bool;
 
 	public static function getInstance() {
 		if (instance==null) {
@@ -29,6 +30,7 @@ class UIManager {
 		maxScreenResolution = Math.max(Capabilities.screenResolutionX, Capabilities.screenResolutionY);
 		pushedUIelements = [];
 		viewsStack = [];
+		canceling = false;
 		Lib.current.stage.addEventListener(Event.RESIZE, onResize);
 		Lib.current.stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown, 1000);
 		Lib.current.stage.addEventListener(KeyboardEvent.KEY_UP, onKeyUp, 1000);
@@ -81,8 +83,10 @@ class UIManager {
 
 	public function cancelLoading() {
 		trace("start close");
+		canceling = true;
 		GooglePlayGames.cancelPendingRequests();
 		closeCurrentView();
+		canceling = false;
 		trace("end close");
 	}
 
@@ -121,7 +125,9 @@ class UIManager {
 
 	public function onNetworkError() {
 		#if blackberry
-		NativeDialog.showMessage("Network error", "", "Ok");
+		if (!canceling) {
+			NativeDialog.showMessage("Network error", "", "Ok");
+		}
 		#end
 		while (viewsStack.length>0) {
 			closeCurrentView();

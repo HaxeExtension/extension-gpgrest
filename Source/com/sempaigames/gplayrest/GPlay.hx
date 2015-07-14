@@ -70,8 +70,13 @@ class GPlay {
 				}
 			});
 			loader.addEventListener(Event.COMPLETE, function(e : Event) {
-				pendingRequests.remove(loader);
-				ret.resolve(Ok(e.target.data));
+				if (pendingRequests.remove(loader)) {
+					ret.resolve(Ok(e.target.data));
+				} else {
+					if (!ret.isResolved()) {
+						ret.resolve(Error(-1));
+					}
+				}
 			});
 			pendingRequests.push(loader);
 			loader.load(request);
@@ -311,6 +316,7 @@ class GPlay {
 		for (p in pendingRequests) {
 			try {
 				p.close();
+				p.dispatchEvent(new Event(Event.COMPLETE));
 			} catch (e : Dynamic) {
 				trace("Already closed");
 			}

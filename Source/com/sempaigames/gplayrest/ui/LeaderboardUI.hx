@@ -151,6 +151,9 @@ class LeaderboardUI extends UI {
 	}
 
 	function clearResults() {
+		if (freed) {
+			return;
+		}
 		var entriesBox = leaderboard.getChildAs("leaderboard_player_entries", VBox);
 		while (entriesBox.numChildren>0) {
 			var c = entriesBox.getChildAt(0);
@@ -164,6 +167,9 @@ class LeaderboardUI extends UI {
 	function updateTitleBar(imageUrl : String, title : String) {
 		//leaderboard.getChildAs("title_icon", UrlBmp).url = imageUrl;
 		//leaderboard.getChildAs("title_text", Text).text = title;
+		if (freed) {
+			return;
+		}
 		var bmp = new UrlBmp();
 		var titleBar = leaderboard.getChildAs("leaderboard_backbar", TitleBar);
 		titleBar.title = title;

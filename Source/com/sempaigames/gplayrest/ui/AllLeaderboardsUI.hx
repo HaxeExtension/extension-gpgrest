@@ -16,9 +16,11 @@ class AllLeaderboardsUI extends UI {
 	var btnLeaderboardId : Map<Widget, String>;
 	var gPlay : GPlay;
 	var lastTime : Int;
+	var freed : Bool;
 
 	public function new(gPlay : GPlay) {
 		super();
+		freed = false;
 		this.gPlay = gPlay;
 		this.lastTime = Lib.getTimer();
 		Stablex.init();
@@ -50,6 +52,10 @@ class AllLeaderboardsUI extends UI {
 
 	override public function onResize(_) {
 
+		if (freed) {
+			return;
+		}
+
 		var scale = 1;
 		loading.w = sx;
 		loading.h = sy;
@@ -66,10 +72,19 @@ class AllLeaderboardsUI extends UI {
 	}
 
 	function onClick(w : Widget) {
+
+		if (freed) {
+			return;
+		}
+
 		UIManager.getInstance().showLeaderboard(gPlay, btnLeaderboardId[w]);
 	}
 
 	function loadLeaderBoards(leaderboards : LeaderboardListResponse) {
+
+		if (freed) {
+			return;
+		}
 
 		var entriesBox = allLeaderboards.getChildAs("all_leaderboards_entries", Widget);
 		for (leaderboard in leaderboards.items) {
@@ -90,9 +105,13 @@ class AllLeaderboardsUI extends UI {
 	override public function onClose() {
 		allLeaderboards.free();
 		loading.free();
+		freed = true;
 	}
 
 	override public function onKeyUp(k : KeyboardEvent) {
+		if (freed) {
+			return;
+		}
 		k.stopImmediatePropagation();
 		if (k.keyCode==27) {
 			UIManager.getInstance().closeCurrentView();

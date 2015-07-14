@@ -19,9 +19,11 @@ class AchievementsUI extends UI {
 	var achievementsUI : Widget;
 	var achievementsToAdd : Array<{definition : AchievementDefinition, state : PlayerAchievement}>;
 	var loading : Widget;
+	var freed : Bool;
 
 	public function new(gPlay : GPlay) {
 		super();
+		freed = false;
 		achievementsToAdd = [];
 		Stablex.init();
 		achievementsUI = UIBuilder.buildFn('com/sempaigames/gplayrest/ui/xml/achievements.xml')();
@@ -49,6 +51,9 @@ class AchievementsUI extends UI {
 	}
 
 	override public function onResize(_) {
+		if (freed) {
+			return;
+		}
 		var scale = 1;
 		loading.w = sx;
 		loading.h = sy;
@@ -60,7 +65,7 @@ class AchievementsUI extends UI {
 	}
 
 	function onEnterFrame() {
-		if (achievementsToAdd.length==0) {
+		if (freed || achievementsToAdd.length==0) {
 			return;
 		}
 		var ach = null;
@@ -127,6 +132,10 @@ class AchievementsUI extends UI {
 
 	function loadAchievements(achievementsDefinition : AchievementDefinitionsListResponse, achievementState : PlayerAchievementListResponse) {
 
+		if (freed) {
+			return;
+		}
+
 		var nUnlocked = 0;
 		for (def in achievementsDefinition.items) {
 			for (state in achievementState.items) {
@@ -156,9 +165,13 @@ class AchievementsUI extends UI {
 	override public function onClose() {
 		achievementsUI.free();
 		loading.free();
+		freed = true;
 	}
 
 	override public function onKeyUp(k : KeyboardEvent) {
+		if (freed) {
+			return;
+		}
 		if (k.keyCode==27) {
 			k.stopImmediatePropagation();
 			UIManager.getInstance().closeCurrentView();
