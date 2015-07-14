@@ -41,7 +41,7 @@ class TitleBar extends Widget {
 		backBtnImg.addChild(new Bitmap(Stablex.getBackBmp(), PixelSnapping.ALWAYS, true));
 		backBtn.addChild(backBtnImg);
 
-		backBtn.addEventListener(MouseEvent.CLICK, __onBack);
+		this.addEventListener(MouseEvent.CLICK, onClick);
 		
 		backBtnImg.scaleX = backBtnImg.scaleY = 1;
 		var scale = Math.min(100/backBtnImg.width, this.h*0.5/backBtnImg.height);
@@ -56,7 +56,13 @@ class TitleBar extends Widget {
 		onResize();
 	}
 
-	function __onBack(_) {
+	function onClick(m : MouseEvent) {
+		if (m.stageX<this.width/3) {
+			__onBack();
+		}
+	}
+
+	function __onBack() {
 		if (onBack!=null) {
 			onBack();
 		}
