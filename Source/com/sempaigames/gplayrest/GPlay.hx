@@ -87,9 +87,13 @@ class GPlay {
 
 	@:generic
 	function handleRequestResult<T:Constructible>(result : RequestResult, ret : Deferred<T>) {
-		switch (result) {
-			case Ok(data):		ret.resolve(new T(data));
-			case Error(code):	ret.throwError('http error: $code');
+		try {
+			switch (result) {
+				case Ok(data):		ret.resolve(new T(data));
+				case Error(code):	ret.throwError('http error: $code');
+			}
+		} catch(e : Dynamic) {
+			ret.throwError(e);
 		}
 	}
 
