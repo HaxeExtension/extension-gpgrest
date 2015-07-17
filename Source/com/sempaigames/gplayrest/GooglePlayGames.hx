@@ -1,5 +1,6 @@
 package com.sempaigames.gplayrest;
 
+import com.sempaigames.gplayrest.Auth;
 import com.sempaigames.gplayrest.datatypes.*;
 import com.sempaigames.gplayrest.GPlay;
 import com.sempaigames.gplayrest.ui.*;
@@ -10,24 +11,26 @@ class GooglePlayGames {
 	public static inline var ACHIEVEMENT_STATUS_LOCKED:Int = 0;
 	public static inline var ACHIEVEMENT_STATUS_UNLOCKED:Int = 1;
 	static var gPlayInstance : GPlay;
+	static var loggedIn : Bool = false;
 
 	//////////////////////////////////////////////////////////////////////
 	///////////// LOGIN & INIT
 	//////////////////////////////////////////////////////////////////////
 
+	public static function init(clientId : String, clientSecret : String) {
+		gPlayInstance = new GPlay(clientId, clientSecret);
+		gPlayInstance.auth.login(false);
+	}
+
 	public static function login() : Void {
 		if (!isInitted()) {
 			return;
 		}
-		gPlayInstance.auth.getToken();
+		gPlayInstance.auth.login(true);
 	}
 
 	static function isInitted() : Bool {
 		return (gPlayInstance!=null);
-	}
-
-	public static function init(clientId : String, clientSecret : String) {
-		gPlayInstance = new GPlay(clientId, clientSecret);
 	}
 
 	public static function cancelPendingRequests() {
@@ -45,7 +48,10 @@ class GooglePlayGames {
 		if (!isInitted()) {
 			return false;
 		}
-		UIManager.getInstance().showLeaderboard(gPlayInstance, id);
+		gPlayInstance.auth.addOnLoginEventListener(function() {
+			UIManager.getInstance().showLeaderboard(gPlayInstance, id);
+		});
+		gPlayInstance.auth.login(true);
 		return false;
 	}
 
@@ -53,12 +59,15 @@ class GooglePlayGames {
 		if (!isInitted()) {
 			return false;
 		}
-		UIManager.getInstance().showAllLeaderboards(gPlayInstance);
+		gPlayInstance.auth.addOnLoginEventListener(function() {
+			UIManager.getInstance().showAllLeaderboards(gPlayInstance);
+		});
+		gPlayInstance.auth.login(true);
 		return false;
 	}
 
 	public static function setScore(id:String, score:Int) : Bool {
-		if (!isInitted()) {
+		if ( !( isInitted() && loggedIn ) ) {
 			return false;
 		}
 		gPlayInstance.Scores_submit(id, score);
@@ -70,12 +79,15 @@ class GooglePlayGames {
 	//////////////////////////////////////////////////////////////////////
 
 	public static function displayAchievements() : Bool {
-		UIManager.getInstance().showAchievements(gPlayInstance);
+		gPlayInstance.auth.addOnLoginEventListener(function() {
+			UIManager.getInstance().showAchievements(gPlayInstance);
+		});
+		gPlayInstance.auth.login(true);
 		return false;
 	}
 
 	public static function unlock(id:String) : Bool {
-		if (!isInitted()) {
+		if ( !( isInitted() && loggedIn ) ) {
 			return false;
 		}
 		gPlayInstance.Achievements_unlock(id);
@@ -83,7 +95,7 @@ class GooglePlayGames {
 	}
 
 	public static function increment(id:String, step:Int) : Bool {
-		if (!isInitted()) {
+		if ( !( isInitted() && loggedIn ) ) {
 			return false;
 		}
 		gPlayInstance.Achievements_increment(id, step);
@@ -91,7 +103,7 @@ class GooglePlayGames {
 	}
 
 	public static function reveal(id:String) : Bool {
-		if (!isInitted()) {
+		if ( !( isInitted() && loggedIn ) ) {
 			return false;
 		}
 		gPlayInstance.Achievements_reveal(id);
@@ -99,7 +111,7 @@ class GooglePlayGames {
 	}
 
 	public static function setSteps(id:String, steps:Int) : Bool {
-		if (!isInitted()) {
+		if ( !( isInitted() && loggedIn ) ) {
 			return false;
 		}
 		gPlayInstance.Achievements_setStepsAtLeast(id, steps);
@@ -135,18 +147,18 @@ class GooglePlayGames {
 
 	public static var id(default,null):Map<String,String>=new Map<String,String>();
 
-	public static function loadResourcesFromXML(text:String){
+	public static function loadResourcesFromXML(text:String) {
 		text=text.split("<resources>")[1];
 		text=StringTools.replace(text,"<string name=\"","");
-		for(line in text.split("</string>")){
+		for (line in text.split("</string>")) {
 			var arr=StringTools.trim(line).split("\">");
 			if(arr.length!=2) continue;
 			id.set(arr[0],arr[1]);
 		}
 	}
 
-	public static function getID(alias:String):String{
-		if(!id.exists(alias)){
+	public static function getID(alias:String) : String {
+		if (!id.exists(alias)) {
 			trace("CANT FIND ID FOR ALIAS: "+alias);
 			trace("PLEASE MAKE SURE YOU'VE LOADED RESOURCES USING loadResourcesFromXML FIRST!");
 			return null;
@@ -163,7 +175,7 @@ class GooglePlayGames {
 	public static var onGetPlayerScore:String->Int->Void=null;
 
 	public static function getPlayerScore(id:String) : Bool {
-		if (!isInitted()) {
+		if ( !( isInitted() && loggedIn ) ) {
 			return false;
 		}
 		gPlayInstance.Scores_get("me", id, TimeSpan.ALL_TIME).then(function(scoresResponse) {
@@ -202,7 +214,7 @@ class GooglePlayGames {
 	}
 
 	public static function getAchievementStatus(id : String) : Bool {
-		if (!isInitted()) {
+		if ( !( isInitted() && loggedIn ) ) {
 			return false;
 		}
 		_getAchievementStatus(id);
@@ -233,7 +245,7 @@ class GooglePlayGames {
 	}
 
 	public static function getCurrentAchievementSteps(id:String) : Bool {
-		if (!isInitted()) {
+		if ( !( isInitted() && loggedIn ) ) {
 			return false;
 		}
 		_getCurrentAchievementSteps(id);

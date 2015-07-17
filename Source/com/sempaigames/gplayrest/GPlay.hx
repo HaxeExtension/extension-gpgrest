@@ -1,6 +1,8 @@
 package com.sempaigames.gplayrest;
 
+import com.sempaigames.gplayrest.Auth;
 import com.sempaigames.gplayrest.datatypes.*;
+import haxe.Timer;
 import openfl.events.*;
 import openfl.net.*;
 import promhx.Deferred;
@@ -43,9 +45,9 @@ class GPlay {
 		) : Promise<RequestResult> {
 
 		var ret = new Deferred<RequestResult>();
-		auth.getToken().catchError(function(e) {
-			trace("getToken() error: " + e);
-		}).then(function(token) {
+		
+		if (auth.authStatus==AuthStatus.Ok) {
+			var token = auth.token;
 			if (params==null)	params = [];
 			if (method==null)	method = URLRequestMethod.GET;
 			if (params.length>0) {
@@ -72,16 +74,16 @@ class GPlay {
 			loader.addEventListener(Event.COMPLETE, function(e : Event) {
 				if (pendingRequests.remove(loader)) {
 					ret.resolve(Ok(e.target.data));
-				} else {
-					if (!ret.isResolved()) {
-						ret.resolve(Error(-1));
-					}
+				} else if (!ret.isResolved()) {
+					ret.resolve(Error(-1));
 				}
 			});
 			pendingRequests.push(loader);
 			loader.load(request);
+		} else {
+			ret.resolve(Error(-2));
+		}
 
-		});
 		return ret.promise();
 	}
 

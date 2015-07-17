@@ -18,38 +18,48 @@ import cpp.vm.Thread;
 
 #if neko
 import neko.vm.Thread;
+import sys.net.Host;
 #end
 
 enum AuthStatus {
 	Ok;
 	Failed;
 	Pending;
+	Virgin;
 }
 
 class Auth {
 
+	public var authStatus(default, null) : AuthStatus;
+	public var token(default, null) : String;
+
 	var clientId : String;
 	var clientSecret : String;
 	var storage : SharedObject;
-
-	var pendingTokenPromise : Promise<String>;
-	var token : String;
 	var tokenExpireTime : Float;
-	var authStatus : AuthStatus;
+	var stopSrvLoop : Bool;
+
+	var onLoginEventListeners : Array<Void->Void>;
 
 	public function new(clientId : String, clientSecret : String) {
 		this.storage = SharedObject.getLocal("gplayrest");
 		this.clientId = clientId;
 		this.clientSecret = clientSecret;
 		this.token = null;
-		this.pendingTokenPromise = null;
-		this.authStatus = Pending;
+		this.authStatus = Virgin;
+		this.onLoginEventListeners = [];
+		this.stopSrvLoop = false;
 	}
 
 	static var stripString = "http://localhost:8099/?";
 	static var redirectUri = "http://localhost:8099/";
 
+	function onActivate(_) {
+		stopSrvLoop = true;
+	}
+
 	function getAuthCode() : Promise<String> {
+
 		var ret = new Deferred<String>();
 		var clientId = "client_id=" + this.clientId;
 		var responseType = "response_type=" + "code";
@@ -78,20 +88,35 @@ class Auth {
 		#else
 
 		Thread.create(function() {
-			var server = new HttpServer();
-			server.onGet = function(socket, str) {
-				if (ret.isResolved()) {
-					server.stopClient(socket);
-					return;
+			var s = new sys.net.Socket();
+			s.bind(new sys.net.Host("localhost"), 8099);
+			s.listen(1);
+			stopSrvLoop = false;
+			Lib.current.stage.addEventListener(Event.ACTIVATE, onActivate);
+			do {
+				var result = sys.net.Socket.select([s], [], [], 0.5);
+				if (result.read.length>0) {
+					var c = s.accept();
+					var str = null;
+					while (str!="") {
+						str = c.input.readLine();
+						if (~/GET \/+/.match(str)) {
+							var get = str.split(" ")[1];
+							var code = ~/.*code=/.replace(str, "");
+							code = code.split("&")[0];
+							ret.resolve(code);
+						}
+					}
+					c.write(getSuccessHTML());
+					c.close();
+					stopSrvLoop = true;
 				}
-				var code = ~/.*code=/.replace(str, "");
-				code = code.split("&")[0];
-
-				socket.write(getSuccessHTML());
-				server.stopClient(socket);
-				ret.resolve(code);
-			};
-			server.run("localhost", 8099);
+			} while (!stopSrvLoop);
+			s.close();
+			if (!ret.isResolved()) {
+				ret.throwError("User canceled Google Login");
+			}
+			Lib.current.stage.removeEventListener(Event.ACTIVATE, onActivate);
 		});
 
 		Lib.getURL(new URLRequest(authCodeUrl));
@@ -174,41 +199,55 @@ class Auth {
 		return ret.promise();
 	}
 
-	function getNewToken() : Promise<String> {
+	function setTokenOk(token : String) : Void {
+		this.token = token; authStatus = Ok;
+		for (f in onLoginEventListeners) {
+			f();
+		}
+		onLoginEventListeners = [];
+	}
+
+	function loginUsingAuthCode(userInitiated : Bool) {
+		if (userInitiated) {
+			getAuthCode().pipe(getNewTokenUsingCode).catchError(function(e) {
+				trace("auth code failed: " + e);
+				authStatus = Failed;
+				onLoginEventListeners = [];
+			}).then(function(token) {
+				setTokenOk(token);
+			});
+		} else {
+			trace("cant login showing Google login screen unless user initiated event");
+			authStatus = Failed;
+			onLoginEventListeners = [];
+		}
+	}
+
+	public function addOnLoginEventListener(f : Void->Void) {
+		if (authStatus!=Ok) {
+			onLoginEventListeners.push(f);
+		} else {
+			f();
+		}
+	}
+
+	public function login(userInitiated : Bool) {
+		if (authStatus==Ok || authStatus==Pending) {
+			return;
+		}
 		authStatus = Pending;
-		var ret : Promise<String> = null;
 		if (storage.data.refreshToken!=null) {
 			// Use refresh token
 			var tokenUsingRefresh = getNewTokenUsingRefreshToken(storage.data.refreshToken);
-			var dRet = new Deferred<String>();
 			tokenUsingRefresh.catchError(function (x){
-				trace("error using refresh token, retrying with auth code");
-				getAuthCode().pipe(getNewTokenUsingCode).then(function(token) {
-					dRet.resolve(token);
-				});
+				trace("login using refresh token failed");
+				loginUsingAuthCode(userInitiated);
 			}).then(function (token){
-				dRet.resolve(token);
+				setTokenOk(token);
 			});
-			ret = dRet.promise();
 		} else {
-			// No refresh_token:
-			ret = getAuthCode().pipe(getNewTokenUsingCode);
-		}
-		ret.catchError(function(x) { trace('error: $x'); authStatus = Failed; return 'err'; }).then(function(_) authStatus = Ok);
-		return ret;
-	}
-
-	public function getToken() : Promise<String> {
-		if (token!=null && Timer.stamp()<tokenExpireTime) {
-			var ret = new Deferred<String>();
-			ret.resolve(token);
-			return ret.promise();
-		} else if (this.pendingTokenPromise!=null) {
-			return this.pendingTokenPromise;
-		} else {
-			this.pendingTokenPromise = getNewToken();
-			pendingTokenPromise.then(function(token) trace("token: " + token));
-			return this.pendingTokenPromise;
+			// Show Google login screen
+			loginUsingAuthCode(userInitiated);
 		}
 	}
 
@@ -235,7 +274,7 @@ class Auth {
 				</script>
 
 				</body>
-				</html>';		
+				</html>';
 	}
 
 }
