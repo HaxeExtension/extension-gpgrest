@@ -11,8 +11,7 @@ class GooglePlayGames {
 	public static inline var ACHIEVEMENT_STATUS_LOCKED:Int = 0;
 	public static inline var ACHIEVEMENT_STATUS_UNLOCKED:Int = 1;
 	static var gPlayInstance : GPlay;
-	static var loggedIn : Bool = false;
-
+	
 	//////////////////////////////////////////////////////////////////////
 	///////////// LOGIN & INIT
 	//////////////////////////////////////////////////////////////////////
@@ -38,6 +37,10 @@ class GooglePlayGames {
 			return;
 		}
 		gPlayInstance.cancelPendingRequests();
+	}
+
+	static function loggedIn() : Bool {
+		return isInitted() && gPlayInstance.auth.authStatus == AuthStatus.Ok;
 	}
 
 	//////////////////////////////////////////////////////////////////////
@@ -67,7 +70,7 @@ class GooglePlayGames {
 	}
 
 	public static function setScore(id:String, score:Int) : Bool {
-		if ( !( isInitted() && loggedIn ) ) {
+		if ( !( isInitted() && loggedIn() ) ) {
 			return false;
 		}
 		gPlayInstance.Scores_submit(id, score);
@@ -87,7 +90,7 @@ class GooglePlayGames {
 	}
 
 	public static function unlock(id:String) : Bool {
-		if ( !( isInitted() && loggedIn ) ) {
+		if ( !( isInitted() && loggedIn() ) ) {
 			return false;
 		}
 		gPlayInstance.Achievements_unlock(id);
@@ -95,7 +98,7 @@ class GooglePlayGames {
 	}
 
 	public static function increment(id:String, step:Int) : Bool {
-		if ( !( isInitted() && loggedIn ) ) {
+		if ( !( isInitted() && loggedIn() ) ) {
 			return false;
 		}
 		gPlayInstance.Achievements_increment(id, step);
@@ -103,7 +106,7 @@ class GooglePlayGames {
 	}
 
 	public static function reveal(id:String) : Bool {
-		if ( !( isInitted() && loggedIn ) ) {
+		if ( !( isInitted() && loggedIn() ) ) {
 			return false;
 		}
 		gPlayInstance.Achievements_reveal(id);
@@ -111,7 +114,7 @@ class GooglePlayGames {
 	}
 
 	public static function setSteps(id:String, steps:Int) : Bool {
-		if ( !( isInitted() && loggedIn ) ) {
+		if ( !( isInitted() && loggedIn() ) ) {
 			return false;
 		}
 		gPlayInstance.Achievements_setStepsAtLeast(id, steps);
@@ -175,7 +178,7 @@ class GooglePlayGames {
 	public static var onGetPlayerScore:String->Int->Void=null;
 
 	public static function getPlayerScore(id:String) : Bool {
-		if ( !( isInitted() && loggedIn ) ) {
+		if ( !( isInitted() && loggedIn() ) ) {
 			return false;
 		}
 		gPlayInstance.Scores_get("me", id, TimeSpan.ALL_TIME).then(function(scoresResponse) {
@@ -214,7 +217,7 @@ class GooglePlayGames {
 	}
 
 	public static function getAchievementStatus(id : String) : Bool {
-		if ( !( isInitted() && loggedIn ) ) {
+		if ( !( isInitted() && loggedIn() ) ) {
 			return false;
 		}
 		_getAchievementStatus(id);
@@ -245,7 +248,7 @@ class GooglePlayGames {
 	}
 
 	public static function getCurrentAchievementSteps(id:String) : Bool {
-		if ( !( isInitted() && loggedIn ) ) {
+		if ( !( isInitted() && loggedIn() ) ) {
 			return false;
 		}
 		_getCurrentAchievementSteps(id);
