@@ -11,9 +11,9 @@ import ru.stablex.ui.UIBuilder;
 @:bitmap("Assets/mask.png") class MaskBmp extends BitmapData {}
 @:bitmap("Assets/options_icon.png") class OptionsIcon extends BitmapData {}
 @:bitmap("Assets/options_icon2.png") class OptionsIcon2 extends BitmapData {}
-@:file("Assets/gamesleaderboard.json") class GamesLeaderBoard extends ByteArray {}
-@:file("Assets/leaderboardscores.json") class LeaderboardsScores extends ByteArray {}
-@:file("Assets/leaderboardslistresponse.json") class LeaderboardsListResponse extends ByteArray {}
+//@:file("Assets/gamesleaderboard.json") class GamesLeaderBoard extends ByteArray {}
+//@:file("Assets/leaderboardscores.json") class LeaderboardsScores extends ByteArray {}
+//@:file("Assets/leaderboardslistresponse.json") class LeaderboardsListResponse extends ByteArray {}
 
 class Stablex {
 
@@ -67,16 +67,16 @@ class Stablex {
 		return new OptionsIcon2(0, 0);
 	}
 
-	public static function getGamesLeaderBoard() {
-		return new GamesLeaderBoard().toString();
-	}
+//	public static function getGamesLeaderBoard() {
+//		return new GamesLeaderBoard().toString();
+//	}
 
-	public static function getLeaderBaordScores() {
-		return new LeaderboardsScores().toString();
-	}
+//	public static function getLeaderBaordScores() {
+//		return new LeaderboardsScores().toString();
+//	}
 
-	public static function getLeaderboardsListResponse() {
-		return new LeaderboardsListResponse().toString();
-	}
+//	public static function getLeaderboardsListResponse() {
+//		return new LeaderboardsListResponse().toString();
+//	}
 
 }

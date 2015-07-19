@@ -29,7 +29,7 @@ class AllLeaderboardsUI extends UI {
 		allLeaderboards = UIBuilder.buildFn('com/sempaigames/gplayrest/ui/xml/all_leaderboards.xml')();
 
 		this.addChild(loading);
-		#if mobile
+		//#if mobile
 		gPlay.Leaderboards_list().then(function(leaderboards) {
 			loadLeaderBoards(leaderboards);
 			this.addChild(allLeaderboards);
@@ -38,16 +38,16 @@ class AllLeaderboardsUI extends UI {
 		}).catchError(function (e) {
 			UIManager.getInstance().onNetworkError();
 		});
-		#else
-		haxe.Timer.delay(function() {
-			var leaderboards = new LeaderboardListResponse(Stablex.getLeaderboardsListResponse());
-			loadLeaderBoards(leaderboards);
-			this.addChild(allLeaderboards);
-			this.removeChild(loading);
-			var entriesBox = allLeaderboards.getChildAs("all_leaderboards_entries", Widget);
-			entriesBox.applyLayout();
-		}, 1);
-		#end
+		// #else
+		// haxe.Timer.delay(function() {
+		// 	var leaderboards = new LeaderboardListResponse(Stablex.getLeaderboardsListResponse());
+		// 	loadLeaderBoards(leaderboards);
+		// 	this.addChild(allLeaderboards);
+		// 	this.removeChild(loading);
+		// 	var entriesBox = allLeaderboards.getChildAs("all_leaderboards_entries", Widget);
+		// 	entriesBox.applyLayout();
+		// }, 1);
+		// #end
 	}
 
 	override public function onResize(_) {

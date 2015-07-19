@@ -51,7 +51,7 @@ class LeaderboardUI extends UI {
 		displayingTimeSpan = loadedTimeSpan = TimeSpan.ALL_TIME;
 		displayingRankType = loadedRankType = LeaderBoardCollection.PUBLIC;
 
-		#if mobile
+		//#if mobile
 		gPlay.Leaderboards_get(leaderboardId)
 			.catchError(function(err) {
 				isLoading = false;
@@ -60,13 +60,13 @@ class LeaderboardUI extends UI {
 				updateTitleBar(leaderboard.iconUrl, leaderboard.name);
 				isLoading = false;
 			});
-		#else
-		haxe.Timer.delay(function() {
-			var leaderboard = new Leaderboard(Stablex.getGamesLeaderBoard());
-			updateTitleBar(leaderboard.iconUrl, leaderboard.name);
-			isLoading = false;
-		}, 1000);
-		#end
+		// #else
+		// haxe.Timer.delay(function() {
+		// 	var leaderboard = new Leaderboard(Stablex.getGamesLeaderBoard());
+		// 	updateTitleBar(leaderboard.iconUrl, leaderboard.name);
+		// 	isLoading = false;
+		// }, 1000);
+		// #end
 
 	}
 
@@ -104,7 +104,7 @@ class LeaderboardUI extends UI {
 			var loadingRankType = LeaderBoardCollection.createByIndex(displayingRankType.getIndex());
 			var loadingTimeSpan = TimeSpan.createByIndex(displayingTimeSpan.getIndex());
 
-			#if mobile
+			//#if mobile
 				gPlay.Scores_list(loadingRankType, leaderboardId, loadingTimeSpan, 25, nextPageToken)
 					.catchError(function(err) {
 						trace("Error :'( " + err + ", err count: " + errorCount);
@@ -117,16 +117,16 @@ class LeaderboardUI extends UI {
 						loadedTimeSpan = loadingTimeSpan;
 						isLoading = false;
 					});
-			#else
-				haxe.Timer.delay(function() {
-					var scores = new LeaderboardScores(Stablex.getLeaderBaordScores());
-					addResults(scores);
-					nextPageToken = scores.nextPageToken;
-					loadedRankType = loadingRankType;
-					loadedTimeSpan = loadingTimeSpan;
-					isLoading = false;
-				}, 3000);
-			#end
+			// #else
+			// 	haxe.Timer.delay(function() {
+			// 		var scores = new LeaderboardScores(Stablex.getLeaderBaordScores());
+			// 		addResults(scores);
+			// 		nextPageToken = scores.nextPageToken;
+			// 		loadedRankType = loadingRankType;
+			// 		loadedTimeSpan = loadingTimeSpan;
+			// 		isLoading = false;
+			// 	}, 3000);
+			// #end
 
 		}
 	}
