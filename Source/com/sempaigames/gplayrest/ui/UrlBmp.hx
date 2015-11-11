@@ -68,7 +68,11 @@ class UrlBmp extends Bmp {
 		if (arr.length==0) {
 			return;
 		}
+		#if openfl_legacy
 		var bmpData : BitmapData = BitmapData.loadFromBytes(arr);
+		#else
+		var bmpData : BitmapData = BitmapData.fromBytes(arr);
+		#end
 		BmpDataCache.getInstance().set(url, bmpData);
 		onBitmapDataLoaded(bmpData);
 	}

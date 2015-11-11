@@ -44,7 +44,11 @@ class BmpDataCache {
 			var path = cacheDir + "/" + Md5.encode(name);
 			if (FileSystem.exists(path) && daysOld(path)<maxDaysOld) {
 				var arr = File.getBytes(path);
+				#if openfl_legacy
 				var bmp = BitmapData.loadFromBytes(ByteArray.fromBytes(arr));
+				#else
+				var bmp = BitmapData.fromBytes(ByteArray.fromBytes(arr));
+				#end
 				return bmp;
 			} else {
 				return null;
@@ -57,7 +61,11 @@ class BmpDataCache {
 
 	public function set(name : String, bmpData : BitmapData) {
 		var path = cacheDir + "/" + Md5.encode(name);
+		#if openfl_legacy
 		var arr = bmpData.encode("png", 1);
+		#else
+		var arr = bmpData.encode(new Rectangle(0, 0, bmpData.width, bmpData.height), "png");
+		#end
 		File.saveBytes(path, arr);
 	}
 

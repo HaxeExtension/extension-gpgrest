@@ -12,7 +12,7 @@ class ProgressBmp extends UrlBmp {
 	public var txt : TextField;
 	public var progress(default, set) : Float;
 	public var textColor(default, set) : Int;
-	public var textSize(default, set) : Float;
+	public var textSize(default, set) : Int;
 	public var color1(default, set) : Int;
 	public var color2(default, set) : Int;
 
@@ -102,7 +102,7 @@ class ProgressBmp extends UrlBmp {
 		return color;
 	}
 
-	function set_textSize(textSize : Float) : Float {
+	function set_textSize(textSize : Int) : Int {
 		this.textSize = textSize;
 		updateTextFormat();
 		return textSize;
