@@ -85,7 +85,7 @@ class Auth {
 		}
 		WebView.open(authCodeUrl, true, null, ["(http|https)://localhost(.*)"]);
 
-		#else
+		#elseif (cpp || neko)
 
 		Thread.create(function() {
 			var s = new sys.net.Socket();
