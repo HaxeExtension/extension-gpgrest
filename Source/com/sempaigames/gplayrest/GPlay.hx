@@ -24,9 +24,13 @@ enum RequestResult {
 	Error(code : Int);
 }
 
-typedef Constructible = {
-	public function new(s:String):Void;
-}
+#if (haxe_ver >= 3.3)
+    typedef Constructible = haxe.Constraints.Constructible<String->Void>;
+#else
+    typedef Constructible = {
+        public function new(s:String):Void;
+    }
+#end
 
 class GPlay {
 
